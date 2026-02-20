@@ -1,7 +1,8 @@
-import type { PageId } from '@constants'
+import type { PAGES } from '@constants'
 
 export interface SidebarProps {
-  onNavigate: (page: PageId) => void
+  onNavigate: (page: PAGES) => void
   isOpen: boolean
   onClose: () => void
+  activeItem: PAGES
 }

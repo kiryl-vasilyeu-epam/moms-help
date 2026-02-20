@@ -16,7 +16,7 @@ export const styles = createSxStyles({
   },
 
   hamburgerButton: {
-    position: 'absolute',
+    position: 'fixed',
     top: 16,
     left: 16,
     zIndex: 10,

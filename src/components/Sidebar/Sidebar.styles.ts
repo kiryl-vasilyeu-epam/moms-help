@@ -3,7 +3,6 @@ import { createSxStyles } from '@utils'
 export const styles = createSxStyles({
   drawer: {
     width: 280,
-    flexShrink: 0,
     '& .MuiDrawer-paper': {
       width: 280,
       boxSizing: 'border-box',
