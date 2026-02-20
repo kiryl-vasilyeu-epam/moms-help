@@ -1,40 +1,13 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Помощник мамы</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>📊</text></svg>">
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="app-shell">
-        <aside class="sidebar" id="sidebar">
-            <div class="sidebar-header">
-                <h1>📊 Помощник</h1>
-                <button class="sidebar-toggle" onclick="toggleSidebar()" title="Скрыть/показать меню">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
-            <nav class="sidebar-menu">
-                <button class="menu-item active" data-app="items-matcher" onclick="switchApp('items-matcher')">
-                    <span class="menu-icon">📦</span>
-                    <span class="menu-text">Совпадение артикулов</span>
-                </button>
-                <button class="menu-item" data-app="price-matcher" onclick="switchApp('price-matcher')">
-                    <span class="menu-icon">💰</span>
-                    <span class="menu-text">Поиск цен</span>
-                </button>
-            </nav>
-        </aside>
-        
-        <main class="app-content">
-            <iframe id="app-iframe" src="items-matcher/index.html" frameborder="0"></iframe>
-        </main>
-    </div>
-
-    <script src="script.js"></script>
-</body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>co-parser</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
