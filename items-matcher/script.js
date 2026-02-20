@@ -266,6 +266,7 @@ function clearLocalStorage() {
         currentFilter = 'all';
         document.getElementById('results').style.display = 'none';
         document.getElementById('downloadBtn').style.display = 'none';
+        document.getElementById('transferBtn').style.display = 'none';
         document.getElementById('file1-name').textContent = 'Файл не выбран';
         document.getElementById('file2-name').textContent = 'Файл не выбран';
         document.querySelector('.upload-box:nth-child(1)').classList.remove('file-loaded');
@@ -285,6 +286,7 @@ function displayResults(results) {
     
     document.getElementById('results').style.display = 'block';
     document.getElementById('downloadBtn').style.display = 'block';
+    document.getElementById('transferBtn').style.display = 'block';
     document.getElementById('totalItems').textContent = results.length;
     document.getElementById('matchedItems').textContent = exactMatches;
     document.getElementById('unmatchedItems').textContent = unmatched;
@@ -620,4 +622,31 @@ function closeDropdown() {
             dropdown.remove();
         }, 200);
     }
+}
+
+function transferToPriceMatcher() {
+    if (!allResults || allResults.length === 0) {
+        alert('Нет данных для передачи');
+        return;
+    }
+    
+    // Create the file data
+    downloadXLS();
+    
+    // Prepare data for price matcher in the format it expects
+    const priceMatcherData = {
+        items: allResults.map(item => ({
+            name: item.rawInvNoName || `${item.invNo} ${item.name}`,
+            amount: Math.round(item.totalAmount),
+            price: item.latestPrice,
+            matched: item.matchType !== 'none'
+        })),
+        timestamp: new Date().toISOString()
+    };
+    
+    // Save to localStorage with special key for price matcher
+    localStorage.setItem('priceMatcherTransferData', JSON.stringify(priceMatcherData));
+    
+    console.log('📤 Data transferred to Price Matcher');
+    alert('✓ Файл скачан и данные переданы в "Поиск цен"');
 }

@@ -34,10 +34,49 @@ function centsToStr(cents) {
 window.addEventListener('DOMContentLoaded', function() {
     loadFromStorage();
     setupModalListeners();
+    checkForTransferredData();  // Check if data was transferred from items matcher
 });
 
 document.getElementById('fileInput').addEventListener('change', handleFileUpload);
 document.getElementById('calculateBtn').addEventListener('click', calculateResults);
+
+function checkForTransferredData() {
+    const transferredData = localStorage.getItem('priceMatcherTransferData');
+    if (transferredData) {
+        try {
+            const data = JSON.parse(transferredData);
+            
+            // Convert transferred data to items format
+            items = data.items.map((item, index) => ({
+                rowNumber: index + 1,
+                name: item.name,
+                priceCents: Math.round(item.price * 100),
+                salePriceCents: Math.round(item.price * 100),
+                amount: item.amount,
+                originalAmount: item.amount,
+                remainingAmount: item.amount,
+                usedAmount: 0
+            }));
+            
+            originalItems = items.map(item => ({ ...item }));
+            usageHistory = [];
+            
+            saveToStorage();
+            displayItems();
+            displayAllResults();
+            document.getElementById('fileInfo').textContent = `✓ Данные переданы из "Совпадение артикулов" (${items.length} товаров)`;
+            document.getElementById('dataSection').style.display = 'block';
+            document.getElementById('calculationSection').style.display = 'block';
+            
+            // Clear the transferred data
+            localStorage.removeItem('priceMatcherTransferData');
+            
+            console.log('📥 Loaded transferred data from items matcher');
+        } catch (error) {
+            console.error('Error loading transferred data:', error);
+        }
+    }
+}
 
 function handleFileUpload(event) {
     const file = event.target.files[0];
