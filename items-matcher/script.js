@@ -630,9 +630,6 @@ function transferToPriceMatcher() {
         return;
     }
     
-    // Create the file data
-    downloadXLS();
-    
     // Prepare data for price matcher in the format it expects
     const priceMatcherData = {
         items: allResults.map(item => ({
@@ -648,5 +645,5 @@ function transferToPriceMatcher() {
     localStorage.setItem('priceMatcherTransferData', JSON.stringify(priceMatcherData));
     
     console.log('📤 Data transferred to Price Matcher');
-    alert('✓ Файл скачан и данные переданы в "Поиск цен"');
+    alert('✓ Данные переданы в "Поиск цен"');
 }

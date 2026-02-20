@@ -1,4 +1,13 @@
 function switchApp(appName) {
+    // Check if app is already loaded
+    const currentSrc = document.getElementById('app-iframe').src;
+    const targetSrc = `${appName}/index.html`;
+    
+    if (currentSrc.endsWith(targetSrc)) {
+        console.log(`Already on: ${appName}`);
+        return;
+    }
+    
     // Update menu items
     document.querySelectorAll('.menu-item').forEach(item => {
         item.classList.remove('active');
@@ -7,7 +16,7 @@ function switchApp(appName) {
 
     // Update iframe src
     const iframe = document.getElementById('app-iframe');
-    iframe.src = `${appName}/index.html`;
+    iframe.src = targetSrc;
 
     // Save preference to localStorage
     localStorage.setItem('activeApp', appName);
