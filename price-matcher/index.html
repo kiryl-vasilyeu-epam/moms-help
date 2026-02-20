@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор цен Excel</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Калькулятор цен Excel</h1>
+        
+        <div class="upload-section">
+            <label for="fileInput" class="upload-btn">
+                <span>📁 Загрузить XLSX файл</span>
+                <input type="file" id="fileInput" accept=".xlsx,.xls" hidden>
+            </label>
+            <button id="resetBtn" class="reset-btn" onclick="resetData()">🔄 Сбросить все данные</button>
+            <div id="fileInfo" class="file-info"></div>
+        </div>
+
+        <div class="data-section" id="dataSection" style="display: none;">
+            <h2>Загруженные товары</h2>
+            <div id="itemsTable"></div>
+        </div>
+
+        <div class="calculation-section" id="calculationSection" style="display: none;">
+            <h2>Введите целевые суммы</h2>
+            <textarea 
+                id="sumsInput" 
+                placeholder="Введите суммы через запятую или с новой строки&#10;Пример: 77.38, 55.67, 100.50"
+                rows="5"
+            ></textarea>
+            <button id="calculateBtn" class="calculate-btn">Рассчитать</button>
+        </div>
+
+        <div class="results-section" id="resultsSection" style="display: none;">
+            <h2>Результаты</h2>
+            <div id="results"></div>
+        </div>
+    </div>
+
+    <!-- Modal for no solution found -->
+    <div id="noSolutionModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>⚠️ Комбинация не найдена</h2>
+                <span class="modal-close" onclick="closeNoSolutionModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p id="noSolutionMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn" onclick="closeNoSolutionModal()">Понятно</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading overlay -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <div class="loading-text" id="loadingText">Вычисление...</div>
+            <div class="loading-progress" id="loadingProgress"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
