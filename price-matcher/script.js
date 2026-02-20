@@ -794,7 +794,12 @@ function resetData() {
         items = [];
         originalItems = [];
         usageHistory = [];
-        localStorage.clear();
+        
+        // Only clear price-matcher specific keys, not other app's data
+        localStorage.removeItem('excelCalculator_items');
+        localStorage.removeItem('excelCalculator_originalItems');
+        localStorage.removeItem('excelCalculator_usageHistory');
+        
         document.getElementById('fileInfo').textContent = '';
         document.getElementById('dataSection').style.display = 'none';
         document.getElementById('calculationSection').style.display = 'none';

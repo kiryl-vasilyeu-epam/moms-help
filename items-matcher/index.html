@@ -32,7 +32,7 @@
             <button class="clear-btn-small" onclick="clearLocalStorage()" title="Очистить все сохраненные данные">✕</button>
         </div>
         
-        <button class="download-btn" onclick="downloadXLS()">📥 Скачать список с совпадениями (.xlsx)</button>
+        <button class="download-btn" id="downloadBtn" onclick="downloadXLS()" style="display: none;">📥 Скачать список с совпадениями (.xlsx)</button>
         
         <div class="results" id="results" style="display: none;">
             <div class="stats">

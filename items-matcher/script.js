@@ -265,6 +265,7 @@ function clearLocalStorage() {
         file2Items = [];
         currentFilter = 'all';
         document.getElementById('results').style.display = 'none';
+        document.getElementById('downloadBtn').style.display = 'none';
         document.getElementById('file1-name').textContent = 'Файл не выбран';
         document.getElementById('file2-name').textContent = 'Файл не выбран';
         document.querySelector('.upload-box:nth-child(1)').classList.remove('file-loaded');
@@ -283,6 +284,7 @@ function displayResults(results) {
     const unmatched = results.filter(r => r.matchType === 'none').length;
     
     document.getElementById('results').style.display = 'block';
+    document.getElementById('downloadBtn').style.display = 'block';
     document.getElementById('totalItems').textContent = results.length;
     document.getElementById('matchedItems').textContent = exactMatches;
     document.getElementById('unmatchedItems').textContent = unmatched;
