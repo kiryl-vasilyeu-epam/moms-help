@@ -51,25 +51,36 @@ src/
 #### `Component.tsx` (Required)
 The main React component file
 ```tsx
-import { createStyle } from '@utils'
+import { styles, sxStyles } from './Component.styles'
 import type { ComponentProps } from './Component.types'
-import { Component as ComponentContent } from './Component.constants'
+import { componentData } from './Component.constants'
 
-const Component = ({ prop1, prop2 }: ComponentProps) => {
-  return <div>Component</div>
+export const Component = ({ prop1, prop2 }: ComponentProps) => {
+  return (
+      <div className={styles.root}>
+        <MaterialUiComponent sx={sxStyles.materialComponent} />
+        Component
+      </div>
+    )
 }
-
-export default Component
 ```
 
 #### `Component.styles.ts` (If component has styles)
-Panda CSS styles for the component
+Panda CSS / MaterialUi styles for the component
 ```tsx
-import { createStyle } from '@utils'
+import { createStyle, createSxStyles } from '@utils'
 
 export const styles = createStyle({
   root: { p: '2rem' },
   title: { fontSize: '2rem' }
+})
+
+export const sxStyles = createSxStyles({
+  materialComponent: {
+    width: 200,
+    height: 50,
+    backgroundColor: 'primary.main',
+  }
 })
 ```
 
@@ -115,13 +126,13 @@ export const formatComponentData = (data: unknown) => {
 #### `index.ts` (Required)
 Central export file
 ```tsx
-export { default as Component } from './Component'
+export { Component } from './Component'
 export type { ComponentProps, ComponentState } from './Component.types'
 ```
 
 ### 3. Utility/Feature Folder Structure
 
-Similar to components but without `.tsx`:
+Similar to components:
 ```
 utils/
 └── createStyle/
@@ -185,19 +196,32 @@ function helper() { }
 
 ### 2. React Components
 ✅ **REQUIRED**: Use arrow function syntax for all React components
+✅ **REQUIRED**: Do NOT create functions inside JSX - define them outside the component before the JSX
 ```tsx
 // Good
-export const MyComponent = () => {
-  return <div>Content</div>
+const handleClick = () => {
+  // implementation
 }
 
-const SubComponent = ({ prop }: Props) => {
-  return null
+export const MyComponent = () => {
+  return <button onClick={handleClick}>Click</button>
+}
+
+// Good - Arrow function in component body, referenced in JSX
+const MyComponent = () => {
+  const handleClick = () => { /* ... */ }
+  
+  return <button onClick={handleClick}>Click</button>
 }
 
 // Bad
 export function MyComponent() { }
 function SubComponent() { }
+
+// Bad - Inline arrow function in JSX
+export const MyComponent = () => {
+  return <button onClick={() => { console.log('clicked') }}>Click</button>
+}
 ```
 
 ### 3. Type Annotations
@@ -232,9 +256,12 @@ import { createStyle } from '../../../utils/createStyle'
 ```
 
 ### 5. Styling
-✅ **REQUIRED**: Use `createStyle` utility for component styles
+✅ **REQUIRED**: Use `createStyle` for Panda CSS styles OR `createSxStyles` for MUI sx objects
+✅ **REQUIRED**: All style variables should be named `styles` or `sxStyles` (not `appStyles`, `sidebarStyles`, etc)
+✅ **REQUIRED**: Use `createSxStyles` utility to handle MUI sx typing automatically
+
 ```tsx
-// Good - Separate file
+// Good - Panda CSS with createStyle
 // Component.styles.ts
 import { createStyle } from '@utils'
 
@@ -243,16 +270,34 @@ export const styles = createStyle({
   button: { padding: '0.6em', cursor: 'pointer' }
 })
 
-// Good - Inline when simple
-import { createStyle } from '@utils'
-export const styles = createStyle({...})
+// Good - MUI sx with createSxStyles (no manual type assertions needed)
+// Component.styles.ts
+import { createSxStyles } from '@utils'
 
-// Bad - Direct css() calls
-import { css } from '../../../styled-system/css'
+export const styles = createSxStyles({
+  drawer: {
+    width: 280,
+    backgroundColor: '#f5f5f5',
+  },
+  button: {
+    p: 2,
+  },
+  menuItemButton: (isActive: boolean) => ({
+    background: isActive ? 'rgba(255, 255, 255, 0.25)' : 'rgba(255, 255, 255, 0.1)',
+  })
+})
+
+// Good - Importing and using styles
+import { styles } from './Component.styles'
+
+// Bad - Incorrect variable naming
+export const appStyles = createStyle({...})
+export const sidebarStyles = {....}
+
+// Bad - Manual type assertions (use createSxStyles instead)
 export const styles = {
-  container: css({ ... }),
-  button: css({ ... })
-}
+  drawer: { width: 250 }
+} as SxProps<Theme>
 ```
 
 ### 6. Naming Conventions

@@ -1,14 +1,29 @@
-import { createStyle } from '@utils'
+import { createSxStyles } from '@utils'
 
-export const styles = createStyle({
+export const styles = createSxStyles({
   root: {
-    w: '100%',
-    h: '100vh',
-    m: '0',
-    p: '0',
+    display: 'flex',
+    height: '100vh',
+    width: '100%',
+  },
+
+  main: {
+    flex: 1,
+    overflowY: 'auto',
     display: 'flex',
     flexDirection: 'column',
-    minW: '320px',
-    minH: '100vh',
+    position: 'relative',
+  },
+
+  hamburgerButton: {
+    position: 'absolute',
+    top: 16,
+    left: 16,
+    zIndex: 10,
+    bgcolor: 'rgba(0, 0, 0, 0.5)',
+    color: 'white',
+    '&:hover': {
+      bgcolor: 'rgba(0, 0, 0, 0.7)',
+    },
   },
 })

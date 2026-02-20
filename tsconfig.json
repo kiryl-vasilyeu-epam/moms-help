@@ -24,6 +24,8 @@
       "@features/*": ["src/features/*"],
       "@utils": ["src/utils"],
       "@utils/*": ["src/utils/*"],
+      "@constants": ["src/constants"],
+      "@constants/*": ["src/constants/*"],
       "@assets": ["src/assets"],
       "@assets/*": ["src/assets/*"],
       "@styles": ["src/styles"],
@@ -41,5 +43,3 @@
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
-
-
