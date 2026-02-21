@@ -1,0 +1,116 @@
+import { createSxStyles } from '@utils'
+
+export const styles = createSxStyles({
+  resultsSection: {
+    maxWidth: 1200,
+    minWidth: 1200,
+    mx: 'auto',
+    mt: 3,
+  },
+  resultCard: {
+    p: 2,
+    mb: 2,
+    border: '1px solid #ddd',
+    borderRadius: 2,
+    backgroundColor: 'white',
+    boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+    cursor: 'pointer',
+    transition: '0.2s',
+    '&:hover': {
+      boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+      transform: 'translateY(-2px)',
+    },
+  },
+  resultCardOffTarget: {
+    borderColor: '#ff9800',
+    backgroundColor: '#fff3e0',
+  },
+  resultHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    mb: 1,
+    fontWeight: 'bold',
+    fontSize: '1rem',
+  },
+  deleteButton: {
+    color: 'white',
+    background: 'linear-gradient(135deg, #f44336 0%, #e91e63 100%)',
+    border: 'none',
+    borderRadius: 1,
+    cursor: 'pointer',
+    fontSize: '1.2rem',
+    transition: '0.2s',
+    '&:hover': {
+      transform: 'scale(1.1)',
+    },
+  },
+  solutionSection: {
+    mt: 1,
+  },
+  solutionTitle: {
+    fontSize: '0.95rem',
+    fontWeight: 'bold',
+    mb: 1,
+    mt: 1,
+    color: '#333',
+  },
+  resultItems: {
+    pl: 2,
+    mb: 1,
+    fontSize: '0.9rem',
+  },
+  resultItemLi: {
+    mb: 0.5,
+    wordBreak: 'break-word',
+  },
+  resultTotal: {
+    fontWeight: 'bold',
+    color: '#333',
+    mt: 1,
+    fontSize: '0.95rem',
+  },
+  noSolution: {
+    color: '#dc3545',
+    fontStyle: 'italic',
+    p: 1,
+    backgroundColor: '#f8d7da',
+    borderRadius: 1,
+  },
+  summaryCard: {
+    p: 2,
+    mb: 2,
+    border: '1px solid #4caf50',
+    borderRadius: 2,
+    backgroundColor: '#e8f5e9',
+  },
+  summaryTitle: {
+    fontSize: '1rem',
+    fontWeight: 'bold',
+    mb: 1,
+  },
+  exportButtonsContainer: {
+    display: 'flex',
+    gap: 2,
+    justifyContent: 'center',
+    mt: 3,
+    mb: 2,
+  },
+  exportButton: {
+    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    color: 'white',
+    px: 3,
+    py: 1.2,
+    fontSize: '1rem',
+    fontWeight: 'bold',
+    textTransform: 'none',
+    borderRadius: 1,
+    border: 'none',
+    cursor: 'pointer',
+    transition: '0.3s',
+    '&:hover': {
+      transform: 'scale(1.01)',
+      boxShadow: '0 4px 12px rgba(102, 126, 234, 0.4)',
+    },
+  },
+})

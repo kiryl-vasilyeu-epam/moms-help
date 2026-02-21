@@ -2,26 +2,230 @@ import { createSxStyles } from '@utils'
 
 export const styles = createSxStyles({
   container: {
-    width: '100%',
-    height: '100%',
-    background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-    backgroundAttachment: 'fixed',
+    p: 4,
+    maxWidth: 1200,
+    minWidth: 1200,
+    mx: 'auto',
+    mt: 4,
+    background: '#FFF',
+    borderRadius: 3,
+  },
+  title: {
+    mb: 3,
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  buttonRow: {
+    display: 'flex',
+    gap: 1,
+    mb: 3,
+    maxWidth: 1200,
+    minWidth: 1200,
+    mx: 'auto',
+  },
+  calculateButton: {
+    color: 'white',
+    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    transition: 'all 0.2s',
+    '&:hover:not(:disabled)': { transform: 'scale(1.01)' },
+    '&:disabled': { opacity: 0.8 },
+  },
+  resetButton: {
+    color: 'white',
+    background: 'linear-gradient(135deg, #f44336 0%, #e91e63 100%)',
+    transition: 'all 0.2s',
+    '&:hover:not(:disabled)': { transform: 'scale(1.01)' },
+    '&:disabled': { opacity: 0.8 },
+  },
+  tableContainer: {
+    mt: 2,
+    overflowY: 'scroll',
+    maxWidth: 1200,
+    minWidth: 1200,
+    mx: 'auto',
+  },
+  tableHead: {
+    background: '#667eea',
+    '& th': {
+      borderRight: '1px solid #e0e0e0',
+      '&:last-child': {
+        borderRight: 'none',
+      },
+    },
+  },
+  tableHeadCell: {
+    color: 'white',
+    fontWeight: 600,
+    borderRight: '1px solid #e0e0e0',
+    '&:last-child': {
+      borderRight: 'none',
+    },
+  },
+  tableRow: {
+    height: '2rem',
+    '&:hover': {
+      background: '#f7f7f7',
+    },
+  },
+  tableCell: {
+    fontSize: 16,
+    borderRight: '1px solid #e0e0e0',
+    verticalAlign: 'middle',
+    '&:last-child': {
+      borderRight: 'none',
+    },
+  },
+  tableRowDepleted: {
+    backgroundColor: '#ffcdd2',
+  },
+  tableRowPartial: {
+    backgroundColor: '#fff9c4',
+  },
+  resultsSection: {
+    maxWidth: 1200,
+    minWidth: 1200,
+    mx: 'auto',
+    mt: 3,
+  },
+  resultCard: {
+    p: 2,
+    mb: 2,
+    border: '1px solid #ddd',
+    borderRadius: 2,
+    backgroundColor: 'white',
+    boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+    cursor: 'pointer',
+    transition: '0.2s',
+    '&:hover': {
+      boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+      transform: 'translateY(-2px)',
+    },
+  },
+  resultCardOffTarget: {
+    borderColor: '#ff9800',
+    backgroundColor: '#fff3e0',
+  },
+  resultHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    mb: 1,
+    fontWeight: 'bold',
+    fontSize: '1rem',
+  },
+  deleteButton: {
+    color: 'white',
+    background: 'linear-gradient(135deg, #f44336 0%, #e91e63 100%)',
+    border: 'none',
+    borderRadius: 1,
+    cursor: 'pointer',
+    fontSize: '1.2rem',
+    transition: '0.2s',
+    '&:hover': {
+      transform: 'scale(1.1)',
+    },
+  },
+  solutionSection: {
+    mt: 1,
+  },
+  solutionTitle: {
+    fontSize: '0.95rem',
+    fontWeight: 'bold',
+    mb: 1,
+    color: '#333',
+  },
+  resultItems: {
+    pl: 2,
+    mb: 1,
+    fontSize: '0.9rem',
+    '& li': {
+      mb: 0.5,
+      wordBreak: 'break-word',
+    },
+  },
+  resultTotal: {
+    fontWeight: 'bold',
+    color: '#333',
+    mt: 1,
+    fontSize: '0.95rem',
+  },
+  noSolution: {
+    color: '#dc3545',
+    fontStyle: 'italic',
+    p: 1,
+    backgroundColor: '#f8d7da',
+    borderRadius: 1,
+  },
+  summaryCard: {
+    backgroundColor: '#e8f5e9',
+    borderColor: '#4caf50',
+  },
+  modal: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0,0,0,0.5)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    zIndex: 1000,
   },
-
-  content: {
-    textAlign: 'center',
-    color: 'white',
+  modalContent: {
+    backgroundColor: 'white',
+    p: 3,
+    borderRadius: 2,
+    maxW: 500,
+    boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
   },
-
-  title: {
+  modalTitle: {
+    fontSize: '1.5rem',
     fontWeight: 'bold',
-    mb: 1,
+    mb: 2,
   },
-
-  subtitle: {
-    opacity: 0.9,
+  modalMessage: {
+    mb: 2,
+    fontSize: '1rem',
+    lineHeight: 1.6,
+  },
+  closeButton: {
+    px: 3,
+    py: 1,
+    backgroundColor: '#667eea',
+    color: 'white',
+    border: 'none',
+    borderRadius: 1,
+    cursor: 'pointer',
+    fontWeight: 'bold',
+  },
+  loadingOverlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0,0,0,0.6)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 2000,
+    flexDirection: 'column',
+  },
+  loadingContent: {
+    backgroundColor: 'white',
+    p: 3,
+    borderRadius: 2,
+    textAlign: 'center',
+    boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
+  },
+  loadingText: {
+    fontSize: '1.2rem',
+    mb: 2,
+    fontWeight: 'bold',
+  },
+  loadingProgress: {
+    fontSize: '0.95rem',
+    color: '#666',
   },
 })

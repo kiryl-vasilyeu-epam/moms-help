@@ -3,7 +3,7 @@ import { createSxStyles } from '@utils'
 export const styles = createSxStyles({
   container: {
     p: 4,
-    maxWidth: 1400,
+    maxWidth: 1200,
     minWidth: 1200,
     mx: 'auto',
     mt: 4,
