@@ -5,6 +5,8 @@ export const styles = createSxStyles({
     display: 'flex',
     height: '100vh',
     width: '100%',
+    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    fontFamily: `'Segoe UI', Tahoma, Geneva, Verdana, sans-serif`,
   },
 
   main: {

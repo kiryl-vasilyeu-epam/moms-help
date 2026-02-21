@@ -2,26 +2,42 @@ import { createSxStyles } from '@utils'
 
 export const styles = createSxStyles({
   container: {
-    width: '100%',
-    height: '100%',
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    backgroundAttachment: 'fixed',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    p: 4,
+    maxWidth: 1400,
+    minWidth: 1200,
+    mx: 'auto',
+    mt: 4,
+    background: '#FFF',
+    borderRadius: 3,
   },
-
-  content: {
-    textAlign: 'center',
-    color: 'white',
-  },
-
   title: {
+    mb: 3,
+    textAlign: 'center',
     fontWeight: 'bold',
-    mb: 1,
   },
-
-  subtitle: {
-    opacity: 0.9,
+  buttonRow: {
+    display: 'flex',
+    gap: 1,
+    mb: 3,
+    maxWidth: 1200,
+    minWidth: 1200,
+    mx: 'auto',
+  },
+  processButton: {
+    color: 'white',
+    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    transition: 'all 0.2s',
+    '&:hover:not(:disabled)': { transform: 'scale(1.01)' },
+    '&:disabled': { opacity: 0.8 },
+  },
+  clearButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  resultsSection: {
+    maxWidth: 1200,
+    minWidth: 1200,
+    mx: 'auto',
+    mt: 3,
   },
 })
