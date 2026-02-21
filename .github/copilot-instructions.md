@@ -36,9 +36,9 @@ src/
 │       ├── useCounter.types.ts
 │       └── index.ts
 ├── utils/
-│   └── createStyle/
-│       ├── createStyle.ts
-│       ├── createStyle.types.ts
+│   └── createStyles/
+│       ├── createStyles.ts
+│       ├── createStyles.types.ts
 │       └── index.ts
 ├── App.tsx
 ├── App.styles.ts
@@ -68,9 +68,9 @@ export const Component = ({ prop1, prop2 }: ComponentProps) => {
 #### `Component.styles.ts` (If component has styles)
 Panda CSS / MaterialUi styles for the component
 ```tsx
-import { createStyle, createSxStyles } from '@utils'
+import { createStyles, createSxStyles } from '@utils'
 
-export const styles = createStyle({
+export const styles = createStyles({
   root: { p: '2rem' },
   title: { fontSize: '2rem' }
 })
@@ -135,9 +135,9 @@ export type { ComponentProps, ComponentState } from './Component.types'
 Similar to components:
 ```
 utils/
-└── createStyle/
-    ├── createStyle.ts (implementation)
-    ├── createStyle.types.ts (types)
+└── createStyles/
+    ├── createStyles.ts (implementation)
+    ├── createStyles.types.ts (types)
     └── index.ts (exports)
 ```
 
@@ -156,23 +156,23 @@ Always provide a central `index.ts` for easy imports:
 
 ❌ Bad - Complex relative imports
 ```tsx
-import { createStyle } from '../utils/createStyle/createStyle'
-import type { StyleObject } from '../utils/createStyle/createStyle.types'
+import { createStyles } from '../utils/createStyles/createStyles'
+import type { StyleObject } from '../utils/createStyles/createStyles.types'
 ```
 
 ✅ Good - Simple alias imports
 ```tsx
-import { createStyle } from '@utils/createStyle'
+import { createStyles } from '@utils/createStyles'
 ```
 
 The `index.ts` handles the re-exports:
 ```tsx
-// src/utils/createStyle/index.ts
-export { createStyle, cn } from './createStyle'
-export type { StyleResult, StyleObject } from './createStyle.types'
+// src/utils/createStyles/index.ts
+export { createStyles, cn } from './createStyles'
+export type { StyleResult, StyleObject } from './createStyles.types'
 
 // src/utils/index.ts
-export * from './createStyle'
+export * from './createStyles'
 ```
 
 ## Code Style
@@ -228,14 +228,14 @@ export const MyComponent = () => {
 ✅ **REQUIRED**: Always add explicit type annotations
 ```tsx
 // Good
-export const createStyle = (styles: StyleObject): StyleResult => {
+export const createStyles = (styles: StyleObject): StyleResult => {
   return {}
 }
 
 const count: number = 0
 
 // Bad
-export const createStyle = (styles) => {
+export const createStyles = (styles) => {
   return {}
 }
 ```
@@ -261,16 +261,16 @@ These work in all TypeScript and JavaScript files. Always use them for imports o
 
 This project uses **Panda CSS** with MUI integration:
 
-✅ **REQUIRED**: Use `createStyle` for Panda CSS or `createSxStyles` for MUI sx objects
+✅ **REQUIRED**: Use `createStyles` for Panda CSS or `createSxStyles` for MUI sx objects
 ✅ **REQUIRED**: All style variables should be named `styles` or `sxStyles`
 ✅ **REQUIRED**: Use `createSxStyles` utility for MUI sx typing
 
 ```tsx
-// Good - Panda CSS with createStyle
+// Good - Panda CSS with createStyles
 // Component.styles.ts
-import { createStyle } from '@utils'
+import { createStyles } from '@utils'
 
-export const styles = createStyle({
+export const styles = createStyles({
   container: { padding: '2rem', maxWidth: '1280px' },
   button: { padding: '0.6em', cursor: 'pointer' }
 })
@@ -296,7 +296,7 @@ export const styles = createSxStyles({
 import { styles } from './Component.styles'
 
 // Bad - Incorrect variable naming
-export const appStyles = createStyle({...})
+export const appStyles = createStyles({...})
 export const sidebarStyles = {....}
 
 // Bad - Manual type assertions
@@ -313,10 +313,10 @@ export const styles = {
 
 ### 6. Naming Conventions
 - **Folders**: `camelCase` or `PascalCase` for main feature folders
-  - ✅ `src/components/Button`, `src/utils/createStyle`, `src/hooks/useCounter`
+  - ✅ `src/components/Button`, `src/utils/createStyles`, `src/hooks/useCounter`
 - **Files**: 
   - Components: `PascalCase.tsx` (e.g., `Button.tsx`, `Button.styles.ts`)
-  - Utils/Helpers: `camelCase.ts` (e.g., `createStyle.ts`)
+  - Utils/Helpers: `camelCase.ts` (e.g., `createStyles.ts`)
   - Types: `*.types.ts` suffix
 - **Variables**: `camelCase`
   - ✅ `const userName = 'John'`
@@ -326,7 +326,7 @@ export const styles = {
   - ✅ `type StyleObject = { ... }`
   - ✅ `interface ComponentProps { ... }`
 - **Functions**: `camelCase`
-  - ✅ `const createStyle = () => { }`
+  - ✅ `const createStyles = () => { }`
 - **Components**: `PascalCase`
   - ✅ `const MyComponent = () => { }`
 
@@ -345,7 +345,7 @@ const isValidEmail = (email: string): boolean => email.includes('@')
  * @param styles Style definitions
  * @returns Object with className strings
  */
-export const createStyle = (styles: StyleObject): StyleResult => {}
+export const createStyles = (styles: StyleObject): StyleResult => {}
 
 // Bad - Unnecessary comment
 // increment count
@@ -361,7 +361,7 @@ count++
 import { useState } from 'react'
 import { Button } from '@mui/material'
 
-import { createStyle } from '@utils/createStyle'
+import { createStyles } from '@utils/createStyles'
 import { MyComponent } from '@components/MyComponent'
 import type { ComponentProps } from './Component.types'
 
@@ -383,12 +383,12 @@ Project uses `strict: true`. All code must be strictly typed.
 ## Panda CSS Rules
 
 ### 1. Style Definition
-Always use `createStyle()` utility for Panda CSS component styles:
+Always use `createStyles()` utility for Panda CSS component styles:
 ```tsx
 // Component.styles.ts
-import { createStyle } from '@utils'
+import { createStyles } from '@utils'
 
-export const styles = createStyle({
+export const styles = createStyles({
   root: { p: '2rem', maxW: '100%' },
   button: { px: '1rem', py: '0.5rem' }
 })

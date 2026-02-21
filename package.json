@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "prepare": "panda codegen",
-    "dev": "vite",
+    "dev": "panda --watch && vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"

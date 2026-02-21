@@ -2,7 +2,7 @@ import { Box, IconButton } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import { Sidebar } from '@components'
 import { ItemsMatcher, PriceMatcher } from '@features'
-import { styles } from './App.styles'
+import { stylesSx, styles } from './App.styles'
 import { PAGES, STORAGE_KEYS } from '@constants'
 import { useLocalStorage } from '@hooks'
 import { useState } from 'react'
@@ -15,18 +15,18 @@ const App = () => {
   const handleOpenSidebar = () => setSidebarOpen(true)
 
   return (
-    <Box sx={styles.root}>
+    <div className={styles.root}>
       <Sidebar activeItem={currentPage} onNavigate={setCurrentPage} isOpen={sidebarOpen} onClose={handleCloseSidebar} />
-      <Box component="main" sx={styles.main}>
+      <Box component="main" sx={stylesSx.main}>
         {!sidebarOpen && (
-          <IconButton onClick={handleOpenSidebar} sx={styles.hamburgerButton}>
+          <IconButton onClick={handleOpenSidebar} sx={stylesSx.hamburgerButton}>
             <MenuIcon />
           </IconButton>
         )}
         {currentPage === PAGES.ITEMS && <ItemsMatcher />}
         {currentPage === PAGES.PRICE && <PriceMatcher />}
       </Box>
-    </Box>
+    </div>
   )
 }
 

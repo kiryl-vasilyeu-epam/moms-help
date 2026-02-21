@@ -12,18 +12,6 @@ export default defineConfig({
   // Files to exclude
   exclude: [],
 
-  // Useful for theme customization
-  theme: {
-    extend: {
-      tokens: {
-        colors: {
-          primary: { value: '#646cff' },
-          accent: { value: '#61dafb' },
-        },
-      },
-    },
-  },
-
   // The output directory for your css system
   outdir: "styled-system",
 })
