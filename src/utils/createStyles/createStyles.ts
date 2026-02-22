@@ -1,17 +1,19 @@
-import { css } from '../../../styled-system/css'
-import type { StyleObject, StyleResult } from './createStyles.types'
+import { StylesMap, Theme } from "./createStyles.types"
+import { theme } from "@/styles"
 
-export const createStyles = (styles: StyleObject): StyleResult => {
-  const result: StyleResult = {}
+// overloads
+export function createStyles<TStyles extends StylesMap>(
+  styles: TStyles,
+): TStyles
 
-  for (const [key, value] of Object.entries(styles)) {
-    // Wrap each style definition in Panda's css() function
-    result[key] = css(value)
+export function createStyles<TStyles extends StylesMap>(
+  styles: (theme: Theme) => TStyles,
+): TStyles
+
+// implementation
+export function createStyles(styles: unknown) {
+  if (typeof styles === 'function') {
+    return styles(theme)
   }
-
-  return result
-}
-
-export const cn = (...classes: (string | undefined | false)[]): string => {
-  return classes.filter(Boolean).join(' ')
+  return styles
 }

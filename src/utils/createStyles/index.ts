@@ -1,2 +1,2 @@
-export { createStyles, cn } from './createStyles'
-export type { StyleResult, StyleObject } from './createStyles.types'
+export { createStyles } from './createStyles'
+export type { StyleResult } from './createStyles.types'

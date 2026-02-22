@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "prepare": "panda codegen",
-    "dev": "panda --watch && vite",
+    "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
@@ -23,6 +23,9 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
+    "@emotion/babel-plugin": "^11.13.5",
+    "@emotion/css": "^11.13.5",
+    "@emotion/eslint-plugin": "^11.12.0",
     "@eslint/js": "^9.39.1",
     "@pandacss/dev": "^1.8.2",
     "@pandacss/postcss": "^1.8.2",

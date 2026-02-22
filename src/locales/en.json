@@ -1,8 +1,4 @@
 {
-  "welcome": "Welcome to the app",
-  "header": {
-    "title": "📊 Helper"
-  },
   "sidebar": {
     "items": "Items matcher",
     "price": "Price matcher"

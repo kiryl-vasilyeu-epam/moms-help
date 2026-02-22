@@ -1,6 +1,21 @@
-import { SystemStyleObject } from "styled-system/types";
+import { theme } from "@/styles"
+import { CSSObject } from '@emotion/react'
 
-type Styles = SystemStyleObject | undefined | null | false
+type RemoveIndexSignature<T> = {
+  [K in keyof T as string extends K
+    ? never
+    : number extends K
+    ? never
+    : symbol extends K
+    ? never
+    : K]: T[K];
+};
 
-export type StyleObject = Record<string, Styles>;
-export type StyleResult = Record<string, string>;
+type SpecialSelector = `${"&" | ":" | "@"}${string}`;
+
+export type StrictCssObject = RemoveIndexSignature<CSSObject>
+export type StrictCssObjectWithSelectors = StrictCssObject & Record<SpecialSelector, StrictCssObject> 
+export type StylesMap = Record<string, StrictCssObjectWithSelectors>
+
+
+export type Theme = typeof theme
