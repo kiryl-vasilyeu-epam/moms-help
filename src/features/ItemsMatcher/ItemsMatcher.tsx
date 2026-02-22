@@ -1,6 +1,8 @@
 import { useTranslation } from 'react-i18next'
 import { styles } from "./ItemsMatcher.styles"
-import { FileUploadButton, Button } from '@components'
+import { FileUploadButton, Button, StatsBox, FilterButton } from '@components'
+import { FILTERS, STATS } from './ItemsMatcher.constants'
+import { ItemsMatherTable } from './components'
 
 const clearLocalStorage = () => {
   // TODO: Implement clear localStorage functionality
@@ -30,7 +32,14 @@ const processFiles = () => {
 export const ItemsMatcher = () => {
   const { t } = useTranslation()
   const isProcessDisabled = true;
-
+  const statsResult = {
+    total: 0,
+    exact: 0,
+    fuzzy: 0,
+    manual: 0,
+    unmatched: 0
+  }
+  const activeFilter = 'all';
 
   return (
     
@@ -82,91 +91,31 @@ export const ItemsMatcher = () => {
           {t("itemMatcher.transferBtn")}
         </Button>
       </div>
-      <div
-        css={styles.results}
-        id="results"
-        style={{ display: 'none' }}
-      >
+
+      <div css={styles.results}>
         <div css={styles.stats}>
-          <div css={styles.statBox}>
-            <h4 css={styles.statBoxH4}>{t("itemMatcher.totalItems")}</h4>
-            <p
-              css={styles.statBoxP}
-              id="totalItems"
-            >0</p>
-          </div>
-          <div css={styles.statBox}>
-            <h4 css={styles.statBoxH4}>{t("itemMatcher.matchedItems")}</h4>
-            <p
-              css={styles.statBoxP}
-              id="matchedItems"
-            >0</p>
-          </div>
-          <div css={styles.statBox}>
-            <h4 css={styles.statBoxH4}>{t("itemMatcher.fuzzyItems")}</h4>
-            <p
-              css={styles.statBoxP}
-              id="fuzzyItems"
-            >0</p>
-          </div>
-          <div css={styles.statBox}>
-            <h4 css={styles.statBoxH4}>{t("itemMatcher.manualItems")}</h4>
-            <p
-              css={styles.statBoxP}
-              id="manualItems"
-            >0</p>
-          </div>
-          <div css={styles.statBox}>
-            <h4 css={styles.statBoxH4}>{t("itemMatcher.unmatchedItems")}</h4>
-            <p
-              css={styles.statBoxP}
-              id="unmatchedItems"
-            >0</p>
-          </div>
+          {STATS.map(stat => (
+            <StatsBox
+              key={stat.id}
+              label={t(stat.label)}
+              amount={statsResult[stat.id]}
+            />
+          ))}
         </div>
         
         <div css={styles.filterButtons}>
-          <button
-            css={styles.filterBtn}
-            data-filter="all"
-            onClick={() => setFilter('all')}
-          >{t("itemMatcher.filterAll")}</button>
-          <button
-            css={styles.filterBtn}
-            data-filter="exact"
-            onClick={() => setFilter('exact')}
-          >{t("itemMatcher.filterExact")}</button>
-          <button
-            css={styles.filterBtn}
-            data-filter="fuzzy"
-            onClick={() => setFilter('fuzzy')}
-          >{t("itemMatcher.filterFuzzy")}</button>
-          <button
-            css={styles.filterBtn}
-            data-filter="manual"
-            onClick={() => setFilter('manual')}
-          >{t("itemMatcher.filterManual")}</button>
-          <button
-            css={styles.filterBtn}
-            data-filter="unmatched"
-            onClick={() => setFilter('unmatched')}
-          >{t("itemMatcher.filterUnmatched")}</button>
+          {FILTERS.map(filter => (
+            <FilterButton
+              key={filter.id}
+              label={t(filter.label)}
+              value={filter.id}
+              isActive={activeFilter === filter.id}
+              onClick={() => setFilter(filter.id)}
+            />))}
         </div>
         
-        <table css={styles.table}>
-          <thead>
-            <tr>
-              <th css={styles.tableHeader}>{t("itemMatcher.tableHeaders.number")}</th>
-              <th css={styles.tableHeader}>{t("itemMatcher.tableHeaders.article1c")}</th>
-              <th css={styles.tableHeader}>{t("itemMatcher.tableHeaders.name")}</th>
-              <th css={styles.tableHeader}>{t("itemMatcher.tableHeaders.quantity")}</th>
-              <th css={styles.tableHeader}>{t("itemMatcher.tableHeaders.price")}</th>
-              <th css={styles.tableHeader}>{t("itemMatcher.tableHeaders.articleFusion")}</th>
-              <th css={styles.tableHeader}>{t("itemMatcher.tableHeaders.status")}</th>
-            </tr>
-          </thead>
-          <tbody id="tableBody"></tbody>
-        </table>
+        <ItemsMatherTable />
+
       </div>
     </div>
   )

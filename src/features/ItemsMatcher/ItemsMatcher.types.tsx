@@ -1,0 +1,1 @@
+export type Stats = 'total' | 'exact' | 'fuzzy' | 'manual' | 'unmatched'

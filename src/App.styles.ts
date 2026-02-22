@@ -17,12 +17,13 @@ export const styles = createStyles(({ colors, sizes }) => ({
     padding: '20px',
     justifyContent: 'center',
     alignItems: 'flex-start',
+    overflowY: 'auto',
   },
 }))
 
-export const st = createStyles(({ colors }) => ({
-  ham: {
-    position: 'absolute',
-    background: colors.gradient,
+export const globalStyles = {
+  '*': {
+    margin: 0,
+    padding: 0,
   }
-}))
+}
