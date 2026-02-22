@@ -37,4 +37,11 @@ export const styles = createStyles(({ sizes }) => ({
   collapsedText: {
     opacity: 0,
   },
+
+  menu: {
+    padding: '10px 0',
+    gap: 10,
+    display: 'flex',
+    flexDirection: 'column',
+  }
 }))

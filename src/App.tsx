@@ -9,7 +9,10 @@ export const App = () => {
 
   return (
     <div css={styles.root}>
-      <Sidebar activeItem={currentPage} onNavigate={setCurrentPage} />
+      <Sidebar
+        activeItem={currentPage}
+        onNavigate={setCurrentPage}
+      />
       <main css={styles.main}>
         {currentPage === PAGES.ITEMS && <ItemsMatcher />}
         {currentPage === PAGES.PRICE && <PriceMatcher />}
