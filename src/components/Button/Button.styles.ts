@@ -1,4 +1,4 @@
-import { createStyles } from "@utils"
+import { createStyles } from "@utils";
 
 export const styles = createStyles({
   button: {
@@ -45,4 +45,4 @@ export const styles = createStyles({
     justifyContent: "center",
 
   },
-})
+});

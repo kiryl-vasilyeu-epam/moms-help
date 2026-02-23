@@ -1,8 +1,9 @@
-import { useTranslation } from "react-i18next"
-import { styles } from "./ItemsMatherTable.styles"
+import { useTranslation } from "react-i18next";
+import { styles } from "./ItemsMatherTable.styles";
 
+// TODO: refactor
 export const ItemsMatherTable = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <table css={styles.table}>
@@ -19,5 +20,5 @@ export const ItemsMatherTable = () => {
       </thead>
       <tbody id="tableBody"></tbody>
     </table>
-  )
-}
+  );
+};

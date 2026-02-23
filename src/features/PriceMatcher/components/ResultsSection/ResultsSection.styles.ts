@@ -1,4 +1,4 @@
-import { createSxStyles } from '@utils'
+import { createSxStyles } from '@utils';
 
 export const styles = createSxStyles({
   resultsSection: {
@@ -113,4 +113,4 @@ export const styles = createSxStyles({
       boxShadow: '0 4px 12px rgba(102, 126, 234, 0.4)',
     },
   },
-})
+});

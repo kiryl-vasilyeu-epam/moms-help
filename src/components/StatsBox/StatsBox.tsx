@@ -1,5 +1,5 @@
-import { styles } from "./StatsBox.styles"
-import type { StatsBoxProps } from "./StatsBox.types"
+import { styles } from "./StatsBox.styles";
+import type { StatsBoxProps } from "./StatsBox.types";
 
 export const StatsBox = ({ label, amount }: StatsBoxProps) => {
   return (
@@ -9,5 +9,5 @@ export const StatsBox = ({ label, amount }: StatsBoxProps) => {
         {amount}
       </p>
     </div>
-  )
-}
+  );
+};

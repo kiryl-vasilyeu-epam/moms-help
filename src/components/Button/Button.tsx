@@ -1,5 +1,5 @@
-import { styles } from "./Button.styles"
-import type { ButtonProps } from "./Button.types"
+import { styles } from "./Button.styles";
+import type { ButtonProps } from "./Button.types";
 
 export const Button = ({
   children,
@@ -12,15 +12,15 @@ export const Button = ({
   const getVariantStyles = () => {
     switch (variant) {
     case 'success':
-      return styles.buttonSuccess
+      return styles.buttonSuccess;
     case 'info':
-      return styles.buttonInfo
+      return styles.buttonInfo;
     case 'danger':
-      return styles.buttonDanger
+      return styles.buttonDanger;
     default:
-      return styles.buttonPrimary
+      return styles.buttonPrimary;
     }
-  }
+  };
 
   return (
     <button
@@ -31,5 +31,5 @@ export const Button = ({
     >
       {children}
     </button>
-  )
-}
+  );
+};

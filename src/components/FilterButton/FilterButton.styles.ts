@@ -1,4 +1,4 @@
-import { createStyles } from "@utils"
+import { createStyles } from "@utils";
 
 export const styles = createStyles({
   filterBtn: {
@@ -23,4 +23,4 @@ export const styles = createStyles({
       background: "#667eea",
     },
   },
-})
+});

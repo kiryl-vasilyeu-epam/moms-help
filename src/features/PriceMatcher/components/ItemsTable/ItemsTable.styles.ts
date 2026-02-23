@@ -1,4 +1,4 @@
-import { createSxStyles } from '@utils'
+import { createSxStyles } from '@utils';
 
 export const styles = createSxStyles({
   tableContainer: {
@@ -49,4 +49,4 @@ export const styles = createSxStyles({
   trPartial: {
     backgroundColor: '#fff9c4',
   },
-})
+});

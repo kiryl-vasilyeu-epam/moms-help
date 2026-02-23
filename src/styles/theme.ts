@@ -6,4 +6,4 @@ export const theme = {
   sizes: {
     sidebarWidth: '80px',
   }
-}
+};

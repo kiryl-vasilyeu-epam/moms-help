@@ -1,2 +1,2 @@
-export { StatsBox } from "./StatsBox"
-export type { StatsBoxProps } from "./StatsBox.types"
+export { StatsBox } from "./StatsBox";
+export type { StatsBoxProps } from "./StatsBox.types";

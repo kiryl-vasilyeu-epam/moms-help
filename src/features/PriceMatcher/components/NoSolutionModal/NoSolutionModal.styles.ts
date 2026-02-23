@@ -1,4 +1,4 @@
-import { createSxStyles } from '@utils'
+import { createSxStyles } from '@utils';
 
 export const styles = createSxStyles({
   modal: {
@@ -40,4 +40,4 @@ export const styles = createSxStyles({
     cursor: 'pointer',
     fontWeight: 'bold',
   },
-})
+});

@@ -1,8 +1,8 @@
-import i18n from 'i18next'
-import { initReactI18next } from 'react-i18next'
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
 
-import enTranslation from './locales/en.json'
-import ruTranslation from './locales/ru.json'
+import enTranslation from './locales/en.json';
+import ruTranslation from './locales/ru.json';
 
 export const resources = {
   en: {
@@ -11,7 +11,7 @@ export const resources = {
   ru: {
     translation: ruTranslation,
   },
-}
+};
 
 void i18n
   .use(initReactI18next)
@@ -25,6 +25,6 @@ void i18n
     react: {
       useSuspense: false,
     },
-  })
+  });
 
-export default i18n
+export default i18n;

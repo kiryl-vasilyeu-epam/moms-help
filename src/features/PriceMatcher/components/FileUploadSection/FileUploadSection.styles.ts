@@ -1,4 +1,4 @@
-import { createSxStyles } from '@utils'
+import { createSxStyles } from '@utils';
 
 export const styles = createSxStyles({
   container: {
@@ -40,4 +40,4 @@ export const styles = createSxStyles({
     width: '300px',
     alignSelf: 'center',
   }
-})
+});

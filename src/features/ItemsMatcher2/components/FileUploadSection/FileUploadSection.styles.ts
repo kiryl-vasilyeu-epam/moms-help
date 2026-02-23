@@ -1,4 +1,4 @@
-import { createSxStyles } from '@utils'
+import { createSxStyles } from '@utils';
 
 export const styles = createSxStyles({
   container: {
@@ -33,4 +33,4 @@ export const styles = createSxStyles({
     color: '#666',
     display: 'block',
   },
-})
+});

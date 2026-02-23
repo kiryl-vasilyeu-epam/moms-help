@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback } from 'react';
 
 export const useCalculationSection = ({
   onCalculate,
@@ -8,21 +8,21 @@ export const useCalculationSection = ({
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
       if (e.ctrlKey && e.key === 'Enter') {
-        const input = e.currentTarget
-        onCalculate(input.value)
-        input.value = ''
+        const input = e.currentTarget;
+        onCalculate(input.value);
+        input.value = '';
       }
     },
     [onCalculate]
-  )
+  );
 
   const handleCalculateClick = useCallback(() => {
-    const input = document.getElementById('sumsInput') as HTMLTextAreaElement
+    const input = document.getElementById('sumsInput') as HTMLTextAreaElement;
     if (input) {
-      onCalculate(input.value)
-      input.value = ''
+      onCalculate(input.value);
+      input.value = '';
     }
-  }, [onCalculate])
+  }, [onCalculate]);
 
-  return { handleKeyDown, handleCalculateClick }
-}
+  return { handleKeyDown, handleCalculateClick };
+};

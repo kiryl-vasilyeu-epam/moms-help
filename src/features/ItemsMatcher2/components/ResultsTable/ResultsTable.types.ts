@@ -1,4 +1,4 @@
-import type { MatchedItem, FilterType } from '../../ItemsMatcher.types'
+import type { MatchedItem, FilterType } from '../../ItemsMatcher.types';
 
 export interface ResultsTableProps {
   items: MatchedItem[]

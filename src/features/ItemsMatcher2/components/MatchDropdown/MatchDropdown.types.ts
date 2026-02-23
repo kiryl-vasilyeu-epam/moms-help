@@ -1,4 +1,4 @@
-import type { File2Item } from '../../ItemsMatcher.types'
+import type { File2Item } from '../../ItemsMatcher.types';
 
 export interface MatchDropdownProps {
   open: boolean

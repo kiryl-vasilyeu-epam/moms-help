@@ -1,12 +1,12 @@
-import { Box, Typography } from '@mui/material'
-import { usePriceMatcher } from './PriceMatcher.hooks'
-import { styles } from './PriceMatcher.styles'
-import { FileUploadSection } from './components/FileUploadSection'
-import { CalculationSection } from './components/CalculationSection'
-import ItemsTable from './components/ItemsTable/ItemsTable'
-import ResultsSection from './components/ResultsSection/ResultsSection'
-import NoSolutionModal from './components/NoSolutionModal/NoSolutionModal'
-import { LoadingOverlay } from './components/LoadingOverlay'
+import { Box, Typography } from '@mui/material';
+import { usePriceMatcher } from './PriceMatcher.hooks';
+import { styles } from './PriceMatcher.styles';
+import { FileUploadSection } from './components/FileUploadSection';
+import { CalculationSection } from './components/CalculationSection';
+import ItemsTable from './components/ItemsTable/ItemsTable';
+import ResultsSection from './components/ResultsSection/ResultsSection';
+import NoSolutionModal from './components/NoSolutionModal/NoSolutionModal';
+import { LoadingOverlay } from './components/LoadingOverlay';
 
 const PriceMatcher = () => {
   const {
@@ -24,11 +24,14 @@ const PriceMatcher = () => {
     handleExportRemainingItems,
     handleExportCalculations,
     centsToStr,
-  } = usePriceMatcher()
+  } = usePriceMatcher();
 
   return (
     <Box sx={styles.container}>
-      <Typography variant="h4" sx={styles.title}>
+      <Typography
+        variant="h4"
+        sx={styles.title}
+      >
         💰 Калькулятор цен
       </Typography>
 
@@ -41,7 +44,10 @@ const PriceMatcher = () => {
 
       {items.length > 0 && (
         <>
-          <ItemsTable items={items} centsToStr={centsToStr} />
+          <ItemsTable
+            items={items}
+            centsToStr={centsToStr}
+          />
           <CalculationSection
             itemsCount={items.length}
             isLoading={loading}
@@ -70,7 +76,7 @@ const PriceMatcher = () => {
         centsToStr={centsToStr}
       />
     </Box>
-  )
-}
+  );
+};
 
-export default PriceMatcher
+export default PriceMatcher;

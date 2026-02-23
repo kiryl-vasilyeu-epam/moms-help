@@ -1,2 +1,2 @@
-export { FileUploadSection } from './FileUploadSection'
-export type { FileUploadSectionProps } from './FileUploadSection.types'
+export { FileUploadSection } from './FileUploadSection';
+export type { FileUploadSectionProps } from './FileUploadSection.types';

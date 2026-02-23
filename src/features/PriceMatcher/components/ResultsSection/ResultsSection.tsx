@@ -1,8 +1,8 @@
-import { Box, Button } from '@mui/material'
-import { useMemo } from 'react'
-import { styles } from './ResultsSection.styles'
-import type { ResultsSectionProps } from './ResultsSection.types'
-import type { AllUsedItems } from '../../PriceMatcher.types'
+import { Box, Button } from '@mui/material';
+import { useMemo } from 'react';
+import { styles } from './ResultsSection.styles';
+import type { ResultsSectionProps } from './ResultsSection.types';
+import type { AllUsedItems } from '../../PriceMatcher.types';
 
 const ResultsSection = ({
   usageHistory,
@@ -13,65 +13,65 @@ const ResultsSection = ({
   onExportCalculations,
 }: ResultsSectionProps) => {
   const allUsedItems = useMemo<AllUsedItems>(() => {
-    const used: AllUsedItems = {}
+    const used: AllUsedItems = {};
 
     usageHistory.forEach((historyItem) => {
       if (historyItem.solution && historyItem.solution.length > 0) {
         historyItem.solution.forEach((item) => {
-          if (!item || typeof item !== 'object' || !item.name) return
+          if (!item || typeof item !== 'object' || !item.name) return;
           if (!used[item.name]) {
-            const foundItem = items.find((i) => i && i.name === item.name)
+            const foundItem = items.find((i) => i?.name === item.name);
             used[item.name] = {
               name: item.name,
-              rowNumber: foundItem?.rowNumber || '-',
+              rowNumber: foundItem?.rowNumber ?? '-',
               quantity: 0,
               salePriceCents: item.salePriceCents,
-            }
+            };
           }
-          used[item.name].quantity += item.quantity
-        })
+          used[item.name].quantity += item.quantity;
+        });
       }
-    })
+    });
 
-    return used
-  }, [usageHistory, items])
+    return used;
+  }, [usageHistory, items]);
 
   const handleCopyCalculation = (index: number) => {
-    if (index < 0 || index >= usageHistory.length) return
+    if (index < 0 || index >= usageHistory.length) return;
 
-    const calculation = usageHistory[index]
-    const targetCents = calculation.targetCents || 0
-    let textToCopy = `Расчет #${calculation.calculationNumber || index + 1}\n`
-    textToCopy += `Целевая сумма: ${centsToStr(targetCents)}\n\n`
+    const calculation = usageHistory[index];
+    const targetCents = calculation.targetCents || 0;
+    let textToCopy = `Расчет #${calculation.calculationNumber || index + 1}\n`;
+    textToCopy += `Целевая сумма: ${centsToStr(targetCents)}\n\n`;
 
     if (calculation.solution && calculation.solution.length > 0) {
-      textToCopy += `Товары:\n`
+      textToCopy += `Товары:\n`;
       calculation.solution.forEach((item) => {
-        const rowNum = item.rowNumber || items.find((i) => i.name === item.name)?.rowNumber || '-'
-        const itemTotalCents = (item.salePriceCents || 0) * item.quantity
-        textToCopy += `${item.quantity} шт. (строка ${rowNum}) ${item.name} @ ${centsToStr(item.salePriceCents)} = ${centsToStr(itemTotalCents)}\n`
-      })
+        const rowNum = item.rowNumber ?? items.find((i) => i.name === item.name)?.rowNumber ?? '-';
+        const itemTotalCents = (item.salePriceCents || 0) * item.quantity;
+        textToCopy += `${item.quantity} шт. (строка ${rowNum}) ${item.name} @ ${centsToStr(item.salePriceCents)} = ${centsToStr(itemTotalCents)}\n`;
+      });
 
-      const totalCents = calculation.calculatedCents || 0
-      textToCopy += `\nИтого: ${centsToStr(totalCents)}\n`
+      const totalCents = calculation.calculatedCents ?? 0;
+      textToCopy += `\nИтого: ${centsToStr(totalCents)}\n`;
     } else {
-      textToCopy += `Точная комбинация не найдена\n`
+      textToCopy += `Точная комбинация не найдена\n`;
     }
 
-    navigator.clipboard.writeText(textToCopy)
-  }
+    navigator.clipboard.writeText(textToCopy);
+  };
 
   return (
     <Box sx={styles.resultsSection}>
       {usageHistory.map((calculation, index) => {
-        const targetCents = calculation.targetCents || 0
-        const calculatedCents = calculation.calculatedCents || 0
-        const differenceCents = Math.abs(calculatedCents - targetCents)
-        const isOff = calculatedCents > 0 && differenceCents !== 0
+        const targetCents = calculation.targetCents || 0;
+        const calculatedCents = calculation.calculatedCents ?? 0;
+        const differenceCents = Math.abs(calculatedCents - targetCents);
+        const isOff = calculatedCents > 0 && differenceCents !== 0;
 
         const cardStyle = isOff
           ? { ...styles.resultCard, ...styles.resultCardOffTarget }
-          : styles.resultCard
+          : styles.resultCard;
 
         return (
           <Box
@@ -91,9 +91,9 @@ const ResultsSection = ({
               <button
                 style={styles.deleteButton as React.CSSProperties}
                 onClick={(e) => {
-                  e.stopPropagation()
+                  e.stopPropagation();
                   if (confirm(`Удалить расчет #${calculation.calculationNumber || index + 1}?`)) {
-                    onRemoveCalculation(index)
+                    onRemoveCalculation(index);
                   }
                 }}
               >
@@ -106,15 +106,18 @@ const ResultsSection = ({
                 <h3 style={styles.solutionTitle as React.CSSProperties}>Товары для выбора:</h3>
                 <ul style={styles.resultItems as React.CSSProperties}>
                   {calculation.solution.map((item, itemIndex) => {
-                    if (!item || typeof item !== 'object' || !item.name || (item.quantity || 0) <= 0) return null
-                    const itemTotalCents = (item.salePriceCents || 0) * (item.quantity || 0)
-                    const rowNum = item.rowNumber || items.find((i) => i.name === item.name)?.rowNumber || '-'
+                    if (!item || typeof item !== 'object' || !item.name || (item.quantity || 0) <= 0) return null;
+                    const itemTotalCents = (item.salePriceCents || 0) * (item.quantity || 0);
+                    const rowNum = item.rowNumber ?? items.find((i) => i.name === item.name)?.rowNumber ?? '-';
                     return (
-                      <li key={itemIndex} style={styles.resultItemLi as React.CSSProperties}>
+                      <li
+                        key={itemIndex}
+                        style={styles.resultItemLi as React.CSSProperties}
+                      >
                         {item.quantity} шт. (строка {rowNum}) {item.name} @ {centsToStr(item.salePriceCents)} ={' '}
                         {centsToStr(itemTotalCents)}
                       </li>
-                    )
+                    );
                   })}
                 </ul>
                 <div style={styles.resultTotal as React.CSSProperties}>
@@ -128,7 +131,7 @@ const ResultsSection = ({
               </div>
             )}
           </Box>
-        )
+        );
       })}
 
       {Object.keys(allUsedItems).length > 0 && (
@@ -136,7 +139,10 @@ const ResultsSection = ({
           <div style={styles.summaryTitle as React.CSSProperties}>📋 Сводка - Товары к удалению</div>
           <ul style={styles.resultItems as React.CSSProperties}>
             {Object.values(allUsedItems).map((item, index) => (
-              <li key={index} style={styles.resultItemLi as React.CSSProperties}>
+              <li
+                key={index}
+                style={styles.resultItemLi as React.CSSProperties}
+              >
                 <strong>{item.quantity} шт.</strong> (строка {item.rowNumber}) {item.name}
               </li>
             ))}
@@ -163,7 +169,7 @@ const ResultsSection = ({
         </Box>
       )}
     </Box>
-  )
-}
+  );
+};
 
-export default ResultsSection
+export default ResultsSection;

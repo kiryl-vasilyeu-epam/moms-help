@@ -1,5 +1,5 @@
-import { styles } from "./FilterButton.styles"
-import type { FilterButtonProps } from "./FilterButton.types"
+import { styles } from "./FilterButton.styles";
+import type { FilterButtonProps } from "./FilterButton.types";
 
 export const FilterButton = <T extends string | number>({
   label,
@@ -7,7 +7,7 @@ export const FilterButton = <T extends string | number>({
   isActive = false,
   handleClick,
 }: FilterButtonProps<T>) => {
-  const onClick = () => handleClick?.(value)
+  const onClick = () => handleClick?.(value);
   return (
     <button
       css={[styles.filterBtn, isActive && styles.activeButton]}
@@ -16,5 +16,5 @@ export const FilterButton = <T extends string | number>({
     >
       {label}
     </button>
-  )
-}
+  );
+};

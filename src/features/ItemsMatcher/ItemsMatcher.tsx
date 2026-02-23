@@ -1,12 +1,12 @@
-import { useTranslation } from 'react-i18next'
-import { styles } from "./ItemsMatcher.styles"
-import { FileUploadButton, Button, StatsBox, FilterButton } from '@components'
-import { FILTERS, STATS } from './ItemsMatcher.constants'
-import { ItemsMatherTable } from './components'
-import { useItemsMatcher } from './ItemsMatcher.hooks'
+import { useTranslation } from 'react-i18next';
+import { styles } from "./ItemsMatcher.styles";
+import { FileUploadButton, Button, StatsBox, FilterButton } from '@components';
+import { FILTERS, STATS } from './ItemsMatcher.constants';
+import { ItemsMatherTable } from './components';
+import { useItemsMatcher } from './ItemsMatcher.hooks';
 
 export const ItemsMatcher = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const {
     fileUpload1C,
@@ -20,7 +20,7 @@ export const ItemsMatcher = () => {
     stats,
     handleDownload,
     handleTransfer,
-  } = useItemsMatcher()
+  } = useItemsMatcher();
 
   return (
     
@@ -108,5 +108,5 @@ export const ItemsMatcher = () => {
       )}
 
     </div>
-  )
-}
+  );
+};

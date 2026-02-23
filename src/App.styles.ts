@@ -1,4 +1,4 @@
-import { createStyles } from '@utils'
+import { createStyles } from '@utils';
 
 export const styles = createStyles(({ colors, sizes }) => ({
   root: {
@@ -19,11 +19,11 @@ export const styles = createStyles(({ colors, sizes }) => ({
     alignItems: 'flex-start',
     overflowY: 'auto',
   },
-}))
+}));
 
 export const globalStyles = {
   '*': {
     margin: 0,
     padding: 0,
   }
-}
+};

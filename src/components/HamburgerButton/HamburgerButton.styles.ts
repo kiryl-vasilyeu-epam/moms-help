@@ -1,4 +1,4 @@
-import { createStyles } from '@utils'
+import { createStyles } from '@utils';
 
 export const styles = createStyles({
   toggle: {
@@ -31,4 +31,4 @@ export const styles = createStyles({
   toggleSpan3Collapsed: {
     transform: 'rotate(-45deg) translate(7px, -7px)',
   },
-})
+});

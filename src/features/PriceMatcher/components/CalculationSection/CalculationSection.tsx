@@ -1,8 +1,8 @@
-import { Box, Button, TextField } from '@mui/material'
-import type { FC } from 'react'
-import { styles } from './CalculationSection.styles'
-import type { CalculationSectionProps } from './CalculationSection.types'
-import { useCalculationSection } from './useCalculationSection'
+import { Box, Button, TextField } from '@mui/material';
+import type { FC } from 'react';
+import { styles } from './CalculationSection.styles';
+import type { CalculationSectionProps } from './CalculationSection.types';
+import { useCalculationSection } from './useCalculationSection';
 
 export const CalculationSection: FC<CalculationSectionProps> = ({
   itemsCount,
@@ -11,7 +11,7 @@ export const CalculationSection: FC<CalculationSectionProps> = ({
 }) => {
   const { handleKeyDown, handleCalculateClick } = useCalculationSection({
     onCalculate,
-  })
+  });
 
   return (
     <Box sx={styles.container}>
@@ -43,5 +43,5 @@ export const CalculationSection: FC<CalculationSectionProps> = ({
         </Button>
       </Box>
     </Box>
-  )
-}
+  );
+};

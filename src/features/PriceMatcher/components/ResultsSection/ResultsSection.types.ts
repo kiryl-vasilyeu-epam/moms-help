@@ -1,4 +1,4 @@
-import type { Calculation, PriceItem, AllUsedItems } from '../../PriceMatcher.types'
+import type { Calculation, PriceItem } from '../../PriceMatcher.types';
 
 export interface ResultsSectionProps {
   usageHistory: Calculation[]

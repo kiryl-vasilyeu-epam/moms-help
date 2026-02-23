@@ -1,4 +1,4 @@
-import { createStyles } from '@utils'
+import { createStyles } from '@utils';
 
 export const styles = createStyles(({ sizes }) => ({
   sidebar: {
@@ -44,4 +44,4 @@ export const styles = createStyles(({ sizes }) => ({
     display: 'flex',
     flexDirection: 'column',
   }
-}))
+}));

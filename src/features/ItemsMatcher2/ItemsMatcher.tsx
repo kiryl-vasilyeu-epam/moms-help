@@ -1,11 +1,11 @@
-import { Box, Typography, Button, IconButton, CircularProgress } from '@mui/material'
-import ClearIcon from '@mui/icons-material/Clear'
-import PlayArrowIcon from '@mui/icons-material/PlayArrow'
-import { FileUploadSection, StatsSection, FilterButtons, ResultsTable, MatchDropdown, ActionButtons } from './components'
-import { getStats } from './ItemsMatcher.helpers'
-import { SECTION_TITLES, BUTTON_LABELS } from './ItemsMatcher.constants'
-import { styles } from './ItemsMatcher.styles'
-import { useItemsMatcher } from './ItemsMatcher.hooks'
+import { Box, Typography, Button, IconButton, CircularProgress } from '@mui/material';
+import ClearIcon from '@mui/icons-material/Clear';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import { FileUploadSection, StatsSection, FilterButtons, ResultsTable, MatchDropdown, ActionButtons } from './components';
+import { getStats } from './ItemsMatcher.helpers';
+import { SECTION_TITLES, BUTTON_LABELS } from './ItemsMatcher.constants';
+import { styles } from './ItemsMatcher.styles';
+import { useItemsMatcher } from './ItemsMatcher.hooks';
 
 const ItemsMatcher = () => {
   const {
@@ -23,13 +23,16 @@ const ItemsMatcher = () => {
     dropdownOpen,
     setDropdownOpen,
     setSelectedItemIndex,
-  } = useItemsMatcher()
+  } = useItemsMatcher();
 
-  const stats = getStats(allResults)
+  const stats = getStats(allResults);
 
   return (
     <Box sx={styles.container}>
-      <Typography variant="h4" sx={styles.title}>
+      <Typography
+        variant="h4"
+        sx={styles.title}
+      >
         {SECTION_TITLES.main}
       </Typography>
 
@@ -60,14 +63,20 @@ const ItemsMatcher = () => {
         </IconButton>
       </Box>
       {showResults && (
-        <ActionButtons results={allResults} show={true} />
+        <ActionButtons
+          results={allResults}
+          show={true}
+        />
       )}
 
       <Box sx={styles.resultsSection}>
         {showResults && (
           <Box>
             <StatsSection stats={stats} />
-            <FilterButtons currentFilter={currentFilter} onFilterChange={setCurrentFilter} />
+            <FilterButtons
+              currentFilter={currentFilter}
+              onFilterChange={setCurrentFilter}
+            />
             <ResultsTable
               items={allResults}
               filter={currentFilter}
@@ -83,12 +92,12 @@ const ItemsMatcher = () => {
         items={file2Items}
         onSelect={handleSelectMatchItem}
         onClose={() => {
-          setDropdownOpen(false)
-          setSelectedItemIndex(null)
+          setDropdownOpen(false);
+          setSelectedItemIndex(null);
         }}
       />
     </Box>
-  )
-}
+  );
+};
 
-export default ItemsMatcher
+export default ItemsMatcher;

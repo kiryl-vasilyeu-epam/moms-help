@@ -1,4 +1,4 @@
-import type { MatchedItem } from '../../ItemsMatcher.types'
+import type { MatchedItem } from '../../ItemsMatcher.types';
 
 export interface ActionButtonsProps {
   results: MatchedItem[]

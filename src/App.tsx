@@ -1,12 +1,12 @@
-import { Sidebar } from '@components'
-import { ItemsMatcher, PriceMatcher } from '@features'
-import { globalStyles, styles } from './App.styles'
-import { PAGES, STORAGE_KEYS } from '@constants'
-import { useLocalStorage } from '@hooks'
-import { Global } from '@emotion/react'
+import { Sidebar } from '@components';
+import { ItemsMatcher, PriceMatcher } from '@features';
+import { globalStyles, styles } from './App.styles';
+import { PAGES, STORAGE_KEYS } from '@constants';
+import { useLocalStorage } from '@hooks';
+import { Global } from '@emotion/react';
 
 export const App = () => {
-  const [currentPage, setCurrentPage] = useLocalStorage(STORAGE_KEYS.CURRENT_PAGE, PAGES.ITEMS)
+  const [currentPage, setCurrentPage] = useLocalStorage(STORAGE_KEYS.CURRENT_PAGE, PAGES.ITEMS);
 
   return (
     <div css={styles.root}>
@@ -20,6 +20,6 @@ export const App = () => {
         {currentPage === PAGES.PRICE && <PriceMatcher />}
       </main>
     </div>
-  )
-}
+  );
+};
 

@@ -1,2 +1,2 @@
-export { default } from './ResultsSection'
-export type { ResultsSectionProps } from './ResultsSection.types'
+export { default } from './ResultsSection';
+export type { ResultsSectionProps } from './ResultsSection.types';

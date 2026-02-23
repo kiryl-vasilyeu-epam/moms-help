@@ -1,4 +1,4 @@
-import { FilterType, Stats } from "./ItemsMatcher.types"
+import { FilterType, Stats } from "./ItemsMatcher.types";
 
 export const STATS: { id: Stats, label: string }[] = [
   {id: 'total', label: 'itemMatcher.totalItems'},
@@ -16,10 +16,10 @@ export const FILTERS: { id: FilterType, label: string }[] = [
   {id: 'unmatched', label: 'itemMatcher.filterUnmatched'}
 ];
 
-export const ITEMS_MATCHER_RESULTS_KEY = 'itemsMatcherResults'
-export const ITEMS_MATCHER_FILE2ITEMS_KEY = 'itemsMatcherFile2Items'
-export const STORAGE_KEY = 'parserData'
-export const TRANSFER_STORAGE_KEY = 'priceMatcherTransferData'
+export const ITEMS_MATCHER_RESULTS_KEY = 'itemsMatcherResults';
+export const ITEMS_MATCHER_FILE2ITEMS_KEY = 'itemsMatcherFile2Items';
+export const STORAGE_KEY = 'parserData';
+export const TRANSFER_STORAGE_KEY = 'priceMatcherTransferData';
 
 export const TABLE_HEADERS = [
   '#',
@@ -29,31 +29,31 @@ export const TABLE_HEADERS = [
   'Последняя цена',
   'Артикул (Fusion)',
   'Статус совпадения'
-]
+];
 
 export const PRICE_CALCULATION = {
   multiplier1: 1.2,
   multiplier2: 1.35,
   subtractValue: 0.01
-}
+};
 
 export const FUZZY_MATCH_CONFIG = {
   allowedDiffPattern: /^[A-Z0]*$/
-}
+};
 
 export const DROPDOWN_CONFIG = {
   maxHeight: 400,
   itemMaxHeight: 350,
   width: 400
-}
+};
 
-export const FILE_ACCEPT_TYPES = '.xls,.xlsx'
+export const FILE_ACCEPT_TYPES = '.xls,.xlsx';
 
 export const CONFIRMATION_MESSAGES = {
   clear: 'Вы уверены, что хотите очистить все сохраненные данные?',
   noData: 'Нет данных для экспорта',
   noDataTransfer: 'Нет данных для передачи'
-}
+};
 
 export const EXPORT_HEADERS = [
   'Наименование',
@@ -62,6 +62,6 @@ export const EXPORT_HEADERS = [
   'Кол-во',
   'Себестоимость',
   'Штрихкод'
-]
+];
 
-export const EXPORT_SHEET_NAME = 'Список'
+export const EXPORT_SHEET_NAME = 'Список';

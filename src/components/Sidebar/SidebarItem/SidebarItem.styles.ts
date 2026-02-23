@@ -1,4 +1,4 @@
-import { createStyles } from '@utils'
+import { createStyles } from '@utils';
 
 export const styles = createStyles({
   collapsedText: {
@@ -41,4 +41,4 @@ export const styles = createStyles({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
-})
+});

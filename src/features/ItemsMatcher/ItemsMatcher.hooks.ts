@@ -1,115 +1,115 @@
-import { useState, useCallback, useEffect } from 'react'
-import { useLocalStorage } from '@hooks'
-import { CONFIRMATION_MESSAGES } from './ItemsMatcher.constants'
-import type { FilterType, MatchedItem, FileFusion, File1C } from './ItemsMatcher.types'
-import { STORAGE_KEYS } from '@constants'
-import { exportToXLS, getStats, matchItems, parse1C, parseFusion } from './ItemsMatcher.helpers'
-import { useXLSFileUpload } from '@hooks'
+import { useState, useCallback, useEffect } from 'react';
+import { useLocalStorage } from '@hooks';
+import { CONFIRMATION_MESSAGES } from './ItemsMatcher.constants';
+import type { FilterType, MatchedItem, FileFusion, File1C } from './ItemsMatcher.types';
+import { STORAGE_KEYS } from '@constants';
+import { exportToXLS, getStats, matchItems, parse1C, parseFusion } from './ItemsMatcher.helpers';
+import { useXLSFileUpload } from '@hooks';
 
 export const useItemsMatcher = () => {
-  const fileUpload1C = useXLSFileUpload<File1C[]>(parse1C)
-  const fileUploadFusion = useXLSFileUpload<FileFusion[]>(parseFusion)
+  const fileUpload1C = useXLSFileUpload<File1C[]>(parse1C);
+  const fileUploadFusion = useXLSFileUpload<FileFusion[]>(parseFusion);
   const [allResults, setAllResults] = useLocalStorage<MatchedItem[]>(
     STORAGE_KEYS.ITEMS_MATCHER_RESULTS,
     []
-  )
+  );
   const [fileFusionItems, setFileFusionItems] = useLocalStorage<FileFusion[]>(
     STORAGE_KEYS.ITEMS_MATCHER_FILE_FUSION_ITEMS,
     []
-  )
-  const [currentFilter, setCurrentFilter] = useState<FilterType>('all')
-  const [showResults, setShowResults] = useState(false)
-  const [selectedItemIndex, setSelectedItemIndex] = useState<number | null>(null)
-  const [dropdownOpen, setDropdownOpen] = useState(false)
+  );
+  const [currentFilter, setCurrentFilter] = useState<FilterType>('all');
+  const [showResults, setShowResults] = useState(false);
+  const [selectedItemIndex, setSelectedItemIndex] = useState<number | null>(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   useEffect(() => {
     if (allResults.length > 0) {
-      setShowResults(true)
+      setShowResults(true);
     }
-  }, [allResults])
+  }, [allResults]);
 
   const handleProcess = useCallback(() => {
-    const items1C = fileUpload1C.processFiles()
-    const itemsFusion = fileUploadFusion.processFiles()
+    const items1C = fileUpload1C.processFiles();
+    const itemsFusion = fileUploadFusion.processFiles();
     if (items1C && itemsFusion) {
-      const matchedItems = matchItems(items1C, itemsFusion)
-      setAllResults(matchedItems)
-      setFileFusionItems(itemsFusion)
-      setShowResults(true)
+      const matchedItems = matchItems(items1C, itemsFusion);
+      setAllResults(matchedItems);
+      setFileFusionItems(itemsFusion);
+      setShowResults(true);
     }
-  }, [fileUpload1C, fileUploadFusion, setAllResults, setFileFusionItems])
+  }, [fileUpload1C, fileUploadFusion, setAllResults, setFileFusionItems]);
 
   const handleClear = useCallback(() => {
     if (confirm(CONFIRMATION_MESSAGES.clear)) {
-      fileUpload1C.clearFiles()
-      fileUploadFusion.clearFiles()
-      setAllResults([])
-      setFileFusionItems([])
-      setShowResults(false)
-      setCurrentFilter('all')
+      fileUpload1C.clearFiles();
+      fileUploadFusion.clearFiles();
+      setAllResults([]);
+      setFileFusionItems([]);
+      setShowResults(false);
+      setCurrentFilter('all');
     }
-  }, [fileUpload1C, fileUploadFusion, setAllResults, setFileFusionItems])
+  }, [fileUpload1C, fileUploadFusion, setAllResults, setFileFusionItems]);
 
   const handleSelectMatch = useCallback((itemIndex: number) => {
-    setSelectedItemIndex(itemIndex)
-    setDropdownOpen(true)
-  }, [])
+    setSelectedItemIndex(itemIndex);
+    setDropdownOpen(true);
+  }, []);
 
   const handleSelectMatchItem = useCallback(
     (file2Index: number) => {
-      if (selectedItemIndex === null) return
+      if (selectedItemIndex === null) return;
 
-      const itemMatch = fileFusionItems[file2Index]
-      const updated = [...allResults]
+      const itemMatch = fileFusionItems[file2Index];
+      const updated = [...allResults];
       updated[selectedItemIndex] = {
         ...updated[selectedItemIndex],
         matchType: 'manual',
         matchedInvNo: itemMatch.invNo,
         matchedItem: itemMatch
-      }
+      };
 
-      setAllResults(updated)
-      setSelectedItemIndex(null)
-      setDropdownOpen(false)
+      setAllResults(updated);
+      setSelectedItemIndex(null);
+      setDropdownOpen(false);
     },
     [selectedItemIndex, allResults, fileFusionItems, setAllResults]
-  )
+  );
 
   const handleUnmatchItem = useCallback(
     (itemIndex: number) => {
-      const updated = [...allResults]
+      const updated = [...allResults];
       if (updated[itemIndex].matchType === 'fuzzy' || updated[itemIndex].matchType === 'manual') {
         updated[itemIndex] = {
           ...updated[itemIndex],
           matchType: 'none',
           matchedInvNo: null,
           matchedItem: null
-        }
-        setAllResults(updated)
+        };
+        setAllResults(updated);
       }
     },
     [allResults, setAllResults]
-  )
+  );
 
-  const isProcessDisabled = !fileUpload1C.isReady || !fileUploadFusion.isReady
+  const isProcessDisabled = !fileUpload1C.isReady || !fileUploadFusion.isReady;
 
   const [, setTransferData] = useLocalStorage<Record<string, unknown>>(
     STORAGE_KEYS.PRICE_MATCHER_TRANSFER_DATA,
     {}
-  )
+  );
   
   const handleDownload = useCallback(() => {
     if (allResults.length === 0) {
-      alert(CONFIRMATION_MESSAGES.noData)
-      return
+      alert(CONFIRMATION_MESSAGES.noData);
+      return;
     }
-    exportToXLS(allResults)
-  }, [allResults])
+    exportToXLS(allResults);
+  }, [allResults]);
   
   const handleTransfer = useCallback(() => {
     if (allResults.length === 0) {
-      alert(CONFIRMATION_MESSAGES.noDataTransfer)
-      return
+      alert(CONFIRMATION_MESSAGES.noDataTransfer);
+      return;
     }
   
     const priceMatcherData = {
@@ -120,11 +120,11 @@ export const useItemsMatcher = () => {
         matched: item.matchType !== 'none'
       })),
       timestamp: new Date().toISOString()
-    }
+    };
   
-    setTransferData(priceMatcherData)
-    alert('✓ Данные переданы в "Поиск цен"')
-  }, [allResults, setTransferData])
+    setTransferData(priceMatcherData);
+    alert('✓ Данные переданы в "Поиск цен"');
+  }, [allResults, setTransferData]);
 
   return {
     fileUpload1C,
@@ -150,5 +150,5 @@ export const useItemsMatcher = () => {
     stats: getStats(allResults),
     handleDownload,
     handleTransfer,
-  }
-}
+  };
+};

@@ -1,1 +1,1 @@
-export { STORAGE_KEYS } from './storage.constants'
+export { STORAGE_KEYS } from './storage.constants';

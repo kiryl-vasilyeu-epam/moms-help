@@ -1,4 +1,4 @@
-import { createSxStyles } from '@utils'
+import { createSxStyles } from '@utils';
 
 export const styles = createSxStyles({
   container: {
@@ -25,4 +25,4 @@ export const styles = createSxStyles({
     borderColor: '#667eea',
     '&:hover': { background: '#667eea' },
   },
-})
+});

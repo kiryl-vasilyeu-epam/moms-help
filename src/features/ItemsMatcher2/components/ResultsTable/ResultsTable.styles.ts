@@ -1,7 +1,7 @@
-import { createSxStyles } from '@utils'
-import { MatchType } from '@features/ItemsMatcher/ItemsMatcher.types'
-import { getStatusColor } from './ResultTable.helpers'
-import { SxProps } from '@mui/material'
+import { createSxStyles } from '@utils';
+import { MatchType } from '@features/ItemsMatcher/ItemsMatcher.types';
+import { getStatusColor } from './ResultTable.helpers';
+import { SxProps } from '@mui/material';
 
 export const styles = createSxStyles({
   tableContainer: {
@@ -45,30 +45,30 @@ export const styles = createSxStyles({
   },
   matchCell: (matchedStatus: MatchType): SxProps => {
     switch (matchedStatus) {
-      case 'exact':
-        return {
-          fontSize: 16,
-          borderRight: '1px solid #e0e0e0',
-          verticalAlign: 'middle',
-          '&:last-child': {
-            borderRight: 'none',
-          },
-        }
-      case 'fuzzy':
-      case 'manual':
-        return {
-          cursor: 'pointer',
-        }
-      default:
-        return {
-          width: '100%',
-          height: '100%',
-          cursor: 'pointer',
-          textAlign: 'center',
-          color: 'white',
-          fontSize: 14,
-          fontWeight: 600,
-        }
+    case 'exact':
+      return {
+        fontSize: 16,
+        borderRight: '1px solid #e0e0e0',
+        verticalAlign: 'middle',
+        '&:last-child': {
+          borderRight: 'none',
+        },
+      };
+    case 'fuzzy':
+    case 'manual':
+      return {
+        cursor: 'pointer',
+      };
+    default:
+      return {
+        width: '100%',
+        height: '100%',
+        cursor: 'pointer',
+        textAlign: 'center',
+        color: 'white',
+        fontSize: 14,
+        fontWeight: 600,
+      };
     }
   },
   matchDropdownButton: {
@@ -97,4 +97,4 @@ export const styles = createSxStyles({
     textAlign: 'center',
     borderRight: 'none',
   },
-})
+});

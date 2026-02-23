@@ -40,11 +40,9 @@ export interface ProgressUpdate {
   elapsed: number
 }
 
-export interface AllUsedItems {
-  [key: string]: {
+export type AllUsedItems = Record<string, {
     name: string
     rowNumber: number | string
     quantity: number
     salePriceCents: number
-  }
-}
+  }>;

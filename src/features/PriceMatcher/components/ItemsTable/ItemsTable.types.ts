@@ -1,4 +1,4 @@
-import type { PriceItem } from '../../PriceMatcher.types'
+import type { PriceItem } from '../../PriceMatcher.types';
 
 export interface ItemsTableProps {
   items: PriceItem[]

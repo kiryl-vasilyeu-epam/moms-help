@@ -1,7 +1,7 @@
-export const PRICE_MATCHER_ITEMS_KEY = 'priceMatcherItems'
-export const PRICE_MATCHER_ORIGINAL_ITEMS_KEY = 'priceMatcherOriginalItems'
-export const PRICE_MATCHER_USAGE_HISTORY_KEY = 'priceMatcherUsageHistory'
-export const PRICE_MATCHER_TRANSFER_DATA_KEY = 'priceMatcherTransferData'
+export const PRICE_MATCHER_ITEMS_KEY = 'priceMatcherItems';
+export const PRICE_MATCHER_ORIGINAL_ITEMS_KEY = 'priceMatcherOriginalItems';
+export const PRICE_MATCHER_USAGE_HISTORY_KEY = 'priceMatcherUsageHistory';
+export const PRICE_MATCHER_TRANSFER_DATA_KEY = 'priceMatcherTransferData';
 
 export const PRICE_MATCHER_LABELS = {
   title: 'Калькулятор цен',
@@ -21,7 +21,7 @@ export const PRICE_MATCHER_LABELS = {
   noSolution: 'Точная комбинация не найдена',
   removeCalculation: 'Удалить расчет',
   copyCalculation: 'Нажмите, чтобы скопировать данные',
-}
+};
 
 export const TABLE_HEADERS = {
   rowNumber: '№',
@@ -31,10 +31,10 @@ export const TABLE_HEADERS = {
   original: 'Изначально',
   used: 'Использовано',
   remaining: 'Осталось',
-}
+};
 
 export const ROW_CLASSES = {
   depleted: 'row-depleted',
   partial: 'row-partial',
   normal: '',
-}
+};

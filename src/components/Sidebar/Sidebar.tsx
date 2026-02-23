@@ -1,14 +1,14 @@
-import type { SidebarProps } from './Sidebar.types'
-import { styles } from './Sidebar.styles'
-import { useTranslation } from 'react-i18next'
-import { SIDEBAR_MENU_ITEMS } from './Sidebar.constants'
-import { useState } from 'react'
-import { HamburgerButton } from '../HamburgerButton'
-import { SidebarItem } from './SidebarItem'
+import type { SidebarProps } from './Sidebar.types';
+import { styles } from './Sidebar.styles';
+import { useTranslation } from 'react-i18next';
+import { SIDEBAR_MENU_ITEMS } from './Sidebar.constants';
+import { useState } from 'react';
+import { HamburgerButton } from '../HamburgerButton';
+import { SidebarItem } from './SidebarItem';
 
 export const Sidebar = ({ onNavigate, activeItem }: SidebarProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const toggleSidebar = () => setIsOpen(!isOpen);
 
   return (
@@ -34,5 +34,5 @@ export const Sidebar = ({ onNavigate, activeItem }: SidebarProps) => {
         ))}
       </nav>
     </aside>
-  )
-}
+  );
+};

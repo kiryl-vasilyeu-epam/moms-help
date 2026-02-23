@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback } from 'react';
 
 export const useFileUploadSection = ({
   onFileChange,
@@ -7,13 +7,13 @@ export const useFileUploadSection = ({
 }) => {
   const handleFileInput = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      const file = e.currentTarget.files?.[0]
+      const file = e.currentTarget.files?.[0];
       if (file) {
-        onFileChange(file)
+        onFileChange(file);
       }
     },
     [onFileChange]
-  )
+  );
 
-  return { handleFileInput }
-}
+  return { handleFileInput };
+};

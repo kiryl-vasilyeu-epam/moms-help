@@ -1,6 +1,6 @@
-import { Box } from '@mui/material'
-import { styles } from './ItemsTable.styles'
-import type { ItemsTableProps } from './ItemsTable.types'
+import { Box } from '@mui/material';
+import { styles } from './ItemsTable.styles';
+import type { ItemsTableProps } from './ItemsTable.types';
 
 const ItemsTable = ({ items, centsToStr }: ItemsTableProps) => {
   const getRowClass = (item: {
@@ -8,17 +8,17 @@ const ItemsTable = ({ items, centsToStr }: ItemsTableProps) => {
     usedAmount: number
     amount: number
   }): string => {
-    const remaining = item.remainingAmount
-    const used = item.usedAmount || 0
+    const remaining = item.remainingAmount;
+    const used = item.usedAmount || 0;
 
     if (remaining === 0 && used > 0) {
-      return 'row-depleted'
+      return 'row-depleted';
     }
     if (used > 0 && remaining > 0) {
-      return 'row-partial'
+      return 'row-partial';
     }
-    return ''
-  }
+    return '';
+  };
 
   return (
     <Box sx={styles.tableContainer}>
@@ -36,16 +36,19 @@ const ItemsTable = ({ items, centsToStr }: ItemsTableProps) => {
         </thead>
         <tbody>
           {items.map((item) => {
-            const rowClass = getRowClass(item)
+            const rowClass = getRowClass(item);
             const rowStyle = rowClass === 'row-depleted' ? styles.trDepleted
               : rowClass === 'row-partial' ? styles.trPartial
-              : {}
+                : {};
 
             return (
-              <tr key={`${item.rowNumber}-${item.name}`} style={{
-                ...styles.tableRow,
-                ...rowStyle,
-              } as React.CSSProperties}>
+              <tr
+                key={`${item.rowNumber}-${item.name}`}
+                style={{
+                  ...styles.tableRow,
+                  ...rowStyle,
+                } as React.CSSProperties}
+              >
                 <td style={styles.tableCell as React.CSSProperties}>{item.rowNumber || '-'}</td>
                 <td style={styles.tableCell as React.CSSProperties}>{item.name}</td>
                 <td style={styles.tableCell as React.CSSProperties}>{centsToStr(item.priceCents)}</td>
@@ -54,12 +57,12 @@ const ItemsTable = ({ items, centsToStr }: ItemsTableProps) => {
                 <td style={styles.tableCell as React.CSSProperties}>{item.usedAmount || 0}</td>
                 <td style={styles.tableCell as React.CSSProperties}>{item.remainingAmount}</td>
               </tr>
-            )
+            );
           })}
         </tbody>
       </table>
     </Box>
-  )
-}
+  );
+};
 
-export default ItemsTable
+export default ItemsTable;

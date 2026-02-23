@@ -26,6 +26,11 @@ export default defineConfig([
         projectService: true,
       },
     },
+    settings: {
+      react: {
+        version: "detect"
+      }
+    },
     rules: {
       indent: ['error', 2],
       "react/jsx-max-props-per-line": ["warn", { "maximum": 1 }],
@@ -33,6 +38,7 @@ export default defineConfig([
       "react/jsx-closing-bracket-location": ["warn", "tag-aligned"],
       "react/no-unknown-property": ["error", { "ignore": ["css"] }],
       'react-hooks/set-state-in-effect': 'off',
+      semi: ["error", "always"],
       'no-unused-vars': 'off',
       '@typescript-eslint/no-unused-vars': [
         'error',

@@ -1,1 +1,1 @@
-export { readExcelFile } from './readExcelFile'
+export { readExcelFile } from './readExcelFile';

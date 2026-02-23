@@ -1,6 +1,6 @@
-import { useMemo } from 'react'
-import { STAT_LABELS } from '../../ItemsMatcher.constants'
-import type { Stats } from '../../ItemsMatcher.types'
+import { useMemo } from 'react';
+import { STAT_LABELS } from '../../ItemsMatcher.constants';
+import type { Stats } from '../../ItemsMatcher.types';
 
 export const useStatsSection = (stats: Stats) => {
   const statItems = useMemo(
@@ -12,7 +12,7 @@ export const useStatsSection = (stats: Stats) => {
       { label: STAT_LABELS.unmatched, value: stats.unmatched }
     ],
     [stats]
-  )
+  );
 
-  return { statItems }
-}
+  return { statItems };
+};

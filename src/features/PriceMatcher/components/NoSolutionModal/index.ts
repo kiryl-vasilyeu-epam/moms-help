@@ -1,2 +1,2 @@
-export { default } from './NoSolutionModal'
-export type { NoSolutionModalProps } from './NoSolutionModal.types'
+export { default } from './NoSolutionModal';
+export type { NoSolutionModalProps } from './NoSolutionModal.types';

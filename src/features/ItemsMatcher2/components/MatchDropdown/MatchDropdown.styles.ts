@@ -1,4 +1,4 @@
-import { createSxStyles } from '@utils'
+import { createSxStyles } from '@utils';
 
 export const styles = createSxStyles({
   dialogContent: {
@@ -13,4 +13,4 @@ export const styles = createSxStyles({
     border: '1px solid #ddd',
     borderRadius: 1,
   },
-})
+});

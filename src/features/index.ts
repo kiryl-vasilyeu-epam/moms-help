@@ -1,2 +1,2 @@
-export { ItemsMatcher } from './ItemsMatcher'
-export { PriceMatcher } from './PriceMatcher'
+export { ItemsMatcher } from './ItemsMatcher';
+export { PriceMatcher } from './PriceMatcher';

@@ -1,10 +1,10 @@
-import type { SidebarItemProps } from './SidebarItem.types'
-import { styles } from './SidebarItem.styles'
+import type { SidebarItemProps } from './SidebarItem.types';
+import { styles } from './SidebarItem.styles';
 
 export const SidebarItem = ({ active, id, icon, label, isSidebarOpen, onNavigate }: SidebarItemProps) => {
   const handleItemClick = () => {
-    onNavigate(id)
-  }
+    onNavigate(id);
+  };
 
   return (
     <button
@@ -16,5 +16,5 @@ export const SidebarItem = ({ active, id, icon, label, isSidebarOpen, onNavigate
         {label}
       </span>
     </button>
-  )
-}
+  );
+};

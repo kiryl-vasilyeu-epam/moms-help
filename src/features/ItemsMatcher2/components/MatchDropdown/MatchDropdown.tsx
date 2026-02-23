@@ -1,14 +1,19 @@
-import { Dialog, DialogTitle, DialogContent, TextField, List, ListItem, ListItemButton, ListItemText } from '@mui/material'
-import type { FC } from 'react'
-import { styles } from './MatchDropdown.styles'
-import type { MatchDropdownProps } from './MatchDropdown.types'
-import { useMatchDropdown } from './useMatchDropdown'
+import { Dialog, DialogTitle, DialogContent, TextField, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
+import type { FC } from 'react';
+import { styles } from './MatchDropdown.styles';
+import type { MatchDropdownProps } from './MatchDropdown.types';
+import { useMatchDropdown } from './useMatchDropdown';
 
 export const MatchDropdown: FC<MatchDropdownProps> = ({ open, items, onSelect, onClose }) => {
-  const { searchText, filteredItems, updateSearch } = useMatchDropdown(items)
+  const { searchText, filteredItems, updateSearch } = useMatchDropdown(items);
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      maxWidth="sm"
+      fullWidth
+    >
       <DialogTitle>Выберите совпадение</DialogTitle>
       <DialogContent sx={styles.dialogContent}>
         <TextField
@@ -22,22 +27,25 @@ export const MatchDropdown: FC<MatchDropdownProps> = ({ open, items, onSelect, o
         />
         <List sx={styles.list}>
           {filteredItems.map((item) => {
-            const actualIndex = items.indexOf(item)
+            const actualIndex = items.indexOf(item);
             return (
-              <ListItem key={actualIndex} disablePadding>
+              <ListItem
+                key={actualIndex}
+                disablePadding
+              >
                 <ListItemButton
                   onClick={() => {
-                    onSelect(actualIndex)
-                    onClose()
+                    onSelect(actualIndex);
+                    onClose();
                   }}
                 >
                   <ListItemText primary={`${item.invNo} ${item.name}`} />
                 </ListItemButton>
               </ListItem>
-            )
+            );
           })}
         </List>
       </DialogContent>
     </Dialog>
-  )
-}
+  );
+};

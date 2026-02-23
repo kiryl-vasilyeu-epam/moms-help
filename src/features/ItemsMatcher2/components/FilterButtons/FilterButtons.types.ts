@@ -1,4 +1,4 @@
-import type { FilterType } from '../../ItemsMatcher.types'
+import type { FilterType } from '../../ItemsMatcher.types';
 
 export interface FilterButtonsProps {
   currentFilter: FilterType

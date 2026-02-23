@@ -1,5 +1,5 @@
-import { theme } from "@/styles"
-import { CSSObject } from '@emotion/react'
+import { theme } from "@/styles";
+import { CSSObject } from '@emotion/react';
 
 type RemoveIndexSignature<T> = {
   [K in keyof T as string extends K

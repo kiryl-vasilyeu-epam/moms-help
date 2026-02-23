@@ -1,4 +1,4 @@
-import type { PAGES } from '@constants'
+import type { PAGES } from '@constants';
 
 export interface SidebarMenuItem {
   id: PAGES;

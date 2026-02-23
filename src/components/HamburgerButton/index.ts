@@ -1,1 +1,1 @@
-export { HamburgerButton } from './HamburgerButton'
+export { HamburgerButton } from './HamburgerButton';

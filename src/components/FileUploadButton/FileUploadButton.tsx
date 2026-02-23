@@ -1,11 +1,11 @@
-import { styles } from "./FileUploadButton.styles"
-import { useTranslation } from "react-i18next"
-import { FileUploadButtonProps } from "./FileUploadButton.types"
-import { useFileUploadButton } from "./FileUploadButton.hooks"
+import { styles } from "./FileUploadButton.styles";
+import { useTranslation } from "react-i18next";
+import { FileUploadButtonProps } from "./FileUploadButton.types";
+import { useFileUploadButton } from "./FileUploadButton.hooks";
 
 export const FileUploadButton = ({ label, fileName, onFileSelect, isFileReady }: FileUploadButtonProps) => {
-  const { t } = useTranslation()
-  const { handleFileInput, id } = useFileUploadButton({ onFileSelect, label })
+  const { t } = useTranslation();
+  const { handleFileInput, id } = useFileUploadButton({ onFileSelect, label });
 
   return (
     <div css={[styles.uploadBox, isFileReady && styles.loadedFileBox]}>
@@ -26,5 +26,5 @@ export const FileUploadButton = ({ label, fileName, onFileSelect, isFileReady }:
       >{fileName ? fileName : t("itemMatcher.fileNotSelected")}</div>
     </div>
                 
-  )
-}
+  );
+};

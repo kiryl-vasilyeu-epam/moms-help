@@ -1,4 +1,4 @@
-import { createSxStyles } from '@utils'
+import { createSxStyles } from '@utils';
 
 export const styles = createSxStyles({
   container: {
@@ -16,4 +16,4 @@ export const styles = createSxStyles({
     '&:hover': { transform: 'scale(1.01)', boxShadow: '0 4px 12px rgba(52, 152, 219, 0.3)' },
     transition: 'all 0.2s',
   },
-})
+});

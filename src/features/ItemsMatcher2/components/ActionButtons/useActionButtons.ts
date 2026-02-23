@@ -1,8 +1,8 @@
-import { useCallback } from 'react'
-import { useLocalStorage } from '@hooks/useLocalStorage'
-import { CONFIRMATION_MESSAGES, TRANSFER_STORAGE_KEY } from '../../ItemsMatcher.constants'
-import { exportToXLS } from '../../ItemsMatcher.helpers'
-import type { MatchedItem } from '../../ItemsMatcher.types'
+import { useCallback } from 'react';
+import { useLocalStorage } from '@hooks/useLocalStorage';
+import { CONFIRMATION_MESSAGES, TRANSFER_STORAGE_KEY } from '../../ItemsMatcher.constants';
+import { exportToXLS } from '../../ItemsMatcher.helpers';
+import type { MatchedItem } from '../../ItemsMatcher.types';
 
 // returned handlers for action buttons
 export const useActionButtons = (results: MatchedItem[]) => {
@@ -13,35 +13,35 @@ export const useActionButtons = (results: MatchedItem[]) => {
   const [, setTransferData] = useLocalStorage<Record<string, unknown>>(
     TRANSFER_STORAGE_KEY,
     {}
-  )
+  );
 
   const handleDownload = useCallback(() => {
     if (results.length === 0) {
-      alert(CONFIRMATION_MESSAGES.noData)
-      return
+      alert(CONFIRMATION_MESSAGES.noData);
+      return;
     }
-    exportToXLS(results)
-  }, [results])
+    exportToXLS(results);
+  }, [results]);
 
   const handleTransfer = useCallback(() => {
     if (results.length === 0) {
-      alert(CONFIRMATION_MESSAGES.noDataTransfer)
-      return
+      alert(CONFIRMATION_MESSAGES.noDataTransfer);
+      return;
     }
 
     const priceMatcherData = {
       items: results.map((item) => ({
-        name: item.rawInvNoName || `${item.invNo} ${item.name}`,
+        name: item.rawInvNoName ?? `${item.invNo} ${item.name}`,
         amount: Math.round(item.totalAmount),
         price: item.latestPrice,
         matched: item.matchType !== 'none'
       })),
       timestamp: new Date().toISOString()
-    }
+    };
 
-    setTransferData(priceMatcherData)
-    alert('✓ Данные переданы в "Поиск цен"')
-  }, [results, setTransferData])
+    setTransferData(priceMatcherData);
+    alert('✓ Данные переданы в "Поиск цен"');
+  }, [results, setTransferData]);
 
-  return { handleDownload, handleTransfer }
-}
+  return { handleDownload, handleTransfer };
+};

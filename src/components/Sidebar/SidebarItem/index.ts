@@ -1,1 +1,1 @@
-export { SidebarItem } from './SidebarItem'
+export { SidebarItem } from './SidebarItem';

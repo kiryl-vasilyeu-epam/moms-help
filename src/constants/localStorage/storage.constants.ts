@@ -4,4 +4,4 @@ export const STORAGE_KEYS = {
   ITEMS_MATCHER_FILE_FUSION_ITEMS: 'itemsMatcherFileFusionItems',
   PARSER_DATA: 'parserData',
   PRICE_MATCHER_TRANSFER_DATA: 'priceMatcherTransferData',
-} as const
+} as const;
