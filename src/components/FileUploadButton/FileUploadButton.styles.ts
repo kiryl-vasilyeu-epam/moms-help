@@ -14,17 +14,17 @@ export const styles = createStyles({
       background: "#eef1ff",
       borderColor: "#764ba2",
     },
-    // "&.file-loaded": {
-    //   background: "#d4edda",
-    //   borderColor: "#28a745",
-    // },
-    // "&.file-loaded h3": {
-    //   color: "#28a745",
-    // },
+  },
+  loadedFileBox: {
+    background: "#d4edda",
+    borderColor: "#28a745",
   },
   uploadBoxH3: {
     color: "#667eea",
     marginBottom: "15px",
+  },
+  loadedH3: {
+    color: "#28a745",
   },
   fileInput: {
     display: "none",

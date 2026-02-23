@@ -3,43 +3,24 @@ import { styles } from "./ItemsMatcher.styles"
 import { FileUploadButton, Button, StatsBox, FilterButton } from '@components'
 import { FILTERS, STATS } from './ItemsMatcher.constants'
 import { ItemsMatherTable } from './components'
-
-const clearLocalStorage = () => {
-  // TODO: Implement clear localStorage functionality
-  console.log("Clear localStorage")
-}
-
-const downloadXLS = () => {
-  // TODO: Implement download XLS functionality
-  console.log("Download XLS")
-}
-
-const transferToPriceMatcher = () => {
-  // TODO: Implement transfer to PriceMatcher functionality
-  console.log("Transfer to PriceMatcher")
-}
-
-const setFilter = (filter: string) => {
-  // TODO: Implement filter functionality
-  console.log("Set filter:", filter)
-}
-
-const processFiles = () => {
-  // TODO: Implement file processing functionality
-  console.log("Process files")
-}
+import { useItemsMatcher } from './ItemsMatcher.hooks'
 
 export const ItemsMatcher = () => {
   const { t } = useTranslation()
-  const isProcessDisabled = true;
-  const statsResult = {
-    total: 0,
-    exact: 0,
-    fuzzy: 0,
-    manual: 0,
-    unmatched: 0
-  }
-  const activeFilter = 'all';
+
+  const {
+    fileUpload1C,
+    fileUploadFusion,
+    isProcessDisabled,
+    currentFilter,
+    setCurrentFilter,
+    showResults,
+    handleProcess,
+    handleClear,
+    stats,
+    handleDownload,
+    handleTransfer,
+  } = useItemsMatcher()
 
   return (
     
@@ -49,12 +30,16 @@ export const ItemsMatcher = () => {
       <div css={styles.uploadSection}>
         <FileUploadButton
           label={t("itemMatcher.file1Label")}
-          fileName=""
+          fileName={fileUpload1C.fileName}
+          onFileSelect={fileUpload1C.handleFileChange}
+          isFileReady={fileUpload1C.isReady}
         />
         
         <FileUploadButton
           label={t("itemMatcher.file2Label")}
-          fileName=""
+          fileName={fileUploadFusion.fileName}
+          onFileSelect={fileUploadFusion.handleFileChange}
+          isFileReady={fileUploadFusion.isReady}
         />
       </div>
       
@@ -62,61 +47,66 @@ export const ItemsMatcher = () => {
         <Button
           variant="primary"
           disabled={isProcessDisabled}
-          onClick={processFiles}
+          onClick={handleProcess}
           style={styles.processButton}
         >
           {t("itemMatcher.processBtn")}
         </Button>
         <Button
           variant="danger"
-          onClick={clearLocalStorage}
+          onClick={handleClear}
           title={t("itemMatcher.clearBtn")}
         >
               ✕
         </Button>
       </div>
     
-      <div css={styles.buttonRow}>
-        <Button
-          variant="success"
-          onClick={downloadXLS}
-        >
-          {t("itemMatcher.downloadBtn")}
-        </Button>
+      {showResults && (
+        <>
+          <div css={styles.buttonRow}>
+            <Button
+              variant="success"
+              onClick={handleDownload}
+            >
+              {t("itemMatcher.downloadBtn")}
+            </Button>
     
-        <Button
-          variant="info"
-          onClick={transferToPriceMatcher}
-        >
-          {t("itemMatcher.transferBtn")}
-        </Button>
-      </div>
+            <Button
+              variant="info"
+              onClick={handleTransfer}
+            >
+              {t("itemMatcher.transferBtn")}
+            </Button>
+          </div>
 
-      <div css={styles.results}>
-        <div css={styles.stats}>
-          {STATS.map(stat => (
-            <StatsBox
-              key={stat.id}
-              label={t(stat.label)}
-              amount={statsResult[stat.id]}
-            />
-          ))}
-        </div>
+          <div css={styles.results}>
+            <div css={styles.stats}>
+              {STATS.map(stat => (
+                <StatsBox
+                  key={stat.id}
+                  label={t(stat.label)}
+                  amount={stats[stat.id]}
+                />
+              ))}
+            </div>
         
-        <div css={styles.filterButtons}>
-          {FILTERS.map(filter => (
-            <FilterButton
-              key={filter.id}
-              label={t(filter.label)}
-              value={filter.id}
-              isActive={activeFilter === filter.id}
-              onClick={() => setFilter(filter.id)}
-            />))}
-        </div>
+            <div css={styles.filterButtons}>
+              {FILTERS.map(filter => (
+                <FilterButton
+                  key={filter.id}
+                  label={t(filter.label)}
+                  value={filter.id}
+                  isActive={currentFilter === filter.id}
+                  handleClick={setCurrentFilter}
+                />))}
+            </div>
         
-        <ItemsMatherTable />
+            <ItemsMatherTable />
 
-      </div>
+          </div>
+        </>
+      )}
+
     </div>
   )
 }

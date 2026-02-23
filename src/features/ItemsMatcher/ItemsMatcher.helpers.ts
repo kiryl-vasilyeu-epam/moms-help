@@ -1,29 +1,11 @@
 import * as XLSX from 'xlsx'
-import type { File1Item, File2Item, MatchedItem, MatchType } from './ItemsMatcher.types'
+import type { File1C, FileFusion, MatchedItem, MatchType } from './ItemsMatcher.types'
 import { FUZZY_MATCH_CONFIG, PRICE_CALCULATION, EXPORT_HEADERS, EXPORT_SHEET_NAME } from './ItemsMatcher.constants'
 
-export const readExcelFile = (file: File): Promise<unknown[][]> => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.onload = (e) => {
-      try {
-        const data = new Uint8Array(e.target?.result as ArrayBuffer)
-        const workbook = XLSX.read(data, { type: 'array' })
-        const firstSheet = workbook.Sheets[workbook.SheetNames[0]]
-        const jsonData = XLSX.utils.sheet_to_json(firstSheet, { header: 1, defval: '' }) as unknown[][]
-        resolve(jsonData)
-      } catch (error) {
-        reject(error)
-      }
-    }
-    reader.onerror = () => reject(reader.error)
-    reader.readAsArrayBuffer(file)
-  })
-}
-
-export const parseFile1 = (data: unknown[][]): File1Item[] => {
-  const items: File1Item[] = []
-  let currentItem: Partial<File1Item> | null = null
+const possible1CDataStart = ['ТТН', 'ТН', 'Счет-фактура']
+export const parse1C = (data: unknown[][]): File1C[] => {
+  const items: File1C[] = []
+  let currentItem: Partial<File1C> | null = null
 
   for (let i = 1; i < data.length; i++) {
     const row = data[i]
@@ -31,7 +13,7 @@ export const parseFile1 = (data: unknown[][]): File1Item[] => {
 
     if (!col0) continue
 
-    if (col0.startsWith('ТТН') || col0.startsWith('ТН') || col0.startsWith('Счет-фактура')) {
+    if (possible1CDataStart.some(start => col0.startsWith(start))) {
       if (currentItem) {
         const price = parseFloat(String(row?.[2] ?? 0)) || 0
         const amount = parseFloat(String(row?.[3] ?? 0)) || 0
@@ -77,8 +59,8 @@ export const parseFile1 = (data: unknown[][]): File1Item[] => {
   return items
 }
 
-export const parseFile2 = (data: unknown[][]): File2Item[] => {
-  const items: File2Item[] = []
+export const parseFusion = (data: unknown[][]): FileFusion[] => {
+  const items: FileFusion[] = []
 
   for (let i = 1; i < data.length; i++) {
     const row = data[i]
@@ -98,7 +80,7 @@ export const parseFile2 = (data: unknown[][]): File2Item[] => {
       invNo,
       name,
       price,
-      rawData: `${barcode} | ${invNoName} | ${price}`
+      rawData: `${invNoName} | ${barcode} | ${price}`
     })
   }
 
@@ -107,14 +89,13 @@ export const parseFile2 = (data: unknown[][]): File2Item[] => {
 
 const normalizeInvNo = (invNo: string): string => invNo.replace(/[^a-zA-Z0-9]/g, '').toUpperCase()
 
-export const matchItems = (items1: File1Item[], items2: File2Item[]): MatchedItem[] => {
-  const items2Map = new Map<string, File2Item>()
+export const matchItems = (items1: File1C[], items2: FileFusion[]): MatchedItem[] => {
+  const items2Map = new Map<string, FileFusion>()
   items2.forEach((item) => {
     items2Map.set(item.invNo, item)
   })
 
   return items1.map((item) => {
-    // Try exact match first
     if (items2Map.has(item.invNo)) {
       return {
         ...item,
@@ -124,13 +105,11 @@ export const matchItems = (items1: File1Item[], items2: File2Item[]): MatchedIte
       }
     }
 
-    // Try fuzzy matching
     const normalized1 = normalizeInvNo(item.invNo)
 
     for (const [invNo2, item2] of items2Map) {
       const normalized2 = normalizeInvNo(invNo2)
 
-      // Check if normalized versions match
       if (normalized1 === normalized2) {
         return {
           ...item,
@@ -140,7 +119,6 @@ export const matchItems = (items1: File1Item[], items2: File2Item[]): MatchedIte
         }
       }
 
-      // Check if one contains the other
       if (normalized1.includes(normalized2) || normalized2.includes(normalized1)) {
         const longer = normalized1.length > normalized2.length ? normalized1 : normalized2
         const shorter = normalized1.length > normalized2.length ? normalized2 : normalized1
@@ -167,7 +145,6 @@ export const matchItems = (items1: File1Item[], items2: File2Item[]): MatchedIte
       }
     }
 
-    // No match found
     return {
       ...item,
       matchType: 'none' as MatchType,
@@ -187,6 +164,12 @@ export const exportToXLS = (results: MatchedItem[]): void => {
   sortedItems.forEach((item) => {
     const name = item.rawInvNoName ?? `${item.invNo} ${item.name}`
     const amount = Math.round(item.totalAmount)
+    const calculatedPrice = (
+      item.latestPrice
+      * PRICE_CALCULATION.multiplier1
+      * PRICE_CALCULATION.multiplier2
+       - PRICE_CALCULATION.subtractValue
+    ).toFixed(2).replace('.', ',')
 
     let retailPrice = ''
     let discountPrice = ''
@@ -202,13 +185,12 @@ export const exportToXLS = (results: MatchedItem[]): void => {
     }
 
     if (!retailPrice && item.latestPrice > 0) {
-      const calculatedPrice = item.latestPrice * PRICE_CALCULATION.multiplier1 * PRICE_CALCULATION.multiplier2 - PRICE_CALCULATION.subtractValue
-      const price = `${calculatedPrice.toFixed(2)}`.replace('.', ',')
+      const price = calculatedPrice
       retailPrice = price
       discountPrice = price
     }
 
-    data.push([name, retailPrice, discountPrice, amount.toString(), barcode])
+    data.push([name, retailPrice, discountPrice, amount.toString(), calculatedPrice, barcode])
   })
 
   const wb = XLSX.utils.book_new()

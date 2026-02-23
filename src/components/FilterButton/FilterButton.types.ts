@@ -1,6 +1,6 @@
-export interface FilterButtonProps {
+export interface FilterButtonProps<T> {
   label: string
-  value: string
+  value: T
   isActive?: boolean
-  onClick?: () => void
+  handleClick?: (value: T) => void
 }

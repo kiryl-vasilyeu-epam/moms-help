@@ -9,7 +9,6 @@
     "file1Label": "Файл 1: 1C выписка",
     "file2Label": "Файл 2: Fusion выписка",
     "selectFile": "Выбрать файл",
-    "fileNotSelected": "Файл не выбран",
     "processBtn": "Обработать файлы",
     "clearBtn": "Очистить все сохраненные данные",
     "downloadBtn": "📥 Скачать список с совпадениями (.xlsx)",
@@ -33,5 +32,6 @@
       "articleFusion": "Артикул (Fusion)",
       "status": "Статус совпадения"
     }
-  }
+  },
+  "fileNotSelected": "Файл не выбран"
 }
