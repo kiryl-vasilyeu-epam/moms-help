@@ -14,34 +14,4 @@ export const styles = createStyles({
     padding: "30px",
     gap: "20px",
   },
-  uploadSection: {
-    width: "100%",
-    display: "flex",
-    justifyContent: "space-between",
-    gap: "20px",
-  },
-  buttonRow: {
-    display: "flex",
-    width: "100%",
-    maxWidth: "800px",
-    gap: "10px",
-  },
-  processButton: {
-    flex: 1,
-  },
-  results: {
-    width: "100%",
-  },
-  stats: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-    gap: "15px",
-    marginBottom: "20px",
-  },
-  filterButtons: {
-    display: "flex",
-    gap: "10px",
-    marginBottom: "20px",
-    flexWrap: "wrap",
-  },
 });
