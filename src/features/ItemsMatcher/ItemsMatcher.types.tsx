@@ -1,7 +1,7 @@
-export type Stats = 'total' | 'exact' | 'fuzzy' | 'manual' | 'unmatched'
+export type Stats = 'total' | 'exact' | 'fuzzy' | 'manual' | 'none'
 
 export type MatchType = 'exact' | 'fuzzy' | 'manual' | 'none'
-export type FilterType = 'all' | 'exact' | 'fuzzy' | 'manual' | 'unmatched'
+export type FilterType = 'all' | MatchType
 
 export interface File1C {
   invNo: string
@@ -37,7 +37,7 @@ export interface Stats1 {
   exact: number
   fuzzy: number
   manual: number
-  unmatched: number
+  none: number
 }
 
 export interface DropdownItem {

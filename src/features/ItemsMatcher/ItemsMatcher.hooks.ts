@@ -17,7 +17,11 @@ export const useItemsMatcher = () => {
     STORAGE_KEYS.ITEMS_MATCHER_FILE_FUSION_ITEMS,
     []
   );
-  const [currentFilter, setCurrentFilter] = useState<FilterType>('all');
+  const [currentFilter, setCurrentFilter] = useLocalStorage<FilterType>(
+    STORAGE_KEYS.ITEMS_MATCHER_FILTER,
+    'all'
+  );
+  const [filteredItems, setFilteredItems] = useState<MatchedItem[]>([]);
   const [showResults, setShowResults] = useState(false);
   const [selectedItemIndex, setSelectedItemIndex] = useState<number | null>(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -27,6 +31,15 @@ export const useItemsMatcher = () => {
       setShowResults(true);
     }
   }, [allResults]);
+
+  const filterApplied = currentFilter !== 'all';
+
+  useEffect(() => {
+    setFilteredItems(
+      currentFilter === 'all'
+        ? allResults
+        : allResults.filter((item) => item.matchType === currentFilter));
+  }, [allResults, currentFilter]);
 
   const handleProcess = useCallback(() => {
     const items1C = fileUpload1C.processFiles();
@@ -48,7 +61,7 @@ export const useItemsMatcher = () => {
       setShowResults(false);
       setCurrentFilter('all');
     }
-  }, [fileUpload1C, fileUploadFusion, setAllResults, setFileFusionItems]);
+  }, [fileUpload1C, fileUploadFusion, setAllResults, setCurrentFilter, setFileFusionItems]);
 
   const handleSelectMatch = useCallback((itemIndex: number) => {
     setSelectedItemIndex(itemIndex);
@@ -131,6 +144,8 @@ export const useItemsMatcher = () => {
     fileUploadFusion,
     isProcessDisabled,
     allResults,
+    filteredItems,
+    filterApplied,
     setAllResults,
     fileFusionItems,
     setFileFusionItems,

@@ -229,6 +229,6 @@ export const getStats = (results: MatchedItem[]) => {
     exact: results.filter((r) => r.matchType === 'exact').length,
     fuzzy: results.filter((r) => r.matchType === 'fuzzy').length,
     manual: results.filter((r) => r.matchType === 'manual').length,
-    unmatched: results.filter((r) => r.matchType === 'none').length
+    none: results.filter((r) => r.matchType === 'none').length
   };
 };

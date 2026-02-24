@@ -1,5 +1,5 @@
 export type MatchType = 'exact' | 'fuzzy' | 'manual' | 'none'
-export type FilterType = 'all' | 'exact' | 'fuzzy' | 'manual' | 'unmatched'
+export type FilterType = 'all' | 'exact' | 'fuzzy' | 'manual' | 'none'
 
 export interface File1Item {
   invNo: string
@@ -35,7 +35,7 @@ export interface Stats {
   exact: number
   fuzzy: number
   manual: number
-  unmatched: number
+  none: number
 }
 
 export interface DropdownItem {

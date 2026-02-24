@@ -29,7 +29,7 @@ export const useResultsTable = (items: MatchedItem[], filter: FilterType) => {
       if (filter === 'exact') return item.matchType === 'exact';
       if (filter === 'fuzzy') return item.matchType === 'fuzzy';
       if (filter === 'manual') return item.matchType === 'manual';
-      if (filter === 'unmatched') return item.matchType === 'none';
+      if (filter === 'none') return item.matchType === 'none';
       return true;
     });
   }, [items, filter]);

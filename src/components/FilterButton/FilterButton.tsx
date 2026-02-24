@@ -11,7 +11,6 @@ export const FilterButton = <T extends string | number>({
   return (
     <button
       css={[styles.filterBtn, isActive && styles.activeButton]}
-      data-filter={value}
       onClick={onClick}
     >
       {label}

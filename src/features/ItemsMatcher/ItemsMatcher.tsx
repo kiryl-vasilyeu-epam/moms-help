@@ -2,13 +2,16 @@ import { useTranslation } from 'react-i18next';
 import { styles } from "./ItemsMatcher.styles";
 import { FileUploadButton, Button, StatsBox, FilterButton } from '@components';
 import { FILTERS, STATS } from './ItemsMatcher.constants';
-import { ItemsMatherTable } from './components';
+import { ItemsTable } from './components';
 import { useItemsMatcher } from './ItemsMatcher.hooks';
+import { memo } from 'react';
 
-export const ItemsMatcher = () => {
+export const ItemsMatcher = memo(() => {
   const { t } = useTranslation();
 
   const {
+    filteredItems,
+    filterApplied,
     fileUpload1C,
     fileUploadFusion,
     isProcessDisabled,
@@ -100,8 +103,11 @@ export const ItemsMatcher = () => {
                   handleClick={setCurrentFilter}
                 />))}
             </div>
-        
-            <ItemsMatherTable />
+
+            <ItemsTable
+              items={filteredItems}
+              filterApplied={filterApplied}
+            />
 
           </div>
         </>
@@ -109,4 +115,6 @@ export const ItemsMatcher = () => {
 
     </div>
   );
-};
+});
+
+ItemsMatcher.displayName = 'ItemsMatcher';

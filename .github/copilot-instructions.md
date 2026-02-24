@@ -16,6 +16,7 @@
 - Utilities and hooks are in `src/utils/` and `src/hooks/`.
 - Theming is centralized in [src/styles/theme.ts](src/styles/theme.ts).
 - Use the `createStyles` utility for consistent styling.
+- Prop types should be created in [Component].types.ts file.
 
 ## Build and Test
 - Install: `yarn install`

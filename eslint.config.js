@@ -39,6 +39,7 @@ export default defineConfig([
       "react/no-unknown-property": ["error", { "ignore": ["css"] }],
       'react-hooks/set-state-in-effect': 'off',
       semi: ["error", "always"],
+      "@typescript-eslint/no-explicit-any": "error",
       'no-unused-vars': 'off',
       '@typescript-eslint/no-unused-vars': [
         'error',

@@ -1,4 +1,4 @@
-import { StrictCssObjectWithSelectors } from '@utils/createStyles/createStyles.types';
+import { StrictCssObjectWithSelectors } from '@utils';
 import { ReactNode } from 'react';
 
 export type ButtonVariant = 'primary' | 'success' | 'info' | 'danger'

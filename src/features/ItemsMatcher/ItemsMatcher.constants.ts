@@ -5,7 +5,7 @@ export const STATS: { id: Stats, label: string }[] = [
   {id: 'exact', label: 'itemMatcher.matchedItems'},
   {id: 'fuzzy', label: 'itemMatcher.fuzzyItems'},
   {id: 'manual', label: 'itemMatcher.manualItems'},
-  {id: 'unmatched', label: 'itemMatcher.unmatchedItems'}
+  {id: 'none', label: 'itemMatcher.unmatchedItems'}
 ];
 
 export const FILTERS: { id: FilterType, label: string }[] = [
@@ -13,7 +13,7 @@ export const FILTERS: { id: FilterType, label: string }[] = [
   {id: 'exact', label: 'itemMatcher.filterExact'},
   {id: 'fuzzy', label: 'itemMatcher.filterFuzzy'},
   {id: 'manual', label: 'itemMatcher.filterManual'},
-  {id: 'unmatched', label: 'itemMatcher.filterUnmatched'}
+  {id: 'none', label: 'itemMatcher.filterUnmatched'}
 ];
 
 export const ITEMS_MATCHER_RESULTS_KEY = 'itemsMatcherResults';

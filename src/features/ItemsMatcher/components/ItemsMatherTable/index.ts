@@ -1,1 +1,0 @@
-export { ItemsMatherTable } from "./ItemsMatherTable";

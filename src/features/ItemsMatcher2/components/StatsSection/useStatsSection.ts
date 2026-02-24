@@ -9,7 +9,7 @@ export const useStatsSection = (stats: Stats) => {
       { label: STAT_LABELS.exact, value: stats.exact },
       { label: STAT_LABELS.fuzzy, value: stats.fuzzy },
       { label: STAT_LABELS.manual, value: stats.manual },
-      { label: STAT_LABELS.unmatched, value: stats.unmatched }
+      { label: STAT_LABELS.none, value: stats.none }
     ],
     [stats]
   );

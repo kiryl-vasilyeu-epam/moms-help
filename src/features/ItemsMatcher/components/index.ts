@@ -1,1 +1,1 @@
-export { ItemsMatherTable } from "./ItemsMatherTable";
+export { ItemsTable } from './ItemsTable';

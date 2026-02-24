@@ -8,7 +8,7 @@ export const FILTER_LABELS = {
   exact: 'Точные',
   fuzzy: 'Нечеткие',
   manual: 'Ручные',
-  unmatched: 'Не найдены'
+  none: 'Не найдены'
 };
 
 export const CONFIRMATION_MESSAGES = {
@@ -36,7 +36,7 @@ export const STAT_LABELS = {
   exact: 'Точные совпадения',
   fuzzy: 'Нечеткие совпадения',
   manual: 'Ручные совпадения',
-  unmatched: 'Не найдены'
+  none: 'Не найдены'
 };
 
 export const TABLE_HEADERS = [

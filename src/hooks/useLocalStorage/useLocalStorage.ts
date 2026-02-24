@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import type { UseLocalStorageOptions } from './useLocalStorage.types';
+import { STORAGE_KEYS } from '@constants';
 
 export const useLocalStorage = <T,>(
-  key: string,
+  key: typeof STORAGE_KEYS[keyof typeof STORAGE_KEYS],
   initialValue: T,
   options?: UseLocalStorageOptions,
 ): [T, (value: T) => void] => {
