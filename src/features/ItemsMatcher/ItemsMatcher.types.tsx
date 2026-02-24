@@ -1,5 +1,3 @@
-export type Stats = 'total' | 'exact' | 'fuzzy' | 'manual' | 'none'
-
 export type MatchType = 'exact' | 'fuzzy' | 'manual' | 'none'
 export type FilterType = 'all' | MatchType
 
@@ -32,7 +30,7 @@ export interface ParsedData {
   timestamp: string
 }
 
-export interface Stats1 {
+export interface Stats {
   total: number
   exact: number
   fuzzy: number

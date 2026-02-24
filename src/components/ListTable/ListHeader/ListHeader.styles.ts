@@ -5,6 +5,6 @@ export const styles = createStyles({
     flex: 1,
     display: 'flex',
     alignItems: 'center',
-    padding: '20px',
+    padding: '20px 12px',
   },
 });

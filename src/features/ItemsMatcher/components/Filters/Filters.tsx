@@ -1,18 +1,21 @@
 import { FilterButton } from '@components';
 import { styles } from './Filters.styles';
 import { FiltersProps } from './Filters.types';
+import { FILTERS } from './Filters.constants';
+import { useTranslation } from 'react-i18next';
 
 export const Filters = ({
   currentFilter,
   setCurrentFilter,
-  filtersConfig,
 }: FiltersProps) => {
+  const { t } = useTranslation();
+  
   return (
     <div css={styles.filterButtons}>
-      {filtersConfig.map(filter => (
+      {FILTERS.map(filter => (
         <FilterButton
           key={filter.id}
-          label={filter.label}
+          label={t(filter.label)}
           value={filter.id}
           isActive={currentFilter === filter.id}
           handleClick={setCurrentFilter}

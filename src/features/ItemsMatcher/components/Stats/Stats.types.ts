@@ -1,11 +1,10 @@
-import { Stats1 } from '../../ItemsMatcher.types';
+import { Stats } from '../../ItemsMatcher.types';
 
 export interface Stat {
-  id: keyof Stats1;
+  id: keyof Stats;
   label: string;
 }
 
 export interface StatsProps {
-  stats: Stats1;
-  statsConfig: Stat[];
+  stats: Stats;
 }

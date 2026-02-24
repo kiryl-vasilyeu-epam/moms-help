@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next';
 import { styles } from "./ItemsMatcher.styles";
-import { FILTERS, STATS } from './ItemsMatcher.constants';
 import { 
   UploadSection, 
   ProcessControls, 
@@ -48,10 +47,8 @@ export const ItemsMatcher = memo(() => {
         handleDownload={handleDownload}
         handleTransfer={handleTransfer}
         stats={stats}
-        statsConfig={STATS}
         currentFilter={currentFilter}
         setCurrentFilter={setCurrentFilter}
-        filtersConfig={FILTERS}
         filteredItems={filteredItems}
         filterApplied={filterApplied}
       />

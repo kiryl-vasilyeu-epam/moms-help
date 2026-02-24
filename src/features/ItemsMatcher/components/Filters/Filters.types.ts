@@ -8,5 +8,4 @@ export interface Filter {
 export interface FiltersProps {
   currentFilter: FilterType;
   setCurrentFilter: (filter: FilterType) => void;
-  filtersConfig: Filter[];
 }

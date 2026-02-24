@@ -10,10 +10,8 @@ export const Results = ({
   handleDownload,
   handleTransfer,
   stats,
-  statsConfig,
   currentFilter,
   setCurrentFilter,
-  filtersConfig,
   filteredItems,
   filterApplied,
 }: ResultsProps) => {
@@ -29,15 +27,11 @@ export const Results = ({
       />
 
       <div css={styles.results}>
-        <Stats 
-          stats={stats}
-          statsConfig={statsConfig}
-        />
+        <Stats stats={stats} />
 
         <Filters 
           currentFilter={currentFilter}
           setCurrentFilter={setCurrentFilter}
-          filtersConfig={filtersConfig}
         />
 
         <ItemsTable
