@@ -12,4 +12,7 @@ export const styles = createStyles({
     color: "white",
     fontWeight: 600,
   },
+  even: {
+    background: "#efefef",
+  }
 });

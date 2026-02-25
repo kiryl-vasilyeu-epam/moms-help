@@ -1,2 +1,2 @@
 export * from './useLocalStorage';
-export { useXLSFileUpload } from './useXLSFileUpload';
+export * from './useXLSFileUpload';

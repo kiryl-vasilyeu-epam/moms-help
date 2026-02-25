@@ -1,3 +1,4 @@
+import { Tooltip } from "@mui/material";
 import { styles } from "./TableCell.styles";
 import { Columns } from "../ItemsTable/ItemsTable.types";
 import { ReactNode } from "react";
@@ -18,6 +19,17 @@ export const COLUMN_RENDERS: Record<Columns, (props: TableCellProps) => ReactNod
   name: ({ item: { name } }) => name,
   amount: ({ item: { totalAmount } }) => Math.round(totalAmount),
   lastPrice: ({ item: { latestPrice } }) => latestPrice.toFixed(2),
-  invNoFusion: MatchCell,
+  invNoFusion: ({ item }: TableCellProps) => (
+    <Tooltip
+      title={
+        <div css={styles.tooltip}>
+          {item.matchedItem?.rawData}
+        </div>
+      }
+      arrow
+    >
+      <MatchCell item={item} />
+    </Tooltip>
+  ),
   status: StatusCell,
 };

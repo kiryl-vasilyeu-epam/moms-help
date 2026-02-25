@@ -3,10 +3,10 @@ import { FileUploadButton } from '@components';
 import { styles } from './UploadSection.styles';
 import { UploadSectionProps } from './UploadSection.types';
 
-export const UploadSection = ({
+export const UploadSection = <T, P>({
   fileUpload1C,
   fileUploadFusion,
-}: UploadSectionProps) => {
+}: UploadSectionProps<T, P>) => {
   const { t } = useTranslation();
 
   return (

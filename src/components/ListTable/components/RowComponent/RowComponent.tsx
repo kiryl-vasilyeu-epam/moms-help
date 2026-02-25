@@ -22,6 +22,7 @@ export const RowComponent = <TItem, TProps, TColumns extends string>({
     <ListRow
       height={itemHeight}
       style={[style as StrictCssObjectWithSelectors, rowStyle]}
+      even={index % 2}
     >
       {columnIds.map((columnId, cellIndex) => (
         <ListCell

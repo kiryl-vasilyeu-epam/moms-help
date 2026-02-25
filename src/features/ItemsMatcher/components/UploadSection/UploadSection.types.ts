@@ -1,10 +1,6 @@
-export interface FileUploadState {
-  fileName: string;
-  handleFileChange: (file: File) => void;
-  isReady: boolean;
-}
+import { FileUploadState } from "@hooks";
 
-export interface UploadSectionProps {
-  fileUpload1C: FileUploadState;
-  fileUploadFusion: FileUploadState;
+export interface UploadSectionProps<T, P> {
+  fileUpload1C: FileUploadState<T>;
+  fileUploadFusion: FileUploadState<P>;
 }

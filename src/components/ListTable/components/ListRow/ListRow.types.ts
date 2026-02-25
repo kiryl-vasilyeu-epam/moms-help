@@ -6,4 +6,5 @@ export interface ListRowProps {
     height?: number;
     variant?: 'header' | 'row';
     style?:  (StrictCssObjectWithSelectors | null | undefined)[]
+    even?: boolean | number
 }

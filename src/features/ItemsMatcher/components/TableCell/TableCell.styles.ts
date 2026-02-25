@@ -20,4 +20,7 @@ export const styles = createStyles({
     borderTop: "3px solid #e74c3c",
     borderBottom: "3px solid #e74c3c",
   },
+  tooltip: {
+    fontSize: 14,
+  }
 });
