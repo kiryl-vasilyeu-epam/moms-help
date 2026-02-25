@@ -1,8 +1,7 @@
 import { styles } from "./ListTable.styles";
 import type { ListTableProps } from "./ListTable.types";
 import { List } from "react-window";
-import { RowComponent } from "./RowComponent";
-import { ListHeader } from "./ListHeader";
+import { RowComponent, ListHeader } from "./components";
 
 
 export const ListTable = <T extends object, P extends unknown, C extends string>({

@@ -3,7 +3,7 @@ import { ListRow } from "../ListRow";
 import { styles } from "./ListHeader.styles";
 import { ListHeaderProps } from "./ListHeader.types";
 
-export const ListHeader = <T extends unknown>({ headerLabels, columnsWeight }: ListHeaderProps<T>) => {
+export const ListHeader = <T extends unknown, P , C>({ headerLabels, columnsWeight }: ListHeaderProps<T, P, C>) => {
 
   return (
     <ListRow

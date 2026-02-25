@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { styles } from "./FilterButton.styles";
 import type { FilterButtonProps } from "./FilterButton.types";
 
@@ -8,13 +9,15 @@ export const FilterButton = <T extends string | number>({
   handleClick,
   disabled = false,
 }: FilterButtonProps<T>) => {
-  const onClick = () => !disabled && handleClick?.(value);
+  const onClick = useCallback(
+    () => !disabled && handleClick?.(value),
+    [handleClick, value, disabled]
+  );
   return (
     <button
       css={[styles.filterBtn, isActive && styles.activeButton]}
       onClick={onClick}
       disabled={disabled}
-      style={{ opacity: disabled ? 0.6 : 1 }}
     >
       {label}
     </button>
