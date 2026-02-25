@@ -5,5 +5,5 @@ export interface ListRowProps {
     children: ReactNode;
     height?: number;
     variant?: 'header' | 'row';
-    style?: StrictCssObjectWithSelectors | null
+    style:  (StrictCssObjectWithSelectors | null | undefined)[]
 }

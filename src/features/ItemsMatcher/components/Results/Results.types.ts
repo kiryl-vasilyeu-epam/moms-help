@@ -9,4 +9,5 @@ export interface ResultsProps {
   setCurrentFilter: (filter: FilterType) => void;
   filteredItems: MatchedItem[];
   filterApplied: boolean;
+  isFiltering?: boolean;
 }

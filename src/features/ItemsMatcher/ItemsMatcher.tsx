@@ -25,6 +25,7 @@ export const ItemsMatcher = memo(() => {
     stats,
     handleDownload,
     handleTransfer,
+    isFiltering,
   } = useItemsMatcher();
 
   return (
@@ -51,6 +52,7 @@ export const ItemsMatcher = memo(() => {
         setCurrentFilter={setCurrentFilter}
         filteredItems={filteredItems}
         filterApplied={filterApplied}
+        isFiltering={isFiltering}
       />
     </div>
   );

@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 export const Filters = ({
   currentFilter,
   setCurrentFilter,
+  isFiltering = false,
 }: FiltersProps) => {
   const { t } = useTranslation();
   
@@ -19,8 +20,15 @@ export const Filters = ({
           value={filter.id}
           isActive={currentFilter === filter.id}
           handleClick={setCurrentFilter}
+          disabled={isFiltering}
         />
       ))}
+      {isFiltering && (
+        <div css={styles.loadingIndicator}>
+          <div css={styles.spinner} />
+          {t('itemMatcher.filtering') || 'Filtering...'}
+        </div>
+      )}
     </div>
   );
 };

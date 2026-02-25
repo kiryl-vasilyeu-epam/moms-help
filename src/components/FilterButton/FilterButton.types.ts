@@ -3,4 +3,5 @@ export interface FilterButtonProps<T> {
   value: T
   isActive?: boolean
   handleClick?: (value: T) => void
+  disabled?: boolean
 }

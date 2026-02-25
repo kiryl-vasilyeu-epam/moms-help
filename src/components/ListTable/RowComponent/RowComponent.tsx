@@ -2,8 +2,9 @@ import { RowComponentProps } from "react-window";
 import { RowComponentInnerProps } from "./RowComponent.types";
 import { ListRow } from "../ListRow";
 import { ListCell } from "../ListCell";
+import { StrictCssObjectWithSelectors } from "@utils";
 
-export const RowComponent = <TItem, TProps>({
+export const RowComponent = <TItem, TProps, TColumns extends string>({
   items,
   CellComponent,
   index,
@@ -11,20 +12,21 @@ export const RowComponent = <TItem, TProps>({
   itemHeight,
   columnsWeight,
   cellCommonProps,
-  getRowStyles
-}: RowComponentProps<RowComponentInnerProps<TItem, TProps>>) => {
+  getRowStyles,
+  style,
+}: RowComponentProps<RowComponentInnerProps<TItem, TProps, TColumns>>) => {
   const item = items[index];
   const rowStyle = getRowStyles?.(item);
 
   return (
     <ListRow
       height={itemHeight}
-      style={rowStyle}
+      style={[style as StrictCssObjectWithSelectors, rowStyle]}
     >
       {columnIds.map((columnId, cellIndex) => (
         <ListCell
-          width={columnsWeight[cellIndex]}
           key={columnId}
+          width={columnsWeight[cellIndex]}
           index={cellIndex}
         >
           <CellComponent

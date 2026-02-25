@@ -5,7 +5,7 @@ import { RowComponent } from "./RowComponent";
 import { ListHeader } from "./ListHeader";
 
 
-export const ListTable = <T extends object, P extends unknown, C extends unknown>({
+export const ListTable = <T extends object, P extends unknown, C extends string>({
   itemHeight,
   headerLabels,
   items,
@@ -23,6 +23,7 @@ export const ListTable = <T extends object, P extends unknown, C extends unknown
         columnsWeight={columnsWeight}
       />
       <List
+        key={items.length}
         rowComponent={RowComponent}
         rowCount={items.length}
         rowHeight={itemHeight ?? 80}

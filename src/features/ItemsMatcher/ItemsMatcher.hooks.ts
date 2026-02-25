@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useTransition } from 'react';
 import { useLocalStorage } from '@hooks';
 import { CONFIRMATION_MESSAGES } from './ItemsMatcher.constants';
 import type { FilterType, MatchedItem, FileFusion, File1C } from './ItemsMatcher.types';
@@ -17,7 +17,7 @@ export const useItemsMatcher = () => {
     STORAGE_KEYS.ITEMS_MATCHER_FILE_FUSION_ITEMS,
     []
   );
-  const [currentFilter, setCurrentFilter] = useLocalStorage<FilterType>(
+  const [currentFilter, setCurrentFilterState] = useLocalStorage<FilterType>(
     STORAGE_KEYS.ITEMS_MATCHER_FILTER,
     'all'
   );
@@ -25,6 +25,7 @@ export const useItemsMatcher = () => {
   const [showResults, setShowResults] = useState(false);
   const [selectedItemIndex, setSelectedItemIndex] = useState<number | null>(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [isFiltering, startFilterTransition] = useTransition();
 
   useEffect(() => {
     if (allResults.length > 0) {
@@ -51,6 +52,12 @@ export const useItemsMatcher = () => {
       setShowResults(true);
     }
   }, [fileUpload1C, fileUploadFusion, setAllResults, setFileFusionItems]);
+
+  const setCurrentFilter = useCallback((filter: FilterType) => {
+    startFilterTransition(() => {
+      setCurrentFilterState(filter);
+    });
+  }, [setCurrentFilterState]);
 
   const handleClear = useCallback(() => {
     if (confirm(CONFIRMATION_MESSAGES.clear)) {
@@ -165,5 +172,6 @@ export const useItemsMatcher = () => {
     stats: getStats(allResults),
     handleDownload,
     handleTransfer,
+    isFiltering,
   };
 };

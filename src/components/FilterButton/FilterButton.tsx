@@ -6,12 +6,15 @@ export const FilterButton = <T extends string | number>({
   value,
   isActive = false,
   handleClick,
+  disabled = false,
 }: FilterButtonProps<T>) => {
-  const onClick = () => handleClick?.(value);
+  const onClick = () => !disabled && handleClick?.(value);
   return (
     <button
       css={[styles.filterBtn, isActive && styles.activeButton]}
       onClick={onClick}
+      disabled={disabled}
+      style={{ opacity: disabled ? 0.6 : 1 }}
     >
       {label}
     </button>

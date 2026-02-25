@@ -14,6 +14,7 @@ export const Results = ({
   setCurrentFilter,
   filteredItems,
   filterApplied,
+  isFiltering = false,
 }: ResultsProps) => {
   if (!showResults) {
     return null;
@@ -32,6 +33,7 @@ export const Results = ({
         <Filters 
           currentFilter={currentFilter}
           setCurrentFilter={setCurrentFilter}
+          isFiltering={isFiltering}
         />
 
         <ItemsTable

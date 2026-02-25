@@ -23,6 +23,7 @@
     "filterFuzzy": "Нечеткие",
     "filterManual": "Ручные",
     "filterUnmatched": "Не найдены",
+    "filtering": "Фильтрация...",
     "tableHeaders": {
       "number": "#",
       "article1c": "Артикул (1C)",
