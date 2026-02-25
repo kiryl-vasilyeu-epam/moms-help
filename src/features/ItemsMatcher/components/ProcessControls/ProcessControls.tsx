@@ -18,12 +18,12 @@ export const ProcessControls = ({
         onClick={handleProcess}
         style={styles.processButton}
       >
-        {t("itemMatcher.processBtn")}
+        {t("itemsMatcher.files.processBtn")}
       </Button>
       <Button
         variant="danger"
         onClick={handleClear}
-        title={t("itemMatcher.clearBtn")}
+        title={t("itemsMatcher.controls.clearBtn")}
       >
         ✕
       </Button>

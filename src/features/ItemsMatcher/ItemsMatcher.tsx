@@ -30,7 +30,7 @@ export const ItemsMatcher = memo(() => {
 
   return (
     <div css={styles.container}>
-      <h1>{t("itemMatcher.title")}</h1>
+      <h1>{t("itemsMatcher.title")}</h1>
       
       <UploadSection 
         fileUpload1C={fileUpload1C}

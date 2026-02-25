@@ -12,14 +12,14 @@ export const UploadSection = ({
   return (
     <div css={styles.uploadSection}>
       <FileUploadButton
-        label={t("itemMatcher.file1Label")}
+        label={t("itemsMatcher.files.file1CLabel")}
         fileName={fileUpload1C.fileName}
         onFileSelect={fileUpload1C.handleFileChange}
         isFileReady={fileUpload1C.isReady}
       />
 
       <FileUploadButton
-        label={t("itemMatcher.file2Label")}
+        label={t("itemsMatcher.files.fileFusionLabel")}
         fileName={fileUploadFusion.fileName}
         onFileSelect={fileUploadFusion.handleFileChange}
         isFileReady={fileUploadFusion.isReady}

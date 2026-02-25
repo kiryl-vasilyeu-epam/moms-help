@@ -26,7 +26,7 @@ export const Filters = ({
       {isFiltering && (
         <div css={styles.loadingIndicator}>
           <div css={styles.spinner} />
-          {t('itemMatcher.filtering') || 'Filtering...'}
+          {t('itemsMatcher.filters.filtering') || 'Filtering...'}
         </div>
       )}
     </div>

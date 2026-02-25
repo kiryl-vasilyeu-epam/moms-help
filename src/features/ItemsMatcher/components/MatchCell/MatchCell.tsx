@@ -2,16 +2,25 @@
 import { styles } from "./MatchCell.styles";
 import { TableCellProps } from "../TableCell/TableCell.types";
 import { memo } from "react";
+import { useTranslation } from "react-i18next";
 
-export const MatchCell = memo(({ item }: TableCellProps) => {
+export const MatchCell = memo(({ item: { matchedInvNo, invNo } }: TableCellProps) => {
+  const { t } = useTranslation();
+  const hasMatch = !!matchedInvNo;
+  const isMatchFuzzy = hasMatch && matchedInvNo !== invNo;
   const matchedInvNoStyles = [
-    styles.matchedInvno,
-    item.matchedInvNo && item.matchedInvNo !== item.invNo && styles.matchedInvnoHasTooltipPink,
+    styles.matchedInvNo,
+    isMatchFuzzy && styles.matchedInvNoFuzzy,
+    !hasMatch && styles.matchedInvNoNone,
   ];
+
+  const dataToShow = hasMatch
+    ? (isMatchFuzzy ? matchedInvNo : '')
+    : t('itemsMatcher.pickMatch');
 
   return (
     <div css={matchedInvNoStyles}>
-      {item.matchedInvNo && item.matchedInvNo !== item.invNo ? item.matchedInvNo : ''}
+      {dataToShow}
     </div>
   );
 });

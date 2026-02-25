@@ -2,13 +2,13 @@ import { styles } from "./ItemsTable.styles";
 import { Columns } from "./ItemsTable.types";
 
 export const TABLE_HEADER = [
-  'itemMatcher.tableHeaders.number',
-  'itemMatcher.tableHeaders.article1c',
-  'itemMatcher.tableHeaders.name',
-  'itemMatcher.tableHeaders.quantity',
-  'itemMatcher.tableHeaders.price',
-  'itemMatcher.tableHeaders.articleFusion',
-  'itemMatcher.tableHeaders.status',
+  'itemsMatcher.tableHeaders.number',
+  'itemsMatcher.tableHeaders.article1c',
+  'itemsMatcher.tableHeaders.name',
+  'itemsMatcher.tableHeaders.quantity',
+  'itemsMatcher.tableHeaders.price',
+  'itemsMatcher.tableHeaders.articleFusion',
+  'itemsMatcher.tableHeaders.status',
 ];
 
 export const ROW_SPECIFIC_STYLES = {

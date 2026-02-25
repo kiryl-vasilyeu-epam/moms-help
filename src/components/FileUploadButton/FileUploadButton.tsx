@@ -13,7 +13,7 @@ export const FileUploadButton = ({ label, fileName, onFileSelect, isFileReady }:
       <label
         css={styles.fileLabel}
         htmlFor={id}
-      >{t("itemMatcher.selectFile")}</label>
+      >{t("fileUpload.selectFile")}</label>
       <input
         type="file"
         accept=".xls,.xlsx"
@@ -23,7 +23,7 @@ export const FileUploadButton = ({ label, fileName, onFileSelect, isFileReady }:
       />
       <div
         css={styles.fileName}
-      >{fileName ? fileName : t("itemMatcher.fileNotSelected")}</div>
+      >{fileName ? fileName : t("fileUpload.fileNotSelected")}</div>
     </div>
                 
   );

@@ -15,14 +15,14 @@ export const ResultButtons = ({
         variant="success"
         onClick={handleDownload}
       >
-        {t("itemMatcher.downloadBtn")}
+        {t("itemsMatcher.controls.downloadBtn")}
       </Button>
 
       <Button
         variant="info"
         onClick={handleTransfer}
       >
-        {t("itemMatcher.transferBtn")}
+        {t("itemsMatcher.controls.transferBtn")}
       </Button>
     </div>
   );

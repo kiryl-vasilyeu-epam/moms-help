@@ -4,26 +4,41 @@
     "items": "Совпадение артикулов",
     "price": "Поиск цен"
   },
-  "itemMatcher": {
+  "fileUpload": {
+    "selectFile": "Выберите файл",
+    "fileNotSelected": "Файл не выбран"
+  },
+  "itemsMatcher": {
     "title": "📊 Сравнение выписок 1C и Fusion",
-    "file1Label": "Файл 1: 1C выписка",
-    "file2Label": "Файл 2: Fusion выписка",
-    "selectFile": "Выбрать файл",
-    "processBtn": "Обработать файлы",
-    "clearBtn": "Очистить все сохраненные данные",
-    "downloadBtn": "📥 Скачать список с совпадениями (.xlsx)",
-    "transferBtn": "💰 Передать в Поиск цен",
-    "totalItems": "Всего товаров (1C)",
-    "matchedItems": "Точные совпадения",
-    "fuzzyItems": "Нечеткие совпадения",
-    "manualItems": "Ручные совпадения",
-    "unmatchedItems": "Не найдены",
-    "filterAll": "Все",
-    "filterExact": "Точные",
-    "filterFuzzy": "Нечеткие",
-    "filterManual": "Ручные",
-    "filterUnmatched": "Не найдены",
-    "filtering": "Фильтрация...",
+
+    "files": {
+      "file1CLabel": "Файл 1: 1C выписка",
+      "fileFusionLabel": "Файл 2: Fusion выписка",
+      "processBtn": "Обработать файлы"
+    },
+    "controls": {
+      "clearBtn": "Очистить все сохраненные данные",
+      "downloadBtn": "📥 Скачать список с совпадениями (.xlsx)",
+      "transferBtn": "💰 Передать в Поиск цен"
+    },
+
+    "stats": {
+      "totalItems": "Всего товаров (1C)",
+      "matchedItems": "Точные совпадения",
+      "fuzzyItems": "Нечеткие совпадения",
+      "manualItems": "Ручные совпадения",
+      "unmatchedItems": "Не найдены"
+    },
+
+    "filters": {
+      "all": "Все",
+      "exact": "Точные",
+      "fuzzy": "Нечеткие",
+      "manual": "Ручные",
+      "unmatched": "Не найдены",
+      "filtering": "Фильтрация..."
+    },
+
     "tableHeaders": {
       "number": "#",
       "article1c": "Артикул (1C)",
@@ -32,7 +47,8 @@
       "price": "Последняя цена",
       "articleFusion": "Артикул (Fusion)",
       "status": "Статус совпадения"
-    }
-  },
-  "fileNotSelected": "Файл не выбран"
+    },
+
+    "pickMatch": "Выберите товар"
+  }
 }

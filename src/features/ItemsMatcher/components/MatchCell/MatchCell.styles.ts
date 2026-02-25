@@ -1,11 +1,11 @@
 import { createStyles } from "@utils";
 
 export const styles = createStyles({
-  matchedInvno: {
+  matchedInvNo: {
     cursor: "default",
     position: "relative",
   },
-  matchedInvnoHasTooltipPink: {
+  matchedInvNoFuzzy: {
     flex: 1,
     height: '100%',
     display: 'flex',
@@ -18,5 +18,20 @@ export const styles = createStyles({
     '&:hover': {
       background: "#ffe0b2",
     },
+    cursor: 'pointer'
   },
+  matchedInvNoNone: {
+    flex: 1,
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '10px',
+    borderRadius: 8,
+    border: "2px dashed #667eea",
+    '&:hover': {
+      background: "#f0f4ff",
+    },
+    cursor: 'pointer'
+  }
 });

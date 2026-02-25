@@ -3,10 +3,10 @@
     "items": "Items matcher",
     "price": "Price matcher"
   },
-  "itemMatcher": {
+  "itemsMatcher": {
     "title": "📊 Compare 1C and Fusion statements",
-    "file1Label": "File 1: 1C statement",
-    "file2Label": "File 2: Fusion statement",
+    "file1CLabel": "File 1: 1C statement",
+    "fileFusionLabel": "File 2: Fusion statement",
     "selectFile": "Select file",
     "processBtn": "Process files",
     "clearBtn": "Clear all saved data",
