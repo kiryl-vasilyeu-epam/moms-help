@@ -25,7 +25,9 @@ export const COLUMN_RENDERS: Record<Columns, (props: TableCellProps) => ReactNod
         <div css={styles.tooltip}>
           {item.matchedItem?.rawData}
         </div>
+        
       }
+      enterNextDelay={800}
       arrow
     >
       <MatchCell item={item} />
