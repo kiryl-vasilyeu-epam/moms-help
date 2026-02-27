@@ -1,6 +1,0 @@
-export { FileUploadSection } from './FileUploadSection/FileUploadSection';
-export { StatsSection } from './StatsSection/StatsSection';
-export { FilterButtons } from './FilterButtons/FilterButtons';
-export { ResultsTable } from './ResultsTable/ResultsTable';
-export { MatchDropdown } from './MatchDropdown/MatchDropdown';
-export { ActionButtons } from './ActionButtons/ActionButtons';
