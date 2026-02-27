@@ -1,12 +1,12 @@
-import { useState, useCallback, useEffect, useTransition } from 'react';
+import { useState, useCallback, useEffect, useTransition, useMemo } from 'react';
 import { useLocalStorage } from '@hooks';
 import { CONFIRMATION_MESSAGES } from './ItemsMatcher.constants';
-import type { FilterType, MatchedItem, FileFusion, File1C } from './ItemsMatcher.types';
+import type { FilterType, MatchedItem, FileFusion, File1C, NewMatchData, ItemsMatcherData } from './ItemsMatcher.types';
 import { STORAGE_KEYS } from '@constants';
 import { exportToXLS, getStats, matchItems, parse1C, parseFusion } from './ItemsMatcher.helpers';
 import { useXLSFileUpload } from '@hooks';
 
-export const useItemsMatcher = () => {
+export const useItemsMatcher = (): ItemsMatcherData => {
   const fileUpload1C = useXLSFileUpload<File1C[]>(parse1C);
   const fileUploadFusion = useXLSFileUpload<FileFusion[]>(parseFusion);
   const [allResults, setAllResults] = useLocalStorage<MatchedItem[]>(
@@ -23,8 +23,8 @@ export const useItemsMatcher = () => {
   );
   const [filteredItems, setFilteredItems] = useState<MatchedItem[]>([]);
   const [showResults, setShowResults] = useState(false);
-  const [selectedItemIndex, setSelectedItemIndex] = useState<number | null>(null);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropdownAnchor, setDropdownAnchor] = useState<HTMLElement | null>(null);
+  const [matchItem, setMatchItem] = useState<number | null>(null);
   const [isFiltering, startFilterTransition] = useTransition();
 
   useEffect(() => {
@@ -70,32 +70,44 @@ export const useItemsMatcher = () => {
     }
   }, [fileUpload1C, fileUploadFusion, setAllResults, setCurrentFilter, setFileFusionItems]);
 
-  const handleSelectMatch = useCallback((itemIndex: number) => {
-    setSelectedItemIndex(itemIndex);
-    setDropdownOpen(true);
-  }, []);
-
   const handleSelectMatchItem = useCallback(
-    (file2Index: number) => {
-      if (selectedItemIndex === null) return;
+    ({
+      anchor,
+      itemIndex,
+    }: NewMatchData) => {
+      setDropdownAnchor(anchor);
+      setMatchItem(itemIndex);
+    },
+    []
+  );
 
-      const itemMatch = fileFusionItems[file2Index];
+  const handleSelectMatch = useCallback(
+    (index: number) => {
+      setDropdownAnchor(null);
+
+      if (matchItem === null) return;
+      const itemMatch = fileFusionItems[index];
       const updated = [...allResults];
-      updated[selectedItemIndex] = {
-        ...updated[selectedItemIndex],
+      const currentItem = filteredItems[matchItem];
+      const currentIndex = updated.indexOf(currentItem);
+      updated[currentIndex] = {
+        ...updated[currentIndex],
         matchType: 'manual',
         matchedInvNo: itemMatch.invNo,
         matchedItem: itemMatch
       };
 
       setAllResults(updated);
-      setSelectedItemIndex(null);
-      setDropdownOpen(false);
     },
-    [selectedItemIndex, allResults, fileFusionItems, setAllResults]
+    [allResults, fileFusionItems, filteredItems, matchItem, setAllResults]
   );
 
-  const handleUnmatchItem = useCallback(
+  const handleCloseDropdown = useCallback(() => {
+    setDropdownAnchor(null);
+    setMatchItem(null);
+  }, []);
+
+  const handleRemoveMatch = useCallback(
     (itemIndex: number) => {
       const updated = [...allResults];
       if (updated[itemIndex].matchType === 'fuzzy' || updated[itemIndex].matchType === 'manual') {
@@ -146,6 +158,8 @@ export const useItemsMatcher = () => {
     alert('✓ Данные переданы в "Поиск цен"');
   }, [allResults, setTransferData]);
 
+  const stats = useMemo(() => getStats(allResults), [allResults]);
+
   return {
     fileUpload1C,
     fileUploadFusion,
@@ -153,25 +167,21 @@ export const useItemsMatcher = () => {
     allResults,
     filteredItems,
     filterApplied,
-    setAllResults,
     fileFusionItems,
-    setFileFusionItems,
     currentFilter,
     setCurrentFilter,
     showResults,
     setShowResults,
-    selectedItemIndex,
-    setSelectedItemIndex,
-    dropdownOpen,
-    setDropdownOpen,
     handleProcess,
     handleClear,
-    handleSelectMatch,
     handleSelectMatchItem,
-    handleUnmatchItem,
-    stats: getStats(allResults),
+    handleSelectMatch,
+    handleRemoveMatch,
+    handleCloseDropdown,
+    stats,
     handleDownload,
     handleTransfer,
     isFiltering,
+    dropdownAnchor,
   };
 };

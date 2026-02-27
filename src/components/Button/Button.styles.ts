@@ -3,10 +3,10 @@ import { createStyles } from "@utils";
 export const styles = createStyles({
   button: {
     padding: "15px",
+    fontSize: "16px",
     color: "white",
     border: "none",
     borderRadius: "8px",
-    fontSize: "16px",
     fontWeight: "bold",
     cursor: "pointer",
     transition: "all 0.2s",
@@ -18,6 +18,11 @@ export const styles = createStyles({
       cursor: "not-allowed",
       transform: "none",
     },
+  },
+  buttonSmall: {
+    padding: "8px",
+    fontSize: "12px",
+    borderRadius: "4px",
   },
   buttonPrimary: {
     background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
@@ -43,6 +48,15 @@ export const styles = createStyles({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-
+  },
+  buttonDangerSmall: {
+    background: "#e74c3c",
+    width: "25px",
+    height: "25px",
+    padding: 0,
+    fontSize: "12px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

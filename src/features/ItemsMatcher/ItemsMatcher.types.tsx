@@ -1,3 +1,6 @@
+import { FileUploadState } from "@hooks";
+import { Dispatch, SetStateAction } from "react";
+
 export type MatchType = 'exact' | 'fuzzy' | 'manual' | 'none'
 export type FilterType = 'all' | MatchType
 
@@ -38,10 +41,32 @@ export interface Stats {
   none: number
 }
 
-export interface DropdownItem {
-  invNo: string
-  name: string
-  fullText: string
-  index: number
-  item: FileFusion
+export interface NewMatchData {
+  anchor: HTMLElement
+  itemIndex: number
+}
+
+export interface ItemsMatcherData  {
+  fileUpload1C: FileUploadState<File1C[]>
+  fileUploadFusion: FileUploadState<FileFusion[]>
+  isProcessDisabled: boolean
+  allResults: MatchedItem[]
+  filteredItems: MatchedItem[]
+  filterApplied: boolean
+  fileFusionItems: FileFusion[]
+  currentFilter: FilterType
+  setCurrentFilter: (filter: FilterType) => void
+  showResults: boolean
+  setShowResults: Dispatch<SetStateAction<boolean>>
+  handleProcess: () => void
+  handleClear: () => void
+  handleSelectMatchItem: (data: NewMatchData) => void
+  handleSelectMatch: (itemIndex: number) => void
+  handleRemoveMatch: (itemIndex: number) => void
+  handleCloseDropdown: () => void
+  stats: Stats
+  handleDownload: () => void
+  handleTransfer: () => void
+  isFiltering: boolean
+  dropdownAnchor: HTMLElement | null
 }

@@ -21,12 +21,10 @@ export const ProcessControls = ({
         {t("itemsMatcher.files.processBtn")}
       </Button>
       <Button
-        variant="danger"
+        variant="close"
         onClick={handleClear}
         title={t("itemsMatcher.controls.clearBtn")}
-      >
-        ✕
-      </Button>
+      />
     </div>
   );
 };

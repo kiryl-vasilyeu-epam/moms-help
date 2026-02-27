@@ -11,6 +11,11 @@
   "itemsMatcher": {
     "title": "📊 Сравнение выписок 1C и Fusion",
 
+    "dropdown": {
+      "matchDropdownTitle": "Выберите совпадение",
+      "searchPlaceholder": "Поиск по артикулу или названию"
+    },
+
     "files": {
       "file1CLabel": "Файл 1: 1C выписка",
       "fileFusionLabel": "Файл 2: Fusion выписка",

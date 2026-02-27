@@ -1,10 +1,10 @@
 import { StrictCssObjectWithSelectors } from '@utils';
 import { ReactNode } from 'react';
 
-export type ButtonVariant = 'primary' | 'success' | 'info' | 'danger'
+export type ButtonVariant = 'primary' | 'success' | 'info' | 'danger' | 'close'
 
 export interface ButtonProps {
-  children: ReactNode
+  children?: ReactNode
   variant?: ButtonVariant
   disabled?: boolean
   onClick?: () => void

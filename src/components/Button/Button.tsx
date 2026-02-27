@@ -8,6 +8,7 @@ export const Button = ({
   onClick,
   title,
   style,
+  isSmall = false,
 }: ButtonProps) => {
   const getVariantStyles = () => {
     switch (variant) {
@@ -17,6 +18,8 @@ export const Button = ({
       return styles.buttonInfo;
     case 'danger':
       return styles.buttonDanger;
+    case 'close':
+      return isSmall ? styles.buttonDangerSmall: styles.buttonDanger;
     default:
       return styles.buttonPrimary;
     }
@@ -24,12 +27,12 @@ export const Button = ({
 
   return (
     <button
-      css={[styles.button, getVariantStyles(), style]}
+      css={[styles.button, isSmall && styles.buttonSmall, getVariantStyles(), style]}
       disabled={disabled}
       onClick={onClick}
       title={title}
     >
-      {children}
+      {variant === 'close' ? '✕' : children}
     </button>
   );
 };

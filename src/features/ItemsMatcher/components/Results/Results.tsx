@@ -4,8 +4,10 @@ import { Filters } from '../Filters';
 import { ItemsTable } from '../ItemsTable';
 import { styles } from './Results.styles';
 import { ResultsProps } from './Results.types';
+import { memo } from 'react';
+import { MatchDropdown } from '../MatchDropdown';
 
-export const Results = ({
+export const Results = memo(({
   showResults,
   handleDownload,
   handleTransfer,
@@ -15,6 +17,12 @@ export const Results = ({
   filteredItems,
   filterApplied,
   isFiltering = false,
+  dropdownAnchor,
+  handleRemoveMatch,
+  handleSelectMatchItem,
+  handleCloseDropdown,
+  fileFusionItems,
+  handleSelectMatch,
 }: ResultsProps) => {
   if (!showResults) {
     return null;
@@ -37,10 +45,21 @@ export const Results = ({
         />
 
         <ItemsTable
-          items={filteredItems}
+          filteredItems={filteredItems}
           filterApplied={filterApplied}
+          handleSelectMatchItem={handleSelectMatchItem}
+          handleRemoveMatch={handleRemoveMatch}
+        />
+
+        <MatchDropdown
+          dropdownAnchor={dropdownAnchor}
+          handleCloseDropdown={handleCloseDropdown}
+          fileFusionItems={fileFusionItems}
+          handleSelectMatch={handleSelectMatch}
         />
       </div>
     </>
   );
-};
+});
+
+Results.displayName = 'Results';

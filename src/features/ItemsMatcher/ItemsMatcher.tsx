@@ -26,6 +26,12 @@ export const ItemsMatcher = memo(() => {
     handleDownload,
     handleTransfer,
     isFiltering,
+    fileFusionItems,
+    handleSelectMatch,
+    handleSelectMatchItem,
+    handleRemoveMatch,
+    dropdownAnchor,
+    handleCloseDropdown,
   } = useItemsMatcher();
 
   return (
@@ -53,6 +59,12 @@ export const ItemsMatcher = memo(() => {
         filteredItems={filteredItems}
         filterApplied={filterApplied}
         isFiltering={isFiltering}
+        fileFusionItems={fileFusionItems}
+        handleSelectMatch={handleSelectMatch}
+        handleSelectMatchItem={handleSelectMatchItem}
+        handleRemoveMatch={handleRemoveMatch}
+        dropdownAnchor={dropdownAnchor}
+        handleCloseDropdown={handleCloseDropdown}
       />
     </div>
   );

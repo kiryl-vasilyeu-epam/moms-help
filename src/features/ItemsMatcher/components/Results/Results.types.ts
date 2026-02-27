@@ -1,13 +1,20 @@
-import { MatchedItem, Stats, FilterType } from '../../ItemsMatcher.types';
+import { ItemsMatcherData } from '../../ItemsMatcher.types';
 
-export interface ResultsProps {
-  showResults: boolean;
-  handleDownload: () => void;
-  handleTransfer: () => void;
-  stats: Stats;
-  currentFilter: FilterType;
-  setCurrentFilter: (filter: FilterType) => void;
-  filteredItems: MatchedItem[];
-  filterApplied: boolean;
-  isFiltering?: boolean;
-}
+export type ResultsProps = Pick<
+ItemsMatcherData, 
+  | 'showResults'
+  | 'handleDownload'
+  | 'handleTransfer'
+  | 'stats'
+  | 'currentFilter'
+  | 'setCurrentFilter'
+  | 'filteredItems'
+  | 'filterApplied'
+  | 'isFiltering'
+  | 'fileFusionItems'
+  | 'handleSelectMatchItem'
+  | 'handleSelectMatch'
+  | 'handleRemoveMatch'
+  | 'dropdownAnchor'
+  | 'handleCloseDropdown'
+>

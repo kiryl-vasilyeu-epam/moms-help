@@ -206,11 +206,17 @@ export const exportToXLS = (results: MatchedItem[]): void => {
 };
 
 export const getStats = (results: MatchedItem[]) => {
-  return {
+  return results.reduce((acc, item) => {
+    if (item.matchType === 'exact') acc.exact += 1;
+    else if (item.matchType === 'fuzzy') acc.fuzzy += 1;
+    else if (item.matchType === 'manual') acc.manual += 1;
+    else if (item.matchType === 'none') acc.none += 1;
+    return acc;
+  }, {
     total: results.length,
-    exact: results.filter((r) => r.matchType === 'exact').length,
-    fuzzy: results.filter((r) => r.matchType === 'fuzzy').length,
-    manual: results.filter((r) => r.matchType === 'manual').length,
-    none: results.filter((r) => r.matchType === 'none').length
-  };
+    exact: 0,
+    fuzzy: 0,
+    manual: 0,
+    none: 0
+  });
 };

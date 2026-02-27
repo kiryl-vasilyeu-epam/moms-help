@@ -1,13 +1,14 @@
-
 import { styles } from "./MatchCell.styles";
-import { TableCellProps } from "../TableCell/TableCell.types";
 import { forwardRef } from "react";
 import { useTranslation } from "react-i18next";
+import { MatchCellProps } from "./MatchCell.types";
 
-export const MatchCell = forwardRef<HTMLDivElement, Pick<TableCellProps, 'item'>>(
+export const MatchCell = forwardRef<HTMLDivElement, MatchCellProps>(
   (props, ref) => {
     const {
       item: { invNo, matchedInvNo },
+      cellCommonProps,
+      index,
       ...tooltipProps
     } = props;
     const { t } = useTranslation();
@@ -23,10 +24,16 @@ export const MatchCell = forwardRef<HTMLDivElement, Pick<TableCellProps, 'item'>
       ? (isMatchFuzzy ? matchedInvNo : '')
       : t('itemsMatcher.pickMatch');
 
+    const handleClick = (event: React.MouseEvent<HTMLDivElement>) => cellCommonProps?.handleSelectMatchItem({
+      anchor: event?.currentTarget,
+      itemIndex: index,
+    });
+
     return (
       <div
         css={matchedInvNoStyles}
         ref={ref}
+        onClick={handleClick}
         {...tooltipProps}
       >
         {dataToShow}
