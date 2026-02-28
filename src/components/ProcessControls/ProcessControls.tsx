@@ -7,6 +7,7 @@ export const ProcessControls = ({
   isProcessDisabled,
   handleProcess,
   handleClear,
+  plural,
 }: ProcessControlsProps) => {
   const { t } = useTranslation();
 
@@ -18,12 +19,11 @@ export const ProcessControls = ({
         onClick={handleProcess}
         style={styles.processButton}
       >
-        {t("itemsMatcher.files.processBtn")}
+        {plural ? t("fileUpload.processBtnPlural") : t("fileUpload.processBtn")}
       </Button>
       <Button
         variant="close"
         onClick={handleClear}
-        title={t("itemsMatcher.controls.clearBtn")}
       />
     </div>
   );

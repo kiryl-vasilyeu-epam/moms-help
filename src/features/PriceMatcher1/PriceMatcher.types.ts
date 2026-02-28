@@ -32,3 +32,17 @@ export interface TransferredItem {
   amount: number
   matched: boolean
 }
+
+export interface ProgressUpdate {
+  processedItems: number
+  totalItems: number
+  dpSize: number
+  elapsed: number
+}
+
+export type AllUsedItems = Record<string, {
+    name: string
+    rowNumber: number | string
+    quantity: number
+    salePriceCents: number
+  }>;

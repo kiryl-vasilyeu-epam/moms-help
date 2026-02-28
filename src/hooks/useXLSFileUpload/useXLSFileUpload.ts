@@ -41,7 +41,7 @@ export const useXLSFileUpload = <T>(parseFunction: ParseFunction<T>): FileUpload
 
   const clearFiles = useCallback(() => {
     setFileData(null);
-    setFileName(t('fileNotSelected'));
+    setFileName(t('fileUpload.fileNotSelected'));
   }, [t]);
 
   const isReady = fileData !== null;

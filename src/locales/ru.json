@@ -6,7 +6,9 @@
   },
   "fileUpload": {
     "selectFile": "Выберите файл",
-    "fileNotSelected": "Файл не выбран"
+    "fileNotSelected": "Файл не выбран",
+    "processBtn": "Обработать файл",
+    "processBtnPlural": "Обработать файлы"
   },
   "itemsMatcher": {
     "title": "📊 Сравнение выписок 1C и Fusion",
@@ -18,11 +20,10 @@
 
     "files": {
       "file1CLabel": "Файл 1: 1C выписка",
-      "fileFusionLabel": "Файл 2: Fusion выписка",
-      "processBtn": "Обработать файлы"
+      "fileFusionLabel": "Файл 2: Fusion выписка"
     },
+    
     "controls": {
-      "clearBtn": "Очистить все сохраненные данные",
       "downloadBtn": "📥 Скачать список с совпадениями (.xlsx)",
       "transferBtn": "💰 Передать в Поиск цен"
     },

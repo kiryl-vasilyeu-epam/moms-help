@@ -2,11 +2,11 @@ import { useTranslation } from 'react-i18next';
 import { styles } from "./ItemsMatcher.styles";
 import { 
   UploadSection, 
-  ProcessControls, 
   Results 
 } from './components';
 import { useItemsMatcher } from './ItemsMatcher.hooks';
 import { memo } from 'react';
+import { ProcessControls } from '@components';
 
 export const ItemsMatcher = memo(() => {
   const { t } = useTranslation();
@@ -43,10 +43,11 @@ export const ItemsMatcher = memo(() => {
         fileUploadFusion={fileUploadFusion}
       />
 
-      <ProcessControls 
+      <ProcessControls
         isProcessDisabled={isProcessDisabled}
         handleProcess={handleProcess}
         handleClear={handleClear}
+        plural
       />
 
       <Results
