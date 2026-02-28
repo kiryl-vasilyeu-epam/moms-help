@@ -1,22 +1,29 @@
 import * as XLSX from 'xlsx-js-style';
 import type { File1C, FileFusion, MatchedItem, MatchType } from './ItemsMatcher.types';
-import { FUZZY_MATCH_CONFIG, PRICE_CALCULATION, EXPORT_HEADERS, EXPORT_SHEET_NAME } from './ItemsMatcher.constants';
+import { FUZZY_MATCH_CONFIG, PRICE_CALCULATION, EXPORT_SHEET_NAME } from './ItemsMatcher.constants';
 
-const possible1CDataStart = ['ТТН', 'ТН', 'Счет-фактура'];
-export const parse1C = (data: unknown[][]): File1C[] => {
+export const parse1C = (data: unknown[][], {
+  possible1CDataStart, firstRow1C, nameColumn1C, priceColumn1C, amount1C
+}: {
+  possible1CDataStart: string[];
+  firstRow1C: number;
+  nameColumn1C: number;
+  priceColumn1C: number;
+  amount1C: number;
+}): File1C[] => {
   const items: File1C[] = [];
   let currentItem: Partial<File1C> | null = null;
 
-  for (let i = 1; i < data.length; i++) {
+  for (let i = firstRow1C; i < data.length; i++) {
     const row = data[i];
-    const col0 = String(row?.[0] ?? '').trim();
+    const col0 = String(row?.[nameColumn1C] ?? '').trim();
 
     if (!col0) continue;
 
     if (possible1CDataStart.some(start => col0.startsWith(start))) {
       if (currentItem) {
-        const price = parseFloat(String(row?.[2] ?? 0)) || 0;
-        const amount = parseFloat(String(row?.[3] ?? 0)) || 0;
+        const price = parseFloat(String(row?.[priceColumn1C] ?? 0)) || 0;
+        const amount = parseFloat(String(row?.[amount1C] ?? 0)) || 0;
 
         currentItem.totalAmount = (currentItem.totalAmount ?? 0) + amount;
         if (price > 0) {
@@ -64,15 +71,22 @@ export const parse1C = (data: unknown[][]): File1C[] => {
   return items;
 };
 
-export const parseFusion = (data: unknown[][]): FileFusion[] => {
+export const parseFusion = (data: unknown[][], {
+  firstRowFusion, barcodeColumnFusion, nameColumnFusion, priceColumnFusion
+}: {
+  firstRowFusion: number;
+  barcodeColumnFusion: number;
+  nameColumnFusion: number;
+  priceColumnFusion: number;
+}): FileFusion[] => {
   const items: FileFusion[] = [];
 
-  for (let i = 1; i < data.length; i++) {
+  for (let i = firstRowFusion; i < data.length; i++) {
     const row = data[i];
 
-    const barcode = String(row?.[0] ?? '').trim();
-    const invNoName = String(row?.[1] ?? '').trim();
-    const price = parseFloat(String(row?.[2] ?? 0)) || 0;
+    const barcode = String(row?.[barcodeColumnFusion] ?? '').trim();
+    const invNoName = String(row?.[nameColumnFusion] ?? '').trim();
+    const price = parseFloat(String(row?.[priceColumnFusion] ?? 0)) || 0;
 
     if (!invNoName) continue;
 
@@ -159,16 +173,18 @@ export const matchItems = (items1: File1C[], items2: FileFusion[]): MatchedItem[
   });
 };
 
-export const exportToXLS = (results: MatchedItem[]): void => {
+export const exportToXLS = (results: MatchedItem[], {
+  exportColumnsNames, itemsMatcherExportDataOrder
+}: { exportColumnsNames: string[]; itemsMatcherExportDataOrder: string[] }): void => {
   const matchedItems = results.filter((item) => item.matchType !== 'none');
   const unmatchedItems = results.filter((item) => item.matchType === 'none');
   const sortedItems = [...matchedItems, ...unmatchedItems];
 
-  const data = [EXPORT_HEADERS];
+  const data = [exportColumnsNames];
 
   sortedItems.forEach((item) => {
     const name = item.rawInvNoName ?? `${item.invNo} ${item.name}`;
-    const amount = Math.round(item.totalAmount);
+    const amount = Math.round(item.totalAmount).toString();
     const calculatedPrice = (
       item.latestPrice
       * PRICE_CALCULATION.multiplier1
@@ -179,6 +195,7 @@ export const exportToXLS = (results: MatchedItem[]): void => {
     let retailPrice = '';
     let discountPrice = '';
     let barcode = '';
+    const latestPrice = item.latestPrice.toString().replace('.', ',');
 
     if (item.matchType !== 'none' && item.matchedItem) {
       if (item.matchedItem.price) {
@@ -195,7 +212,16 @@ export const exportToXLS = (results: MatchedItem[]): void => {
       discountPrice = price;
     }
 
-    data.push([name, retailPrice, discountPrice, amount.toString(), item.latestPrice.toString(), barcode]);
+    const fullData = {
+      name,
+      retailPrice,
+      discountPrice,
+      amount,
+      latestPrice,
+      barcode
+    };
+
+    data.push(itemsMatcherExportDataOrder.map((key) => (fullData as Record<string, string>)[key]));
   });
 
   const wb = XLSX.utils.book_new();
@@ -210,10 +236,8 @@ export const exportToXLS = (results: MatchedItem[]): void => {
   ];
 
   const yellowStyle = { fill: { fgColor: { rgb: 'FFFF00' }, patternType: 'solid' } };
-  console.log(sortedItems);
   sortedItems.forEach((item, index) => {
     if (item.hasFewPrices) {
-      console.log('Highlighting item with multiple prices:', item);
       const rowIndex = index + 1;
       for (let col = 0; col < 6; col++) {
         const cellRef = XLSX.utils.encode_cell({ r: rowIndex, c: col });

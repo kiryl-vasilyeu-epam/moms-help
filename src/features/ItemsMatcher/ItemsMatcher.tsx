@@ -5,7 +5,18 @@ import {
 } from './components';
 import { useItemsMatcher } from './ItemsMatcher.hooks';
 import { memo } from 'react';
-import { Screen } from '@components';
+import { Button, PageSwitcher, Screen, usePageSwitcherNavigation } from '@components';
+import { styles } from './ItemsMatcher.styles';
+
+const SettingsPage = () => {
+  const { goToPrevPage } = usePageSwitcherNavigation();
+  return (
+    <div css={styles.aa}>
+      aaa
+      <Button onClick={goToPrevPage}>Back</Button>
+    </div>
+  );
+};
 
 export const ItemsMatcher = memo(() => {
   const { t } = useTranslation();
@@ -31,19 +42,33 @@ export const ItemsMatcher = memo(() => {
     handleRemoveMatch,
     dropdownAnchor,
     handleCloseDropdown,
+    isModalOpen,
+    openModal,
+    closeModal
   } = useItemsMatcher();
 
   return (
     <Screen
       title={t("itemsMatcher.title")}
       showSettingsState={!showResults}
+      isModalOpen={isModalOpen}
+      openModal={openModal}
+      closeModal={closeModal}
       settingsState={
-        <UploadSection 
-          fileUpload1C={fileUpload1C}
-          fileUploadFusion={fileUploadFusion}
-          isProcessDisabled={isProcessDisabled}
-          handleProcess={handleProcess}
-          handleClear={handleClear}
+        <PageSwitcher
+          initialPageIndex={0}
+          pages={[
+            <UploadSection
+              key="upload"
+              fileUpload1C={fileUpload1C}
+              fileUploadFusion={fileUploadFusion}
+              isProcessDisabled={isProcessDisabled}
+              handleProcess={handleProcess}
+              handleClear={handleClear}
+            />,
+            <SettingsPage key="settings" />
+          ]}
+          containerStyle={styles.setting}
         />
       }
     >

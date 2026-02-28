@@ -2,17 +2,17 @@ import { readExcelFile } from "@/helpers";
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-export type ParseFunction<T> = (data: unknown[][]) => T
+export type ParseFunction<T, A> = (data: unknown[][], args: A) => T
 export interface FileUploadState<T> {
   fileName: string | null;
   handleFileChange: (file: File) => void;
   isReady: boolean;
-  processFiles: () => T | null;
+  processFiles: (<A>(parseFunction: ParseFunction<T, A>, args: A) => T | null);
   clearFiles: () => void;
   loading: boolean;
 }
 
-export const useXLSFileUpload = <T>(parseFunction: ParseFunction<T>): FileUploadState<T> => {
+export const useXLSFileUpload = <T>(): FileUploadState<T> => {
   const { t } = useTranslation();
   const [fileData, setFileData] = useState<unknown[][] | null>(null);
   const [fileName, setFileName] = useState<string | null>(null);
@@ -31,13 +31,13 @@ export const useXLSFileUpload = <T>(parseFunction: ParseFunction<T>): FileUpload
     }
   }, []);
 
-  const processFiles = useCallback(() => {
+  const processFiles = useCallback(<A, >(parseFunction: ParseFunction<T, A>, args: A) => {
     if (!fileData) return null;
 
-    const items = parseFunction(fileData);
+    const items = parseFunction(fileData, args);
 
     return items;
-  }, [fileData, parseFunction]);
+  }, [fileData]);
 
   const clearFiles = useCallback(() => {
     setFileData(null);

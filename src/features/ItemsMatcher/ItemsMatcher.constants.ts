@@ -21,14 +21,4 @@ export const CONFIRMATION_MESSAGES = {
   noData: 'Нет данных для экспорта',
   noDataTransfer: 'Нет данных для передачи'
 };
-
-export const EXPORT_HEADERS = [
-  'Наименование',
-  'Цена розничная',
-  'Цена со скидкой',
-  'Кол-во',
-  'Себестоимость',
-  'Штрихкод'
-];
-
 export const EXPORT_SHEET_NAME = 'Список';

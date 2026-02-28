@@ -1,16 +1,17 @@
 import { useTranslation } from 'react-i18next';
-import { FileUploadButton, ProcessControls } from '@components';
+import { FileUploadButton, ProcessControls, usePageSwitcherNavigation } from '@components';
 import { styles } from './UploadSection.styles';
 import { UploadSectionProps } from './UploadSection.types';
 
-export const UploadSection = <T, P>({
+export const UploadSection = ({
   fileUpload1C,
   fileUploadFusion,
   isProcessDisabled,
   handleProcess,
   handleClear,
-}: UploadSectionProps<T, P>) => {
+}: UploadSectionProps) => {
   const { t } = useTranslation();
+  const { goToNextPage } = usePageSwitcherNavigation();
 
   return (
     <div css={styles.container}>
@@ -33,6 +34,7 @@ export const UploadSection = <T, P>({
         isProcessDisabled={isProcessDisabled}
         handleProcess={handleProcess}
         handleClear={handleClear}
+        handleSettings={goToNextPage}
         plural
       />
     </div>

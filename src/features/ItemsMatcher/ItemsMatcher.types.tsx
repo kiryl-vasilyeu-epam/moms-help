@@ -70,4 +70,7 @@ export interface ItemsMatcherData  {
   handleTransfer: () => void
   isFiltering: boolean
   dropdownAnchor: HTMLElement | null
+  isModalOpen: boolean
+  openModal: () => void
+  closeModal: () => void
 }

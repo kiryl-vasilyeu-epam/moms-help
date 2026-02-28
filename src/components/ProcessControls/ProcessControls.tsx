@@ -7,6 +7,7 @@ export const ProcessControls = ({
   isProcessDisabled,
   handleProcess,
   handleClear,
+  handleSettings,
   plural,
 }: ProcessControlsProps) => {
   const { t } = useTranslation();
@@ -29,7 +30,7 @@ export const ProcessControls = ({
       </Button>
       <Button
         variant="info"
-        onClick={handleClear}
+        onClick={handleSettings}
       >
         {t("fileUpload.settings")}
       </Button>

@@ -5,10 +5,84 @@ import type { FilterType, MatchedItem, FileFusion, File1C, NewMatchData, ItemsMa
 import { STORAGE_KEYS } from '@constants';
 import { exportToXLS, getStats, matchItems, parse1C, parseFusion } from './ItemsMatcher.helpers';
 import { useXLSFileUpload } from '@hooks';
+import { useScreen } from '@components';
+
+export const useFilesSettings = () => {
+  const [possible1CDataStart, setPossible1CDataStart] = useLocalStorage<string>(
+    STORAGE_KEYS.POSSIBLE_1C_DATA_START,
+    'ТТН, ТН, Счет-фактура'
+  );
+  const [firstRow1C, setFirstRow1C] = useLocalStorage<number>(
+    STORAGE_KEYS.FIRST_ROW_1C,
+    1
+  );
+  const [nameColumn1C, setNameColumn1C] = useLocalStorage<number>(
+    STORAGE_KEYS.NAME_COLUMN_1C,
+    0
+  );
+  const [priceColumn1C, setPriceColumn1C] = useLocalStorage<number>(
+    STORAGE_KEYS.PRICE_COLUMN_1C,
+    2
+  );
+  const [amount1C, setAmount1C] = useLocalStorage<number>(
+    STORAGE_KEYS.AMOUNT_1C,
+    3
+  );
+  const [firstRowFusion, setFirstRowFusion] = useLocalStorage<number>(
+    STORAGE_KEYS.FIRST_ROW_FUSION,
+    1
+  );
+  const [barcodeColumnFusion, setBarcodeColumnFusion] = useLocalStorage<number>(
+    STORAGE_KEYS.BARCODE_COLUMN_FUSION,
+    0
+  );
+  const [nameColumnFusion, setNameColumnFusion] = useLocalStorage<number>(
+    STORAGE_KEYS.NAME_COLUMN_FUSION,
+    1
+  );
+  const [priceColumnFusion, setPriceColumnFusion] = useLocalStorage<number>(
+    STORAGE_KEYS.PRICE_COLUMN_FUSION,
+    2
+  );
+  const [exportColumnsNames, setExportColumnsNames] = useLocalStorage<string>(
+    STORAGE_KEYS.EXPORT_COLUMNS_NAMES,
+    'Наименование, Цена розничная, Цена со скидкой, Кол-во, Себестоимость, Штрихкод'
+  );
+  const [itemsMatcherExportDataOrder, setItemsMatcherExportDataOrder] = useLocalStorage<string>(
+    STORAGE_KEYS.ITEMS_MATCHER_EXPORT_DATA_ORDER,
+    'name, retailPrice, discountPrice, amount, latestPrice, barcode'
+  );
+
+  return {
+    possible1CDataStart,
+    setPossible1CDataStart,
+    firstRow1C,
+    setFirstRow1C,
+    nameColumn1C,
+    setNameColumn1C,
+    priceColumn1C,
+    setPriceColumn1C,
+    amount1C,
+    setAmount1C,
+    firstRowFusion,
+    setFirstRowFusion,
+    barcodeColumnFusion,
+    setBarcodeColumnFusion,
+    nameColumnFusion,
+    setNameColumnFusion,
+    priceColumnFusion,
+    setPriceColumnFusion,
+    exportColumnsNames,
+    setExportColumnsNames,
+    itemsMatcherExportDataOrder,
+    setItemsMatcherExportDataOrder,
+  };
+};
 
 export const useItemsMatcher = (): ItemsMatcherData => {
-  const fileUpload1C = useXLSFileUpload<File1C[]>(parse1C);
-  const fileUploadFusion = useXLSFileUpload<FileFusion[]>(parseFusion);
+  const { isModalOpen, openModal, closeModal } = useScreen();
+  const fileUpload1C = useXLSFileUpload<File1C[]>();
+  const fileUploadFusion = useXLSFileUpload<FileFusion[]>();
   const [allResults, setAllResults] = useLocalStorage<MatchedItem[]>(
     STORAGE_KEYS.ITEMS_MATCHER_RESULTS,
     []
@@ -42,16 +116,47 @@ export const useItemsMatcher = (): ItemsMatcherData => {
         : allResults.filter((item) => item.matchType === currentFilter));
   }, [allResults, currentFilter]);
 
+  const {
+    possible1CDataStart,
+    firstRow1C,
+    nameColumn1C,
+    priceColumn1C,
+    amount1C,
+    firstRowFusion,
+    barcodeColumnFusion,
+    nameColumnFusion,
+    priceColumnFusion,
+    exportColumnsNames,
+    itemsMatcherExportDataOrder,
+  } = useFilesSettings();
+
   const handleProcess = useCallback(() => {
-    const items1C = fileUpload1C.processFiles();
-    const itemsFusion = fileUploadFusion.processFiles();
+    const items1C = fileUpload1C.processFiles(parse1C, {
+      possible1CDataStart: possible1CDataStart.split(',').map(s => s.trim()),
+      firstRow1C,
+      nameColumn1C,
+      priceColumn1C,
+      amount1C
+    });
+    const itemsFusion = fileUploadFusion.processFiles(parseFusion, {
+      firstRowFusion,
+      barcodeColumnFusion,
+      nameColumnFusion,
+      priceColumnFusion
+    });
     if (items1C && itemsFusion) {
       const matchedItems = matchItems(items1C, itemsFusion);
       setAllResults(matchedItems);
       setFileFusionItems(itemsFusion);
       setShowResults(true);
+      closeModal();
     }
-  }, [fileUpload1C, fileUploadFusion, setAllResults, setFileFusionItems]);
+  }, [
+    fileUpload1C, possible1CDataStart, firstRow1C, 
+    nameColumn1C, priceColumn1C, amount1C, fileUploadFusion,
+    firstRowFusion, barcodeColumnFusion, nameColumnFusion,
+    priceColumnFusion, setAllResults, setFileFusionItems, closeModal
+  ]);
 
   const setCurrentFilter = useCallback((filter: FilterType) => {
     startFilterTransition(() => {
@@ -67,8 +172,9 @@ export const useItemsMatcher = (): ItemsMatcherData => {
       setFileFusionItems([]);
       setShowResults(false);
       setCurrentFilter('all');
+      closeModal();
     }
-  }, [fileUpload1C, fileUploadFusion, setAllResults, setCurrentFilter, setFileFusionItems]);
+  }, [closeModal, fileUpload1C, fileUploadFusion, setAllResults, setCurrentFilter, setFileFusionItems]);
 
   const handleSelectMatchItem = useCallback(
     ({
@@ -135,8 +241,11 @@ export const useItemsMatcher = (): ItemsMatcherData => {
       alert(CONFIRMATION_MESSAGES.noData);
       return;
     }
-    exportToXLS(allResults);
-  }, [allResults]);
+    exportToXLS(allResults, {
+      exportColumnsNames: exportColumnsNames.split(',').map(s => s.trim()),
+      itemsMatcherExportDataOrder: itemsMatcherExportDataOrder.split(',').map(s => s.trim())
+    });
+  }, [allResults, exportColumnsNames, itemsMatcherExportDataOrder]);
   
   const handleTransfer = useCallback(() => {
     if (allResults.length === 0) {
@@ -183,5 +292,8 @@ export const useItemsMatcher = (): ItemsMatcherData => {
     handleTransfer,
     isFiltering,
     dropdownAnchor,
+    isModalOpen,
+    openModal,
+    closeModal
   };
 };

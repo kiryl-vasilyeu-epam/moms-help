@@ -5,6 +5,18 @@ export const STORAGE_KEYS = {
   ITEMS_MATCHER_FILTER: 'itemsMatcherFilter',
   PARSER_DATA: 'parserData',
 
+  POSSIBLE_1C_DATA_START: 'possible1CDataStart',
+  FIRST_ROW_1C: 'firstRow1C',
+  NAME_COLUMN_1C: 'nameColumn1C',
+  PRICE_COLUMN_1C: 'priceColumn1C',
+  AMOUNT_1C: 'amount1C',
+  FIRST_ROW_FUSION: 'firstRowFusion',
+  BARCODE_COLUMN_FUSION: 'barcodeColumnFusion',
+  NAME_COLUMN_FUSION: 'nameColumnFusion',
+  PRICE_COLUMN_FUSION: 'priceColumnFusion',
+  EXPORT_COLUMNS_NAMES: 'exportColumnsNames',
+  ITEMS_MATCHER_EXPORT_DATA_ORDER: 'itemsMatcherExportDataOrder',
+
   PRICE_MATCHER_TRANSFER_DATA: 'priceMatcherTransferData',
   PRICE_MATCHER_ITEMS_KEY: 'priceMatcherItems',
   PRICE_MATCHER_ORIGINAL_ITEMS_KEY: 'priceMatcherOriginalItems',
