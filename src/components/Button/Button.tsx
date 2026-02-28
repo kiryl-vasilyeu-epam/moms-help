@@ -19,7 +19,7 @@ export const Button = ({
     case 'danger':
       return styles.buttonDanger;
     case 'close':
-      return isSmall ? styles.buttonDangerSmall: styles.buttonDanger;
+      return isSmall ? styles.buttonCloseSmall: styles.buttonClose;
     default:
       return styles.buttonPrimary;
     }

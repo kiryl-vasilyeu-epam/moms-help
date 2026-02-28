@@ -1,7 +1,6 @@
-import { Button } from '../Button';
 import { styles } from './Screen.styles';
 import { ScreenProps } from './Screen.types';
-import UploadFileIcon from '@mui/icons-material/UploadFile';
+import SettingsBackupRestoreIcon from '@mui/icons-material/SettingsBackupRestore';
 
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
@@ -12,51 +11,45 @@ import { IconButton } from '@mui/material';
 export const Screen = ({
   children,
   title,
-  uploadState,
-  showUploadState,
-  handleClear
+  settingsState,
+  showSettingsState,
 }: ScreenProps) => {  
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   return (
     <div css={styles.container}>
       <div css={styles.header}>
         <h1>{title}</h1>
 
-        {!showUploadState && (
-          <div style={styles.buttonContainer}>
-            <UploadFileIcon
-              css={styles.uploadIcon}
-              onClick={() => setIsModalOpen(true)}
-            />
-            <Button
-              variant='close'
-              isSmall
-              onClick={handleClear}
-            />
-          </div>
+        {!showSettingsState && (
+          <SettingsBackupRestoreIcon
+            css={styles.uploadIcon}
+            onClick={openModal}
+          />
         )}
  
       </div>
-      {showUploadState ? (
+      {showSettingsState ? (
         <div style={styles.uploadState}>
-          {uploadState}
+          {settingsState}
         </div>
       ) : children}
 
       <Dialog
         open={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={closeModal}
       >
         <IconButton
           aria-label="close"
-          onClick={() => setIsModalOpen(false)}
+          onClick={closeModal}
           css={styles.closeModalButton}
         >
           <CloseIcon />
         </IconButton>
         <DialogContent css={styles.modal}>
-          {uploadState}
+          {settingsState}
         </DialogContent>
       </Dialog>
     </div>

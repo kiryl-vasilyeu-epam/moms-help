@@ -40,6 +40,12 @@ export const styles = createStyles({
     boxShadow: "0 4px 12px rgba(52, 152, 219, 0.3)",
   },
   buttonDanger: {
+    background: "linear-gradient(135deg, #e74c3c 0%, #bb3f31 100%)",
+    display: "block",
+    width: "100%",
+    boxShadow: "0 4px 12px rgba(219, 52, 52, 0.3)",
+  },
+  buttonClose: {
     background: "#e74c3c",
     width: "50px",
     height: "50px",
@@ -49,7 +55,7 @@ export const styles = createStyles({
     alignItems: "center",
     justifyContent: "center",
   },
-  buttonDangerSmall: {
+  buttonCloseSmall: {
     background: "#e74c3c",
     width: "25px",
     height: "25px",

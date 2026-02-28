@@ -1,7 +1,6 @@
 export interface ScreenProps {
   title?: string;
   children: React.ReactNode;
-  showUploadState: boolean;
-  uploadState: React.ReactNode;
-  handleClear?: () => void;
+  showSettingsState: boolean;
+  settingsState: React.ReactNode;
 }

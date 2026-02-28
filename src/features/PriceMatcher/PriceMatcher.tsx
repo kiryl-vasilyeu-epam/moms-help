@@ -19,8 +19,8 @@ const PriceMatcher = () => {
   return (
     <Screen
       title={'Совпадение цен'}
-      showUploadState={!items.length}
-      uploadState={(
+      showSettingsState={!items.length}
+      settingsState={(
         <div css={styles.controls}>
           <FileUploadButton
             label={'Загрузить XLS файл'}
@@ -36,7 +36,6 @@ const PriceMatcher = () => {
           />
         </div>
       )}
-      handleClear={handleClearData}
     >
       asd
     </Screen>

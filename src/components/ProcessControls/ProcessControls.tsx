@@ -22,9 +22,17 @@ export const ProcessControls = ({
         {plural ? t("fileUpload.processBtnPlural") : t("fileUpload.processBtn")}
       </Button>
       <Button
-        variant="close"
+        variant="danger"
         onClick={handleClear}
-      />
+      >
+        {t("fileUpload.clear")}
+      </Button>
+      <Button
+        variant="info"
+        onClick={handleClear}
+      >
+        {t("fileUpload.settings")}
+      </Button>
     </div>
   );
 };

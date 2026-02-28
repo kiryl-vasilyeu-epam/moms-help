@@ -36,9 +36,8 @@ export const ItemsMatcher = memo(() => {
   return (
     <Screen
       title={t("itemsMatcher.title")}
-      showUploadState={!showResults}
-      handleClear={handleClear}
-      uploadState={
+      showSettingsState={!showResults}
+      settingsState={
         <UploadSection 
           fileUpload1C={fileUpload1C}
           fileUploadFusion={fileUploadFusion}

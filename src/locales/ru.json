@@ -8,10 +8,12 @@
     "selectFile": "Выберите файл",
     "fileNotSelected": "Файл не выбран",
     "processBtn": "Обработать файл",
-    "processBtnPlural": "Обработать файлы"
+    "processBtnPlural": "Обработать файлы",
+    "clear": "Очистить данные",
+    "settings": "Настройки"
   },
   "itemsMatcher": {
-    "title": "📊 Сравнение выписок 1C и Fusion",
+    "title": "Сравнение выписок 1C и Fusion",
 
     "dropdown": {
       "matchDropdownTitle": "Выберите совпадение",
@@ -24,8 +26,8 @@
     },
     
     "controls": {
-      "downloadBtn": "📥 Скачать список с совпадениями (.xlsx)",
-      "transferBtn": "💰 Передать в Поиск цен"
+      "downloadBtn": "Скачать список с совпадениями (.xlsx)",
+      "transferBtn": "Передать в Поиск цен"
     },
 
     "stats": {

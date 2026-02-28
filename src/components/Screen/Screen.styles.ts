@@ -42,8 +42,8 @@ export const styles = createStyles({
     gap: "16px",
   },
   uploadIcon: {
-    fontSize: "30px",
-    color: "#05b666",
+    fontSize: "40px",
+    color: "#764ba2",
     cursor: "pointer",
   },
   modal: {
