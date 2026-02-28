@@ -23,7 +23,7 @@ export const FileUploadButton = ({ label, fileName, onFileSelect, isFileReady }:
       />
       <div
         css={styles.fileName}
-      >{fileName ? fileName : t("fileUpload.fileNotSelected")}</div>
+      >{fileName ?? t("fileUpload.fileNotSelected")}</div>
     </div>
                 
   );

@@ -1,12 +1,11 @@
 import { useTranslation } from 'react-i18next';
-import { styles } from "./ItemsMatcher.styles";
 import { 
   UploadSection, 
   Results 
 } from './components';
 import { useItemsMatcher } from './ItemsMatcher.hooks';
 import { memo } from 'react';
-import { ProcessControls } from '@components';
+import { Screen } from '@components';
 
 export const ItemsMatcher = memo(() => {
   const { t } = useTranslation();
@@ -35,20 +34,21 @@ export const ItemsMatcher = memo(() => {
   } = useItemsMatcher();
 
   return (
-    <div css={styles.container}>
-      <h1>{t("itemsMatcher.title")}</h1>
+    <Screen
+      title={t("itemsMatcher.title")}
+      showUploadState={!showResults}
+      handleClear={handleClear}
+      uploadState={
+        <UploadSection 
+          fileUpload1C={fileUpload1C}
+          fileUploadFusion={fileUploadFusion}
+          isProcessDisabled={isProcessDisabled}
+          handleProcess={handleProcess}
+          handleClear={handleClear}
+        />
+      }
+    >
       
-      <UploadSection 
-        fileUpload1C={fileUpload1C}
-        fileUploadFusion={fileUploadFusion}
-      />
-
-      <ProcessControls
-        isProcessDisabled={isProcessDisabled}
-        handleProcess={handleProcess}
-        handleClear={handleClear}
-        plural
-      />
 
       <Results
         showResults={showResults}
@@ -67,7 +67,7 @@ export const ItemsMatcher = memo(() => {
         dropdownAnchor={dropdownAnchor}
         handleCloseDropdown={handleCloseDropdown}
       />
-    </div>
+    </Screen>
   );
 });
 

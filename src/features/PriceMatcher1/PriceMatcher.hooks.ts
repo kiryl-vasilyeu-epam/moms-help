@@ -139,6 +139,7 @@ export const usePriceMatcher = () => {
         setItems(newItems);
         setOriginalItems(newItems.map((item) => ({ ...item })));
         setUsageHistory([]);
+        
         setStoredItems(newItems);
         setStoredOriginal(newItems.map((item) => ({ ...item })));
         setStoredHistory([]);

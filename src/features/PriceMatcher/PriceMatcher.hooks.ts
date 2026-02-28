@@ -1,26 +1,23 @@
 import { useLocalStorage, useXLSFileUpload } from "@hooks";
-import { useEffect, useState } from "react";
-import { Calculation, FailedCalculation, PriceItem, TransferredItem } from "./PriceMatcher.types";
+import { useEffect } from "react";
+import { Calculation, PriceItem, TransferredItem } from "./PriceMatcher.types";
 import { STORAGE_KEYS } from "@constants";
 import { parseFile } from "./PriceMatcher.helpers";
 
 export const usePriceMatcher = () => {
-  const [items, setItems] = useState<PriceItem[]>([]);
-  const [originalItems, setOriginalItems] = useState<PriceItem[]>([]);
-  const [usageHistory, setUsageHistory] = useState<Calculation[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [loadingText, setLoadingText] = useState('');
-  const [failedCalculations, setFailedCalculations] = useState<FailedCalculation[]>([]);
-  const [showNoSolutionModal, setShowNoSolutionModal] = useState(false);
-  const [storedItems, setStoredItems] = useLocalStorage<PriceItem[]>(
+  // const [loading, setLoading] = useState(false);
+  // const [loadingText, setLoadingText] = useState('');
+  // const [failedCalculations, setFailedCalculations] = useState<FailedCalculation[]>([]);
+  // const [showNoSolutionModal, setShowNoSolutionModal] = useState(false);
+  const [items, setItems] = useLocalStorage<PriceItem[]>(
     STORAGE_KEYS.PRICE_MATCHER_ITEMS_KEY,
     []
   );
-  const [storedOriginal, setStoredOriginal] = useLocalStorage<PriceItem[]>(
+  const [originalItems, setOriginalItems] = useLocalStorage<PriceItem[]>(
     STORAGE_KEYS.PRICE_MATCHER_ORIGINAL_ITEMS_KEY,
     []
   );
-  const [storedHistory, setStoredHistory] = useLocalStorage<Calculation[]>(
+  const [usageHistory, setUsageHistory] = useLocalStorage<Calculation[]>(
     STORAGE_KEYS.PRICE_MATCHER_USAGE_HISTORY_KEY,
     []
   );
@@ -53,33 +50,28 @@ export const usePriceMatcher = () => {
       setItems(convertedItems);
       setOriginalItems(convertedItems.map((item) => ({ ...item })));
       setUsageHistory([]);
-      setStoredItems(convertedItems);
-      setStoredOriginal(convertedItems.map((item) => ({ ...item })));
-      setStoredHistory([]);
-    } else if (storedItems && storedItems.length > 0) {
-      setItems(storedItems);
-      setOriginalItems(storedOriginal || []);
-      setUsageHistory(storedHistory || []);
     }
-  }, [setStoredHistory, setStoredItems, setStoredOriginal, storedHistory, storedItems, storedOriginal, transferredData]);
+  }, [setItems, setOriginalItems, setUsageHistory, transferredData]);
   
   const handleProcessFile = () => {
     const items = processFiles();
     if(!items) return;
     setItems(items);
+    setOriginalItems(items.map((item) => ({ ...item })));
+    setUsageHistory([]);
   };
   const handleClearData = () => {
     clearFiles();
     setItems([]);
     setOriginalItems([]);
     setUsageHistory([]);
-    setStoredItems([]);
-    setStoredOriginal([]);
-    setStoredHistory([]);
     setTransferredData(null);
   };
 
   return {
+    items,
+    originalItems,
+    usageHistory,
     handleProcessFile,
     handleFileChange,
     fileName,

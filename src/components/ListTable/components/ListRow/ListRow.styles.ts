@@ -8,9 +8,11 @@ export const styles = createStyles({
     borderBottom: "1px solid #ddd",
   },
   header: {
-    background: "#667eea",
+    background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
     color: "white",
     fontWeight: 600,
+    borderRadius: "10px 10px 0 0",
+    height: 70,
   },
   even: {
     background: "#efefef",

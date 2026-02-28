@@ -2,6 +2,8 @@ import { createStyles } from "@utils";
 
 export const styles = createStyles({
   uploadBox: {
+    display: "flex",
+    flexDirection: "column",
     flex: 1,
     border: "2px dashed #667eea",
     borderRadius: "8px",
@@ -20,6 +22,7 @@ export const styles = createStyles({
     borderColor: "#28a745",
   },
   uploadBoxH3: {
+    flex: 1,
     color: "#667eea",
     marginBottom: "15px",
   },
