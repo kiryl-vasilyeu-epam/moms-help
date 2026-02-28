@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useMemo } from 'react';
-import * as XLSX from 'xlsx';
+import * as XLSX from 'xlsx-js-style';
 import { useLocalStorage } from '@hooks/useLocalStorage';
 import {
   PRICE_MATCHER_ITEMS_KEY,

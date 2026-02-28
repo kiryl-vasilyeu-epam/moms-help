@@ -9,6 +9,7 @@ export interface File1C {
   name: string
   totalAmount: number
   latestPrice: number
+  hasFewPrices?: boolean
   rawInvNoName?: string
 }
 

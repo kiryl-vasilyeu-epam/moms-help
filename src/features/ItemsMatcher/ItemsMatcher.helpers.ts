@@ -1,4 +1,4 @@
-import * as XLSX from 'xlsx';
+import * as XLSX from 'xlsx-js-style';
 import type { File1C, FileFusion, MatchedItem, MatchType } from './ItemsMatcher.types';
 import { FUZZY_MATCH_CONFIG, PRICE_CALCULATION, EXPORT_HEADERS, EXPORT_SHEET_NAME } from './ItemsMatcher.constants';
 
@@ -20,6 +20,9 @@ export const parse1C = (data: unknown[][]): File1C[] => {
 
         currentItem.totalAmount = (currentItem.totalAmount ?? 0) + amount;
         if (price > 0) {
+          if (currentItem.latestPrice  && currentItem.latestPrice !== price) {
+            currentItem.hasFewPrices = true;
+          }
           currentItem.latestPrice = price;
         }
       }
@@ -29,7 +32,8 @@ export const parse1C = (data: unknown[][]): File1C[] => {
           invNo: currentItem.invNo,
           name: currentItem.name,
           totalAmount: currentItem.totalAmount ?? 0,
-          latestPrice: currentItem.latestPrice ?? 0
+          latestPrice: currentItem.latestPrice ?? 0,
+          hasFewPrices: currentItem.hasFewPrices
         });
       }
 
@@ -52,7 +56,8 @@ export const parse1C = (data: unknown[][]): File1C[] => {
       invNo: currentItem.invNo,
       name: currentItem.name,
       totalAmount: currentItem.totalAmount ?? 0,
-      latestPrice: currentItem.latestPrice ?? 0
+      latestPrice: currentItem.latestPrice ?? 0,
+      hasFewPrices: currentItem.hasFewPrices
     });
   }
 
@@ -190,11 +195,34 @@ export const exportToXLS = (results: MatchedItem[]): void => {
       discountPrice = price;
     }
 
-    data.push([name, retailPrice, discountPrice, amount.toString(), calculatedPrice, barcode]);
+    data.push([name, retailPrice, discountPrice, amount.toString(), item.latestPrice.toString(), barcode]);
   });
 
   const wb = XLSX.utils.book_new();
   const ws = XLSX.utils.aoa_to_sheet(data as (string | number | boolean)[][]);
+  ws['!cols'] = [
+    { wch: 70 },
+    { wch: 20 },
+    { wch: 20 },
+    { wch: 10 },
+    { wch: 20 },
+    { wch: 20 }
+  ];
+
+  const yellowStyle = { fill: { fgColor: { rgb: 'FFFF00' }, patternType: 'solid' } };
+  console.log(sortedItems);
+  sortedItems.forEach((item, index) => {
+    if (item.hasFewPrices) {
+      console.log('Highlighting item with multiple prices:', item);
+      const rowIndex = index + 1;
+      for (let col = 0; col < 6; col++) {
+        const cellRef = XLSX.utils.encode_cell({ r: rowIndex, c: col });
+        if (ws[cellRef]) {
+          ws[cellRef].s = yellowStyle;
+        }
+      }
+    }
+  });
 
   XLSX.utils.book_append_sheet(wb, ws, EXPORT_SHEET_NAME);
 
