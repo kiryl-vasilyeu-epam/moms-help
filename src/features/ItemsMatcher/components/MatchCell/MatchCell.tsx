@@ -1,7 +1,7 @@
-import { styles } from "./MatchCell.styles";
-import { forwardRef } from "react";
-import { useTranslation } from "react-i18next";
-import { MatchCellProps } from "./MatchCell.types";
+import { styles } from './MatchCell.styles';
+import { forwardRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import { MatchCellProps } from './MatchCell.types';
 
 export const MatchCell = forwardRef<HTMLDivElement, MatchCellProps>(
   (props, ref) => {
@@ -21,13 +21,16 @@ export const MatchCell = forwardRef<HTMLDivElement, MatchCellProps>(
     ];
 
     const dataToShow = hasMatch
-      ? (isMatchFuzzy ? matchedInvNo : '')
+      ? isMatchFuzzy
+        ? matchedInvNo
+        : ''
       : t('itemsMatcher.pickMatch');
 
-    const handleClick = (event: React.MouseEvent<HTMLDivElement>) => cellCommonProps?.handleSelectMatchItem({
-      anchor: event?.currentTarget,
-      itemIndex: index,
-    });
+    const handleClick = (event: React.MouseEvent<HTMLDivElement>) =>
+      cellCommonProps?.handleSelectMatchItem({
+        anchor: event?.currentTarget,
+        itemIndex: index,
+      });
 
     return (
       <div
@@ -39,6 +42,7 @@ export const MatchCell = forwardRef<HTMLDivElement, MatchCellProps>(
         {dataToShow}
       </div>
     );
-  });
+  },
+);
 
 MatchCell.displayName = 'MatchCell';

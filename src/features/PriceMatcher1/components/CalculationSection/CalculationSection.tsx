@@ -16,9 +16,7 @@ export const CalculationSection: FC<CalculationSectionProps> = ({
   return (
     <Box sx={styles.container}>
       {itemsCount > 0 && (
-        <Box sx={styles.itemsCountBox}>
-          ✓ Загружено {itemsCount} товаров
-        </Box>
+        <Box sx={styles.itemsCountBox}>✓ Загружено {itemsCount} товаров</Box>
       )}
 
       <Box sx={styles.textFieldBox}>

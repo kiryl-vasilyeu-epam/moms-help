@@ -1,5 +1,9 @@
-import { styles } from "./Settings.styles";
-import { useInputSetting, useToggleSetting, useOrderSetting } from "./Settings.hooks";
+import { styles } from './Settings.styles';
+import {
+  useInputSetting,
+  useToggleSetting,
+  useOrderSetting,
+} from './Settings.hooks';
 import type {
   SettingsProps,
   SettingsSection,
@@ -7,7 +11,7 @@ import type {
   InputSettingItem,
   ToggleSettingItem,
   OrderSettingItem,
-} from "./Settings.types";
+} from './Settings.types';
 
 const InputSetting = ({ setting }: { setting: InputSettingItem }) => {
   const { handleChange } = useInputSetting({ onChange: setting.onChange });
@@ -41,7 +45,9 @@ const ToggleSetting = ({ setting }: { setting: ToggleSettingItem }) => {
         role="switch"
         aria-checked={setting.value}
       >
-        <div css={[styles.toggleKnob, setting.value && styles.toggleKnobActive]} />
+        <div
+          css={[styles.toggleKnob, setting.value && styles.toggleKnobActive]}
+        />
       </div>
     </div>
   );
@@ -59,10 +65,7 @@ const OrderSetting = ({ setting }: { setting: OrderSettingItem }) => {
       <span css={styles.settingLabel}>{setting.label}</span>
       <div css={styles.orderContainer}>
         {setting.items.map((item, index) => (
-          <div
-            key={item.id}
-            css={styles.orderItem}
-          >
+          <div key={item.id} css={styles.orderItem}>
             <span css={styles.orderItemLabel}>{item.label}</span>
             <div css={styles.orderControls}>
               <button
@@ -91,26 +94,27 @@ const OrderSetting = ({ setting }: { setting: OrderSettingItem }) => {
 
 const SettingItemRenderer = ({ setting }: { setting: SettingItem }) => {
   switch (setting.type) {
-  case "input":
-    return <InputSetting setting={setting} />;
-  case "toggle":
-    return <ToggleSetting setting={setting} />;
-  case "order":
-    return <OrderSetting setting={setting} />;
-  default:
-    return null;
+    case 'input':
+      return <InputSetting setting={setting} />;
+    case 'toggle':
+      return <ToggleSetting setting={setting} />;
+    case 'order':
+      return <OrderSetting setting={setting} />;
+    default:
+      return null;
   }
 };
 
-const SettingsSectionComponent = ({ section }: { section: SettingsSection }) => {
+const SettingsSectionComponent = ({
+  section,
+}: {
+  section: SettingsSection;
+}) => {
   return (
     <div css={styles.section}>
       <h3 css={styles.sectionTitle}>{section.title}</h3>
       {section.settings.map((setting) => (
-        <SettingItemRenderer
-          key={setting.id}
-          setting={setting}
-        />
+        <SettingItemRenderer key={setting.id} setting={setting} />
       ))}
     </div>
   );
@@ -120,10 +124,7 @@ export const Settings = ({ sections }: SettingsProps) => {
   return (
     <div css={styles.container}>
       {sections.map((section) => (
-        <SettingsSectionComponent
-          key={section.id}
-          section={section}
-        />
+        <SettingsSectionComponent key={section.id} section={section} />
       ))}
     </div>
   );

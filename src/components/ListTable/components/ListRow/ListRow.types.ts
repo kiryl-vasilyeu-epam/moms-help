@@ -1,10 +1,10 @@
-import { StrictCssObjectWithSelectors } from "@utils";
-import { ReactNode } from "react";
+import { StrictCssObjectWithSelectors } from '@utils';
+import { ReactNode } from 'react';
 
 export interface ListRowProps {
-    children: ReactNode;
-    height?: number;
-    variant?: 'header' | 'row';
-    style?:  (StrictCssObjectWithSelectors | null | undefined)[]
-    even?: boolean | number
+  children: ReactNode;
+  height?: number;
+  variant?: 'header' | 'row';
+  style?: (StrictCssObjectWithSelectors | null | undefined)[];
+  even?: boolean | number;
 }

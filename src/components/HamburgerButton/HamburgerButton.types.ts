@@ -1,4 +1,4 @@
 export interface HamburgerButtonProps {
-  isOpen: boolean
-  handleToggle: () => void
+  isOpen: boolean;
+  handleToggle: () => void;
 }

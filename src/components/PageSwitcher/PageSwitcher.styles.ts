@@ -62,24 +62,28 @@ interface PageAnimationResult {
   cssStyle: SerializedStyles | null;
 }
 
-const getEnteringAnimation = (direction: AnimationDirection, isForward: boolean, duration: number): SerializedStyles => {
+const getEnteringAnimation = (
+  direction: AnimationDirection,
+  isForward: boolean,
+  duration: number,
+): SerializedStyles => {
   let animation;
   switch (direction) {
-  case 'left':
-    animation = isForward ? slideInFromRight : slideInFromLeft;
-    break;
-  case 'right':
-    animation = isForward ? slideInFromLeft : slideInFromRight;
-    break;
-  case 'up':
-    animation = isForward ? slideInFromBottom : slideInFromTop;
-    break;
-  case 'down':
-    animation = isForward ? slideInFromTop : slideInFromBottom;
-    break;
-  case 'fade':
-  default:
-    animation = fadeIn;
+    case 'left':
+      animation = isForward ? slideInFromRight : slideInFromLeft;
+      break;
+    case 'right':
+      animation = isForward ? slideInFromLeft : slideInFromRight;
+      break;
+    case 'up':
+      animation = isForward ? slideInFromBottom : slideInFromTop;
+      break;
+    case 'down':
+      animation = isForward ? slideInFromTop : slideInFromBottom;
+      break;
+    case 'fade':
+    default:
+      animation = fadeIn;
   }
   return css`
     animation: ${animation} ${duration}ms ease-in-out forwards;
@@ -99,17 +103,17 @@ export const getPageAnimationStyle = ({
   const getExitingTransform = (): string => {
     const sign = isForward ? -1 : 1;
     switch (direction) {
-    case 'left':
-      return `translateX(${sign * 100}%)`;
-    case 'right':
-      return `translateX(${-sign * 100}%)`;
-    case 'up':
-      return `translateY(${sign * 100}%)`;
-    case 'down':
-      return `translateY(${-sign * 100}%)`;
-    case 'fade':
-    default:
-      return 'translateX(0)';
+      case 'left':
+        return `translateX(${sign * 100}%)`;
+      case 'right':
+        return `translateX(${-sign * 100}%)`;
+      case 'up':
+        return `translateY(${sign * 100}%)`;
+      case 'down':
+        return `translateY(${-sign * 100}%)`;
+      case 'fade':
+      default:
+        return 'translateX(0)';
     }
   };
 

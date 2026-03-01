@@ -1,2 +1,2 @@
-export { ListTable } from "./ListTable";
-export type { ListTableProps } from "./ListTable.types";
+export { ListTable } from './ListTable';
+export type { ListTableProps } from './ListTable.types';

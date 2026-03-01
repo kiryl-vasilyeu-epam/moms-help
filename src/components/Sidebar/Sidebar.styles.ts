@@ -15,7 +15,7 @@ export const styles = createStyles(({ sizes }) => ({
     transition: 'width .3s ease',
   },
   collapsedSidebar: {
-    width: sizes.sidebarWidth
+    width: sizes.sidebarWidth,
   },
 
   header: {
@@ -43,5 +43,5 @@ export const styles = createStyles(({ sizes }) => ({
     gap: 10,
     display: 'flex',
     flexDirection: 'column',
-  }
+  },
 }));

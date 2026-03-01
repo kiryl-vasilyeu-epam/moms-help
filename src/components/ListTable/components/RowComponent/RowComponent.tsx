@@ -1,8 +1,8 @@
-import { RowComponentProps } from "react-window";
-import { RowComponentInnerProps } from "./RowComponent.types";
-import { ListRow } from "../ListRow";
-import { ListCell } from "../ListCell";
-import { StrictCssObjectWithSelectors } from "@utils";
+import { RowComponentProps } from 'react-window';
+import { RowComponentInnerProps } from './RowComponent.types';
+import { ListRow } from '../ListRow';
+import { ListCell } from '../ListCell';
+import { StrictCssObjectWithSelectors } from '@utils';
 
 export const RowComponent = <TItem, TProps, TColumns extends string>({
   items,
@@ -34,7 +34,7 @@ export const RowComponent = <TItem, TProps, TColumns extends string>({
             item={item}
             columnId={columnId}
             rowIndex={index}
-            cellCommonProps={cellCommonProps ?? {} as TProps}
+            cellCommonProps={cellCommonProps ?? ({} as TProps)}
           />
         </ListCell>
       ))}

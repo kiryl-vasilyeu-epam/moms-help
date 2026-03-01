@@ -1,14 +1,13 @@
-import { ListRowProps } from "./ListRow.types";
-import { styles } from "./ListRow.styles";
+import { ListRowProps } from './ListRow.types';
+import { styles } from './ListRow.styles';
 
 export const ListRow = ({
   children,
   variant = 'row',
   height,
   even = false,
-  style = []
+  style = [],
 }: ListRowProps) => {
-
   return (
     <div
       css={[
@@ -16,7 +15,7 @@ export const ListRow = ({
         variant === 'header' && styles.header,
         even && styles.even,
         { height },
-        ...style
+        ...style,
       ]}
     >
       {children}

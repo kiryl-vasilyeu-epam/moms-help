@@ -1,8 +1,8 @@
-import { useLocalStorage, useXLSFileUpload } from "@hooks";
-import { useEffect } from "react";
-import { Calculation, PriceItem, TransferredItem } from "./PriceMatcher.types";
-import { STORAGE_KEYS } from "@constants";
-import { parseFile } from "./PriceMatcher.helpers";
+import { useLocalStorage, useXLSFileUpload } from '@hooks';
+import { useEffect } from 'react';
+import { Calculation, PriceItem, TransferredItem } from './PriceMatcher.types';
+import { STORAGE_KEYS } from '@constants';
+import { parseFile } from './PriceMatcher.helpers';
 
 export const usePriceMatcher = () => {
   // const [loading, setLoading] = useState(false);
@@ -11,27 +11,26 @@ export const usePriceMatcher = () => {
   // const [showNoSolutionModal, setShowNoSolutionModal] = useState(false);
   const [items, setItems] = useLocalStorage<PriceItem[]>(
     STORAGE_KEYS.PRICE_MATCHER_ITEMS_KEY,
-    []
+    [],
   );
   const [originalItems, setOriginalItems] = useLocalStorage<PriceItem[]>(
     STORAGE_KEYS.PRICE_MATCHER_ORIGINAL_ITEMS_KEY,
-    []
+    [],
   );
   const [usageHistory, setUsageHistory] = useLocalStorage<Calculation[]>(
     STORAGE_KEYS.PRICE_MATCHER_USAGE_HISTORY_KEY,
-    []
+    [],
   );
-  const [transferredData, setTransferredData] = useLocalStorage<TransferredItem[] | null>(
-    STORAGE_KEYS.PRICE_MATCHER_TRANSFER_DATA,
-    null
-  );
+  const [transferredData, setTransferredData] = useLocalStorage<
+    TransferredItem[] | null
+  >(STORAGE_KEYS.PRICE_MATCHER_TRANSFER_DATA, null);
 
   const {
     fileName,
     handleFileChange,
     isReady: isFileReady,
     processFiles,
-    clearFiles
+    clearFiles,
   } = useXLSFileUpload<PriceItem[]>(parseFile);
 
   useEffect(() => {
@@ -46,16 +45,16 @@ export const usePriceMatcher = () => {
         remainingAmount: item.amount,
         usedAmount: 0,
       }));
-  
+
       setItems(convertedItems);
       setOriginalItems(convertedItems.map((item) => ({ ...item })));
       setUsageHistory([]);
     }
   }, [setItems, setOriginalItems, setUsageHistory, transferredData]);
-  
+
   const handleProcessFile = () => {
     const items = processFiles();
-    if(!items) return;
+    if (!items) return;
     setItems(items);
     setOriginalItems(items.map((item) => ({ ...item })));
     setUsageHistory([]);
@@ -76,6 +75,6 @@ export const usePriceMatcher = () => {
     handleFileChange,
     fileName,
     isFileReady,
-    handleClearData
+    handleClearData,
   };
 };

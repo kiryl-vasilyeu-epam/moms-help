@@ -19,9 +19,15 @@ const NoSolutionModal = ({
       message = `Не удалось найти точную комбинацию для суммы <strong>${centsToStr(failed.targetCents)}</strong>.<br><br>Попробуйте изменить сумму или проверьте доступные товары.`;
     }
   } else {
-    const amounts = failedCalculations.map((f) => centsToStr(f.targetCents)).join(', ');
-    const noItemsCount = failedCalculations.filter((f) => f.reason === 'no_items').length;
-    const noCombinationCount = failedCalculations.filter((f) => f.reason === 'no_combination').length;
+    const amounts = failedCalculations
+      .map((f) => centsToStr(f.targetCents))
+      .join(', ');
+    const noItemsCount = failedCalculations.filter(
+      (f) => f.reason === 'no_items',
+    ).length;
+    const noCombinationCount = failedCalculations.filter(
+      (f) => f.reason === 'no_combination',
+    ).length;
 
     message = `Не удалось найти комбинации для следующих сумм:<br><strong>${amounts}</strong><br><br>`;
     if (noItemsCount > 0) {
@@ -33,10 +39,7 @@ const NoSolutionModal = ({
   }
 
   return (
-    <div
-      style={styles.modal as React.CSSProperties}
-      onClick={onClose}
-    >
+    <div style={styles.modal as React.CSSProperties} onClick={onClose}>
       <div
         style={styles.content as React.CSSProperties}
         onClick={(e) => e.stopPropagation()}
@@ -46,10 +49,7 @@ const NoSolutionModal = ({
           style={styles.message as React.CSSProperties}
           dangerouslySetInnerHTML={{ __html: message }}
         />
-        <button
-          style={styles.button as React.CSSProperties}
-          onClick={onClose}
-        >
+        <button style={styles.button as React.CSSProperties} onClick={onClose}>
           Закрыть
         </button>
       </div>

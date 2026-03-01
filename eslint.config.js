@@ -5,7 +5,7 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 import { defineConfig, globalIgnores } from 'eslint/config';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
-import eslintConfigPrettier from "eslint-config-prettier/flat";
+import eslintPluginPrettier from 'eslint-plugin-prettier/recommended';
 
 export default defineConfig([
   globalIgnores(['dist']),
@@ -18,7 +18,6 @@ export default defineConfig([
       tseslint.configs.stylisticTypeChecked,
       reactHooks.configs.flat.recommended,
       reactRefresh.configs.vite,
-      eslintConfigPrettier,
     ],
     plugins: {},
     languageOptions: {
@@ -30,20 +29,19 @@ export default defineConfig([
     },
     settings: {
       react: {
-        version: "detect"
-      }
+        version: 'detect',
+      },
     },
     rules: {
       // indent: ['error', 2],
-      "react/jsx-max-props-per-line": ["warn", { "maximum": 1 }],
-      "react/jsx-first-prop-new-line": ["warn", "multiline"],
-      "react/jsx-closing-bracket-location": ["warn", "tag-aligned"],
-      "react/no-unknown-property": ["error", { "ignore": ["css"] }],
+      'react/jsx-max-props-per-line': ['warn', { maximum: 1 }],
+      'react/jsx-first-prop-new-line': ['warn', 'multiline'],
+      'react/jsx-closing-bracket-location': ['warn', 'tag-aligned'],
+      'react/no-unknown-property': ['error', { ignore: ['css'] }],
       'react-hooks/set-state-in-effect': 'off',
       // semi: ["error", "always"],
-      "@typescript-eslint/no-explicit-any": "error",
+      '@typescript-eslint/no-explicit-any': 'error',
       'no-unused-vars': 'off',
-      "react/jsx-max-props-per-line": ["error", { maximum: 1 }],
       '@typescript-eslint/no-unused-vars': [
         'error',
         {
@@ -54,4 +52,6 @@ export default defineConfig([
       ],
     },
   },
+
+  eslintPluginPrettier,
 ]);

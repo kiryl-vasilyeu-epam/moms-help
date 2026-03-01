@@ -1,10 +1,13 @@
-import { styles } from "./ListTable.styles";
-import type { ListTableProps } from "./ListTable.types";
-import { List } from "react-window";
-import { RowComponent, ListHeader } from "./components";
+import { styles } from './ListTable.styles';
+import type { ListTableProps } from './ListTable.types';
+import { List } from 'react-window';
+import { RowComponent, ListHeader } from './components';
 
-
-export const ListTable = <T extends object, P extends unknown, C extends string>({
+export const ListTable = <
+  T extends object,
+  P extends unknown,
+  C extends string,
+>({
   itemHeight,
   headerLabels,
   items,
@@ -14,13 +17,9 @@ export const ListTable = <T extends object, P extends unknown, C extends string>
   cellCommonProps,
   getRowStyles,
 }: ListTableProps<T, P, C>) => {
-
   return (
     <div css={styles.container}>
-      <ListHeader
-        headerLabels={headerLabels}
-        columnsWeight={columnsWeight}
-      />
+      <ListHeader headerLabels={headerLabels} columnsWeight={columnsWeight} />
       <List
         key={items.length}
         rowComponent={RowComponent}

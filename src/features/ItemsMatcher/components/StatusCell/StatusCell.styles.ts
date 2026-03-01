@@ -1,4 +1,4 @@
-import { createStyles } from "@utils";
+import { createStyles } from '@utils';
 
 export const styles = createStyles({
   matchStatus: {
@@ -7,23 +7,23 @@ export const styles = createStyles({
     justifyContent: 'center',
   },
   noMatch: {
-    color: "#e74c3c",
-    fontWeight: "bold",
-    fontSize: "20px",
+    color: '#e74c3c',
+    fontWeight: 'bold',
+    fontSize: '20px',
   },
   match: {
-    color: "#27ae60",
-    fontSize: "20px",
-    fontWeight: "bold",
+    color: '#27ae60',
+    fontSize: '20px',
+    fontWeight: 'bold',
   },
   fuzzyMatch: {
-    color: "#f39c12",
-    fontWeight: "bold",
-    fontSize: "20px",
+    color: '#f39c12',
+    fontWeight: 'bold',
+    fontSize: '20px',
   },
   manualMatch: {
-    color: "#2196f3",
-    fontWeight: "bold",
-    fontSize: "20px",
+    color: '#2196f3',
+    fontWeight: 'bold',
+    fontSize: '20px',
   },
 });

@@ -14,11 +14,10 @@ export const Sidebar = ({ onNavigate, activeItem }: SidebarProps) => {
   return (
     <aside css={[styles.sidebar, !isOpen && styles.collapsedSidebar]}>
       <div css={styles.header}>
-        <h1 css={[styles.headerTitle, !isOpen && styles.collapsedText]}>{t('sidebar.headerTitle')}</h1>
-        <HamburgerButton
-          handleToggle={toggleSidebar}
-          isOpen={isOpen}
-        />
+        <h1 css={[styles.headerTitle, !isOpen && styles.collapsedText]}>
+          {t('sidebar.headerTitle')}
+        </h1>
+        <HamburgerButton handleToggle={toggleSidebar} isOpen={isOpen} />
       </div>
       <nav css={styles.menu}>
         {SIDEBAR_MENU_ITEMS.map((item) => (

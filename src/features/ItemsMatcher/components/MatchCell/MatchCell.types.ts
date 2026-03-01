@@ -1,5 +1,8 @@
-import type { TableCellProps } from "../TableCell/TableCell.types";
+import type { TableCellProps } from '../TableCell/TableCell.types';
 
-export type MatchCellProps = Pick<TableCellProps, 'item' | 'cellCommonProps'> & {
-    index: number;
+export type MatchCellProps = Pick<
+  TableCellProps,
+  'item' | 'cellCommonProps'
+> & {
+  index: number;
 };

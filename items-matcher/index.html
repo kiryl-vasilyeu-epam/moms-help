@@ -1,90 +1,142 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>XLS Item Parser</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <h1>📊 Сравнение выписок 1C и Fusion</h1>
-        
-        <div class="upload-section">
-            <div class="upload-box">
-                <h3>Файл 1: 1C выписка</h3>
-                <label for="file1" class="file-label">Выбрать файл</label>
-                <input type="file" id="file1" accept=".xls,.xlsx">
-                <div class="file-name" id="file1-name">Файл не выбран</div>
-            </div>
-            
-            <div class="upload-box">
-                <h3>Файл 2: Fusion выписка</h3>
-                <label for="file2" class="file-label">Выбрать файл</label>
-                <input type="file" id="file2" accept=".xls,.xlsx">
-                <div class="file-name" id="file2-name">Файл не выбран</div>
-            </div>
+      <h1>📊 Сравнение выписок 1C и Fusion</h1>
+
+      <div class="upload-section">
+        <div class="upload-box">
+          <h3>Файл 1: 1C выписка</h3>
+          <label for="file1" class="file-label">Выбрать файл</label>
+          <input type="file" id="file1" accept=".xls,.xlsx" />
+          <div class="file-name" id="file1-name">Файл не выбран</div>
         </div>
-        
-        <div class="button-row">
-            <button class="process-btn" id="processBtn" disabled>Обработать файлы</button>
-            <button class="clear-btn-small" onclick="clearLocalStorage()" title="Очистить все сохраненные данные">✕</button>
+
+        <div class="upload-box">
+          <h3>Файл 2: Fusion выписка</h3>
+          <label for="file2" class="file-label">Выбрать файл</label>
+          <input type="file" id="file2" accept=".xls,.xlsx" />
+          <div class="file-name" id="file2-name">Файл не выбран</div>
         </div>
-        
-        <button class="download-btn" id="downloadBtn" onclick="downloadXLS()" style="display: none;">📥 Скачать список с совпадениями (.xlsx)</button>
-        
-        <button class="transfer-btn" id="transferBtn" onclick="transferToPriceMatcher()" style="display: none;">💰 Передать в Поиск цен</button>
-        
-        <div class="results" id="results" style="display: none;">
-            <div class="stats">
-                <div class="stat-box">
-                    <h4>Всего товаров (1C)</h4>
-                    <p id="totalItems">0</p>
-                </div>
-                <div class="stat-box">
-                    <h4>Точные совпадения</h4>
-                    <p id="matchedItems">0</p>
-                </div>
-                <div class="stat-box">
-                    <h4>Нечеткие совпадения</h4>
-                    <p id="fuzzyItems">0</p>
-                </div>
-                <div class="stat-box">
-                    <h4>Ручные совпадения</h4>
-                    <p id="manualItems">0</p>
-                </div>
-                <div class="stat-box">
-                    <h4>Не найдены</h4>
-                    <p id="unmatchedItems">0</p>
-                </div>
-            </div>
-            
-            <div class="filter-buttons">
-                <button class="filter-btn active" data-filter="all" onclick="setFilter('all')">Все</button>
-                <button class="filter-btn" data-filter="exact" onclick="setFilter('exact')">Точные</button>
-                <button class="filter-btn" data-filter="fuzzy" onclick="setFilter('fuzzy')">Нечеткие</button>
-                <button class="filter-btn" data-filter="manual" onclick="setFilter('manual')">Ручные</button>
-                <button class="filter-btn" data-filter="unmatched" onclick="setFilter('unmatched')">Не найдены</button>
-            </div>
-            
-            <table>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Артикул (1C)</th>
-                        <th>Название</th>
-                        <th>Общее количество</th>
-                        <th>Последняя цена</th>
-                        <th>Артикул (Fusion)</th>
-                        <th>Статус совпадения</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody"></tbody>
-            </table>
+      </div>
+
+      <div class="button-row">
+        <button class="process-btn" id="processBtn" disabled>
+          Обработать файлы
+        </button>
+        <button
+          class="clear-btn-small"
+          onclick="clearLocalStorage()"
+          title="Очистить все сохраненные данные"
+        >
+          ✕
+        </button>
+      </div>
+
+      <button
+        class="download-btn"
+        id="downloadBtn"
+        onclick="downloadXLS()"
+        style="display: none"
+      >
+        📥 Скачать список с совпадениями (.xlsx)
+      </button>
+
+      <button
+        class="transfer-btn"
+        id="transferBtn"
+        onclick="transferToPriceMatcher()"
+        style="display: none"
+      >
+        💰 Передать в Поиск цен
+      </button>
+
+      <div class="results" id="results" style="display: none">
+        <div class="stats">
+          <div class="stat-box">
+            <h4>Всего товаров (1C)</h4>
+            <p id="totalItems">0</p>
+          </div>
+          <div class="stat-box">
+            <h4>Точные совпадения</h4>
+            <p id="matchedItems">0</p>
+          </div>
+          <div class="stat-box">
+            <h4>Нечеткие совпадения</h4>
+            <p id="fuzzyItems">0</p>
+          </div>
+          <div class="stat-box">
+            <h4>Ручные совпадения</h4>
+            <p id="manualItems">0</p>
+          </div>
+          <div class="stat-box">
+            <h4>Не найдены</h4>
+            <p id="unmatchedItems">0</p>
+          </div>
         </div>
+
+        <div class="filter-buttons">
+          <button
+            class="filter-btn active"
+            data-filter="all"
+            onclick="setFilter('all')"
+          >
+            Все
+          </button>
+          <button
+            class="filter-btn"
+            data-filter="exact"
+            onclick="setFilter('exact')"
+          >
+            Точные
+          </button>
+          <button
+            class="filter-btn"
+            data-filter="fuzzy"
+            onclick="setFilter('fuzzy')"
+          >
+            Нечеткие
+          </button>
+          <button
+            class="filter-btn"
+            data-filter="manual"
+            onclick="setFilter('manual')"
+          >
+            Ручные
+          </button>
+          <button
+            class="filter-btn"
+            data-filter="unmatched"
+            onclick="setFilter('unmatched')"
+          >
+            Не найдены
+          </button>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Артикул (1C)</th>
+              <th>Название</th>
+              <th>Общее количество</th>
+              <th>Последняя цена</th>
+              <th>Артикул (Fusion)</th>
+              <th>Статус совпадения</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
     </div>
 
     <script src="script.js"></script>
-</body>
+  </body>
 </html>

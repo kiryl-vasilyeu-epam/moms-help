@@ -1,8 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { 
-  UploadSection, 
-  Results 
-} from './components';
+import { UploadSection, Results } from './components';
 import { useItemsMatcher } from './ItemsMatcher.hooks';
 import { memo } from 'react';
 import { PageSwitcher, Screen, Settings } from '@components';
@@ -34,13 +31,12 @@ export const ItemsMatcher = memo(() => {
     isModalOpen,
     openModal,
     closeModal,
-    settings
+    settings,
   } = useItemsMatcher();
-
 
   return (
     <Screen
-      title={t("itemsMatcher.title")}
+      title={t('itemsMatcher.title')}
       showSettingsState={!showResults}
       isModalOpen={isModalOpen}
       openModal={openModal}
@@ -57,16 +53,11 @@ export const ItemsMatcher = memo(() => {
               handleProcess={handleProcess}
               handleClear={handleClear}
             />,
-            <Settings
-              key="settings"
-              sections={settings}
-            />
+            <Settings key="settings" sections={settings} />,
           ]}
         />
       }
     >
-      
-
       <Results
         showResults={showResults}
         handleDownload={handleDownload}

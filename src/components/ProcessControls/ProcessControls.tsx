@@ -20,19 +20,13 @@ export const ProcessControls = ({
         onClick={handleProcess}
         style={styles.processButton}
       >
-        {plural ? t("fileUpload.processBtnPlural") : t("fileUpload.processBtn")}
+        {plural ? t('fileUpload.processBtnPlural') : t('fileUpload.processBtn')}
       </Button>
-      <Button
-        variant="danger"
-        onClick={handleClear}
-      >
-        {t("fileUpload.clear")}
+      <Button variant="danger" onClick={handleClear}>
+        {t('fileUpload.clear')}
       </Button>
-      <Button
-        variant="info"
-        onClick={handleSettings}
-      >
-        {t("fileUpload.settings")}
+      <Button variant="info" onClick={handleSettings}>
+        {t('fileUpload.settings')}
       </Button>
     </div>
   );

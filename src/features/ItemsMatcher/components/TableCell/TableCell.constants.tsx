@@ -1,10 +1,10 @@
-import { Tooltip } from "@mui/material";
-import { styles } from "./TableCell.styles";
-import { ReactNode } from "react";
-import { TableCellProps } from "./TableCell.types";
-import { MatchCell } from "../MatchCell";
-import { StatusCell } from "../StatusCell";
-import { Columns } from "../ItemsTable/ItemsTable.types";
+import { Tooltip } from '@mui/material';
+import { styles } from './TableCell.styles';
+import { ReactNode } from 'react';
+import { TableCellProps } from './TableCell.types';
+import { MatchCell } from '../MatchCell';
+import { StatusCell } from '../StatusCell';
+import { Columns } from '../ItemsTable/ItemsTable.types';
 
 export const ROW_SPECIFIC_STYLES = {
   fuzzy: styles.rowFuzzy,
@@ -13,7 +13,10 @@ export const ROW_SPECIFIC_STYLES = {
   exact: null,
 };
 
-export const COLUMN_RENDERS: Record<Columns, (props: TableCellProps) => ReactNode> = {
+export const COLUMN_RENDERS: Record<
+  Columns,
+  (props: TableCellProps) => ReactNode
+> = {
   index: ({ rowIndex }) => rowIndex + 1,
   invNo: ({ item: { invNo } }) => invNo,
   name: ({ item: { name } }) => name,
@@ -22,11 +25,8 @@ export const COLUMN_RENDERS: Record<Columns, (props: TableCellProps) => ReactNod
   invNoFusion: ({ item, rowIndex, cellCommonProps }: TableCellProps) => (
     <Tooltip
       title={
-        item.matchedItem?.rawData &&
-        (
-          <div css={styles.tooltip}>
-            {item.matchedItem?.rawData}
-          </div>
+        item.matchedItem?.rawData && (
+          <div css={styles.tooltip}>{item.matchedItem?.rawData}</div>
         )
       }
       enterNextDelay={800}

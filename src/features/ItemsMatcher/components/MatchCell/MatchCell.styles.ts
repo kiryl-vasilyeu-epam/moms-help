@@ -1,9 +1,9 @@
-import { createStyles } from "@utils";
+import { createStyles } from '@utils';
 
 export const styles = createStyles({
   matchedInvNo: {
-    cursor: "default",
-    position: "relative",
+    cursor: 'default',
+    position: 'relative',
   },
   matchedInvNoFuzzy: {
     flex: 1,
@@ -13,12 +13,12 @@ export const styles = createStyles({
     justifyContent: 'center',
     padding: '10px',
     borderRadius: 8,
-    border: "2px solid #ff9800",
-    background: "#fff3e0",
+    border: '2px solid #ff9800',
+    background: '#fff3e0',
     '&:hover': {
-      background: "#ffe0b2",
+      background: '#ffe0b2',
     },
-    cursor: 'pointer'
+    cursor: 'pointer',
   },
   matchedInvNoNone: {
     flex: 1,
@@ -28,10 +28,10 @@ export const styles = createStyles({
     justifyContent: 'center',
     padding: '10px',
     borderRadius: 8,
-    border: "2px dashed #667eea",
+    border: '2px dashed #667eea',
     '&:hover': {
-      background: "#f0f4ff",
+      background: '#f0f4ff',
     },
-    cursor: 'pointer'
-  }
+    cursor: 'pointer',
+  },
 });

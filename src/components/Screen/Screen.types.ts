@@ -3,7 +3,7 @@ export interface ScreenProps {
   children: React.ReactNode;
   showSettingsState: boolean;
   settingsState: React.ReactNode;
-  isModalOpen: boolean
-  openModal: () => void
-  closeModal: () => void
+  isModalOpen: boolean;
+  openModal: () => void;
+  closeModal: () => void;
 }

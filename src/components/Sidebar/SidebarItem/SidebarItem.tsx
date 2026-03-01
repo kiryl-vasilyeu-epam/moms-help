@@ -1,7 +1,14 @@
 import type { SidebarItemProps } from './SidebarItem.types';
 import { styles } from './SidebarItem.styles';
 
-export const SidebarItem = ({ active, id, icon, label, isSidebarOpen, onNavigate }: SidebarItemProps) => {
+export const SidebarItem = ({
+  active,
+  id,
+  icon,
+  label,
+  isSidebarOpen,
+  onNavigate,
+}: SidebarItemProps) => {
   const handleItemClick = () => {
     onNavigate(id);
   };

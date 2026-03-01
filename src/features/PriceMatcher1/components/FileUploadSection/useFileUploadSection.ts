@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 export const useFileUploadSection = ({
   onFileChange,
 }: {
-  onFileChange: (file: File) => void
+  onFileChange: (file: File) => void;
 }) => {
   const handleFileInput = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -12,7 +12,7 @@ export const useFileUploadSection = ({
         onFileChange(file);
       }
     },
-    [onFileChange]
+    [onFileChange],
   );
 
   return { handleFileInput };

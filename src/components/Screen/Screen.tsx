@@ -15,8 +15,7 @@ export const Screen = ({
   isModalOpen,
   openModal,
   closeModal,
-}: ScreenProps) => {  
-
+}: ScreenProps) => {
   return (
     <div css={styles.container}>
       <div css={styles.header}>
@@ -28,13 +27,12 @@ export const Screen = ({
             onClick={openModal}
           />
         )}
- 
       </div>
       {showSettingsState ? (
-        <div style={styles.uploadState}>
-          {settingsState}
-        </div>
-      ) : children}
+        <div style={styles.uploadState}>{settingsState}</div>
+      ) : (
+        children
+      )}
 
       <Dialog
         open={isModalOpen}
@@ -49,9 +47,7 @@ export const Screen = ({
         >
           <CloseIcon />
         </IconButton>
-        <DialogContent css={styles.modal}>
-          {settingsState}
-        </DialogContent>
+        <DialogContent css={styles.modal}>{settingsState}</DialogContent>
       </Dialog>
     </div>
   );

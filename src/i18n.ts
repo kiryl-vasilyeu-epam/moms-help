@@ -13,18 +13,16 @@ export const resources = {
   },
 };
 
-void i18n
-  .use(initReactI18next)
-  .init({
-    resources,
-    lng: 'ru',
-    fallbackLng: 'ru',
-    interpolation: {
-      escapeValue: false,
-    },
-    react: {
-      useSuspense: false,
-    },
-  });
+void i18n.use(initReactI18next).init({
+  resources,
+  lng: 'ru',
+  fallbackLng: 'ru',
+  interpolation: {
+    escapeValue: false,
+  },
+  react: {
+    useSuspense: false,
+  },
+});
 
 export default i18n;

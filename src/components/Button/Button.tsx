@@ -1,5 +1,5 @@
-import { styles } from "./Button.styles";
-import type { ButtonProps } from "./Button.types";
+import { styles } from './Button.styles';
+import type { ButtonProps } from './Button.types';
 
 export const Button = ({
   children,
@@ -12,22 +12,27 @@ export const Button = ({
 }: ButtonProps) => {
   const getVariantStyles = () => {
     switch (variant) {
-    case 'success':
-      return styles.buttonSuccess;
-    case 'info':
-      return styles.buttonInfo;
-    case 'danger':
-      return styles.buttonDanger;
-    case 'close':
-      return isSmall ? styles.buttonCloseSmall: styles.buttonClose;
-    default:
-      return styles.buttonPrimary;
+      case 'success':
+        return styles.buttonSuccess;
+      case 'info':
+        return styles.buttonInfo;
+      case 'danger':
+        return styles.buttonDanger;
+      case 'close':
+        return isSmall ? styles.buttonCloseSmall : styles.buttonClose;
+      default:
+        return styles.buttonPrimary;
     }
   };
 
   return (
     <button
-      css={[styles.button, isSmall && styles.buttonSmall, getVariantStyles(), style]}
+      css={[
+        styles.button,
+        isSmall && styles.buttonSmall,
+        getVariantStyles(),
+        style,
+      ]}
       disabled={disabled}
       onClick={onClick}
       title={title}

@@ -1,3 +1,3 @@
 export interface LoadingOverlayProps {
-  loadingText: string
+  loadingText: string;
 }

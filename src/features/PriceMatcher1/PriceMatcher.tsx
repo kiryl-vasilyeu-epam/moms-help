@@ -28,10 +28,7 @@ const PriceMatcher = () => {
 
   return (
     <Box sx={styles.container}>
-      <Typography
-        variant="h4"
-        sx={styles.title}
-      >
+      <Typography variant="h4" sx={styles.title}>
         💰 Калькулятор цен
       </Typography>
 
@@ -44,10 +41,7 @@ const PriceMatcher = () => {
 
       {items.length > 0 && (
         <>
-          <ItemsTable
-            items={items}
-            centsToStr={centsToStr}
-          />
+          <ItemsTable items={items} centsToStr={centsToStr} />
           <CalculationSection
             itemsCount={items.length}
             isLoading={loading}

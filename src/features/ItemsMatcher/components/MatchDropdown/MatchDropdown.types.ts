@@ -1,7 +1,7 @@
-import { ItemsMatcherData } from "@features/ItemsMatcher/ItemsMatcher.types";
+import { ItemsMatcherData } from '@features/ItemsMatcher/ItemsMatcher.types';
 
 export interface MatchDropdownProps extends Pick<
-ItemsMatcherData, 
+  ItemsMatcherData,
   | 'fileFusionItems'
   | 'handleSelectMatch'
   | 'dropdownAnchor'

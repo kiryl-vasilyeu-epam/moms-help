@@ -9,17 +9,18 @@ export const MatchDropdown = ({
   dropdownAnchor,
   handleCloseDropdown,
   fileFusionItems,
-  handleSelectMatch
+  handleSelectMatch,
 }: MatchDropdownProps) => {
   const { t } = useTranslation();
   const [itemsToShow, setItemsToShow] = useState(fileFusionItems);
   const [filter, setFilter] = useState('');
   const onFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setItemsToShow(
-      fileFusionItems.filter(item =>
-        item.invNo.toLowerCase().includes(e.target.value.toLowerCase()) ||
-        item.name.toLowerCase().includes(e.target.value.toLowerCase())
-      )
+      fileFusionItems.filter(
+        (item) =>
+          item.invNo.toLowerCase().includes(e.target.value.toLowerCase()) ||
+          item.name.toLowerCase().includes(e.target.value.toLowerCase()),
+      ),
     );
     setFilter(e.target.value);
   };
@@ -30,24 +31,22 @@ export const MatchDropdown = ({
   }, [dropdownAnchor, fileFusionItems]);
 
   return (
-    <Dropdown 
+    <Dropdown
       anchorEl={dropdownAnchor}
       open={!!dropdownAnchor}
       onClose={handleCloseDropdown}
     >
       <div css={styles.container}>
         <div style={styles.header}>
-          <span style={styles.headerTitle}>{t('itemsMatcher.dropdown.matchDropdownTitle')}</span>
-          <Button
-            isSmall
-            variant='close'
-            onClick={handleCloseDropdown}
-          />
+          <span style={styles.headerTitle}>
+            {t('itemsMatcher.dropdown.matchDropdownTitle')}
+          </span>
+          <Button isSmall variant="close" onClick={handleCloseDropdown} />
         </div>
         <TextField
           type="search"
           label={t('itemsMatcher.dropdown.searchPlaceholder')}
-          variant='outlined'
+          variant="outlined"
           css={styles.searchField}
           onChange={onFilterChange}
           value={filter}

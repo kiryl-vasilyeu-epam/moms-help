@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 export const useCalculationSection = ({
   onCalculate,
 }: {
-  onCalculate: (sums: string) => void
+  onCalculate: (sums: string) => void;
 }) => {
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -13,7 +13,7 @@ export const useCalculationSection = ({
         input.value = '';
       }
     },
-    [onCalculate]
+    [onCalculate],
   );
 
   const handleCalculateClick = useCallback(() => {

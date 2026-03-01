@@ -1,16 +1,32 @@
 import * as XLSX from 'xlsx-js-style';
-import type { File1C, FileFusion, MatchedItem, MatchType } from './ItemsMatcher.types';
-import { FUZZY_MATCH_CONFIG, PRICE_CALCULATION, EXPORT_SHEET_NAME } from './ItemsMatcher.constants';
+import type {
+  File1C,
+  FileFusion,
+  MatchedItem,
+  MatchType,
+} from './ItemsMatcher.types';
+import {
+  FUZZY_MATCH_CONFIG,
+  PRICE_CALCULATION,
+  EXPORT_SHEET_NAME,
+} from './ItemsMatcher.constants';
 
-export const parse1C = (data: unknown[][], {
-  possible1CDataStart, firstRow1C, nameColumn1C, priceColumn1C, amount1C
-}: {
-  possible1CDataStart: string[];
-  firstRow1C: number;
-  nameColumn1C: number;
-  priceColumn1C: number;
-  amount1C: number;
-}): File1C[] => {
+export const parse1C = (
+  data: unknown[][],
+  {
+    possible1CDataStart,
+    firstRow1C,
+    nameColumn1C,
+    priceColumn1C,
+    amount1C,
+  }: {
+    possible1CDataStart: string[];
+    firstRow1C: number;
+    nameColumn1C: number;
+    priceColumn1C: number;
+    amount1C: number;
+  },
+): File1C[] => {
   const items: File1C[] = [];
   let currentItem: Partial<File1C> | null = null;
 
@@ -20,14 +36,14 @@ export const parse1C = (data: unknown[][], {
 
     if (!col0) continue;
 
-    if (possible1CDataStart.some(start => col0.startsWith(start))) {
+    if (possible1CDataStart.some((start) => col0.startsWith(start))) {
       if (currentItem) {
         const price = parseFloat(String(row?.[priceColumn1C] ?? 0)) || 0;
         const amount = parseFloat(String(row?.[amount1C] ?? 0)) || 0;
 
         currentItem.totalAmount = (currentItem.totalAmount ?? 0) + amount;
         if (price > 0) {
-          if (currentItem.latestPrice  && currentItem.latestPrice !== price) {
+          if (currentItem.latestPrice && currentItem.latestPrice !== price) {
             currentItem.hasFewPrices = true;
           }
           currentItem.latestPrice = price;
@@ -40,7 +56,7 @@ export const parse1C = (data: unknown[][], {
           name: currentItem.name,
           totalAmount: currentItem.totalAmount ?? 0,
           latestPrice: currentItem.latestPrice ?? 0,
-          hasFewPrices: currentItem.hasFewPrices
+          hasFewPrices: currentItem.hasFewPrices,
         });
       }
 
@@ -53,7 +69,7 @@ export const parse1C = (data: unknown[][], {
         name,
         totalAmount: 0,
         latestPrice: 0,
-        rawInvNoName: col0
+        rawInvNoName: col0,
       };
     }
   }
@@ -64,21 +80,27 @@ export const parse1C = (data: unknown[][], {
       name: currentItem.name,
       totalAmount: currentItem.totalAmount ?? 0,
       latestPrice: currentItem.latestPrice ?? 0,
-      hasFewPrices: currentItem.hasFewPrices
+      hasFewPrices: currentItem.hasFewPrices,
     });
   }
 
   return items;
 };
 
-export const parseFusion = (data: unknown[][], {
-  firstRowFusion, barcodeColumnFusion, nameColumnFusion, priceColumnFusion
-}: {
-  firstRowFusion: number;
-  barcodeColumnFusion: number;
-  nameColumnFusion: number;
-  priceColumnFusion: number;
-}): FileFusion[] => {
+export const parseFusion = (
+  data: unknown[][],
+  {
+    firstRowFusion,
+    barcodeColumnFusion,
+    nameColumnFusion,
+    priceColumnFusion,
+  }: {
+    firstRowFusion: number;
+    barcodeColumnFusion: number;
+    nameColumnFusion: number;
+    priceColumnFusion: number;
+  },
+): FileFusion[] => {
   const items: FileFusion[] = [];
 
   for (let i = firstRowFusion; i < data.length; i++) {
@@ -99,16 +121,20 @@ export const parseFusion = (data: unknown[][], {
       invNo,
       name,
       price,
-      rawData: `${invNoName} | ${barcode} | ${price}`
+      rawData: `${invNoName} | ${barcode} | ${price}`,
     });
   }
 
   return items;
 };
 
-const normalizeInvNo = (invNo: string): string => invNo.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
+const normalizeInvNo = (invNo: string): string =>
+  invNo.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
 
-export const matchItems = (items1: File1C[], items2: FileFusion[]): MatchedItem[] => {
+export const matchItems = (
+  items1: File1C[],
+  items2: FileFusion[],
+): MatchedItem[] => {
   const items2Map = new Map<string, FileFusion>();
   items2.forEach((item) => {
     items2Map.set(item.invNo, item);
@@ -120,7 +146,7 @@ export const matchItems = (items1: File1C[], items2: FileFusion[]): MatchedItem[
         ...item,
         matchType: 'exact' as MatchType,
         matchedInvNo: item.invNo,
-        matchedItem: items2Map.get(item.invNo) ?? null
+        matchedItem: items2Map.get(item.invNo) ?? null,
       };
     }
 
@@ -134,13 +160,18 @@ export const matchItems = (items1: File1C[], items2: FileFusion[]): MatchedItem[
           ...item,
           matchType: 'fuzzy' as MatchType,
           matchedInvNo: invNo2,
-          matchedItem: item2
+          matchedItem: item2,
         };
       }
 
-      if (normalized1.includes(normalized2) || normalized2.includes(normalized1)) {
-        const longer = normalized1.length > normalized2.length ? normalized1 : normalized2;
-        const shorter = normalized1.length > normalized2.length ? normalized2 : normalized1;
+      if (
+        normalized1.includes(normalized2) ||
+        normalized2.includes(normalized1)
+      ) {
+        const longer =
+          normalized1.length > normalized2.length ? normalized1 : normalized2;
+        const shorter =
+          normalized1.length > normalized2.length ? normalized2 : normalized1;
 
         let diff = '';
         if (longer.startsWith(shorter)) {
@@ -158,7 +189,7 @@ export const matchItems = (items1: File1C[], items2: FileFusion[]): MatchedItem[
             ...item,
             matchType: 'fuzzy' as MatchType,
             matchedInvNo: invNo2,
-            matchedItem: item2
+            matchedItem: item2,
           };
         }
       }
@@ -168,14 +199,18 @@ export const matchItems = (items1: File1C[], items2: FileFusion[]): MatchedItem[
       ...item,
       matchType: 'none' as MatchType,
       matchedInvNo: null,
-      matchedItem: null
+      matchedItem: null,
     };
   });
 };
 
-export const exportToXLS = (results: MatchedItem[], {
-  exportColumnsNames, itemsMatcherExportDataOrder
-}: { exportColumnsNames: string[]; itemsMatcherExportDataOrder: string[] }): void => {
+export const exportToXLS = (
+  results: MatchedItem[],
+  {
+    exportColumnsNames,
+    itemsMatcherExportDataOrder,
+  }: { exportColumnsNames: string[]; itemsMatcherExportDataOrder: string[] },
+): void => {
   const matchedItems = results.filter((item) => item.matchType !== 'none');
   const unmatchedItems = results.filter((item) => item.matchType === 'none');
   const sortedItems = [...matchedItems, ...unmatchedItems];
@@ -186,11 +221,13 @@ export const exportToXLS = (results: MatchedItem[], {
     const name = item.rawInvNoName ?? `${item.invNo} ${item.name}`;
     const amount = Math.round(item.totalAmount).toString();
     const calculatedPrice = (
-      item.latestPrice
-      * PRICE_CALCULATION.multiplier1
-      * PRICE_CALCULATION.multiplier2
-       - PRICE_CALCULATION.subtractValue
-    ).toFixed(2).replace('.', ',');
+      item.latestPrice *
+        PRICE_CALCULATION.multiplier1 *
+        PRICE_CALCULATION.multiplier2 -
+      PRICE_CALCULATION.subtractValue
+    )
+      .toFixed(2)
+      .replace('.', ',');
 
     let retailPrice = '';
     let discountPrice = '';
@@ -218,10 +255,14 @@ export const exportToXLS = (results: MatchedItem[], {
       discountPrice,
       amount,
       latestPrice,
-      barcode
+      barcode,
     };
 
-    data.push(itemsMatcherExportDataOrder.map((key) => (fullData as Record<string, string>)[key]));
+    data.push(
+      itemsMatcherExportDataOrder.map(
+        (key) => (fullData as Record<string, string>)[key],
+      ),
+    );
   });
 
   const wb = XLSX.utils.book_new();
@@ -232,10 +273,12 @@ export const exportToXLS = (results: MatchedItem[], {
     { wch: 20 },
     { wch: 10 },
     { wch: 20 },
-    { wch: 20 }
+    { wch: 20 },
   ];
 
-  const yellowStyle = { fill: { fgColor: { rgb: 'FFFF00' }, patternType: 'solid' } };
+  const yellowStyle = {
+    fill: { fgColor: { rgb: 'FFFF00' }, patternType: 'solid' },
+  };
   sortedItems.forEach((item, index) => {
     if (item.hasFewPrices) {
       const rowIndex = index + 1;
@@ -258,17 +301,20 @@ export const exportToXLS = (results: MatchedItem[], {
 };
 
 export const getStats = (results: MatchedItem[]) => {
-  return results.reduce((acc, item) => {
-    if (item.matchType === 'exact') acc.exact += 1;
-    else if (item.matchType === 'fuzzy') acc.fuzzy += 1;
-    else if (item.matchType === 'manual') acc.manual += 1;
-    else if (item.matchType === 'none') acc.none += 1;
-    return acc;
-  }, {
-    total: results.length,
-    exact: 0,
-    fuzzy: 0,
-    manual: 0,
-    none: 0
-  });
+  return results.reduce(
+    (acc, item) => {
+      if (item.matchType === 'exact') acc.exact += 1;
+      else if (item.matchType === 'fuzzy') acc.fuzzy += 1;
+      else if (item.matchType === 'manual') acc.manual += 1;
+      else if (item.matchType === 'none') acc.none += 1;
+      return acc;
+    },
+    {
+      total: results.length,
+      exact: 0,
+      fuzzy: 0,
+      manual: 0,
+      none: 0,
+    },
+  );
 };

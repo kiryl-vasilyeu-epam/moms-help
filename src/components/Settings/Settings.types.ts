@@ -29,7 +29,10 @@ export interface OrderSettingItem extends BaseSettingItem {
   onOrderChange: (items: OrderItem[]) => void;
 }
 
-export type SettingItem = InputSettingItem | ToggleSettingItem | OrderSettingItem;
+export type SettingItem =
+  | InputSettingItem
+  | ToggleSettingItem
+  | OrderSettingItem;
 
 export interface SettingsSection {
   id: string;

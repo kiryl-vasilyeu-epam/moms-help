@@ -1,4 +1,8 @@
-import type { PriceItem, SolutionItem, ProgressUpdate } from './PriceMatcher.types';
+import type {
+  PriceItem,
+  SolutionItem,
+  ProgressUpdate,
+} from './PriceMatcher.types';
 
 /**
  * Parse money string in various formats to cents
@@ -15,7 +19,12 @@ export const parseMoneyToCents = (moneyStr: string): number => {
   const dotCount = (cleaned.match(/\./g) ?? []).length;
 
   // Handle Russian format: 1.234,56 (dot as thousands, comma as decimal)
-  if (dotCount > 1 || (dotCount === 1 && commaCount === 1 && cleaned.lastIndexOf(',') > cleaned.lastIndexOf('.'))) {
+  if (
+    dotCount > 1 ||
+    (dotCount === 1 &&
+      commaCount === 1 &&
+      cleaned.lastIndexOf(',') > cleaned.lastIndexOf('.'))
+  ) {
     cleaned = cleaned.replace(/\./g, '').replace(',', '.');
   } else if (commaCount > 1 || (commaCount === 1 && dotCount === 0)) {
     // Handle: 1,234,567.89 or 1,234 (comma as thousands)
@@ -71,7 +80,7 @@ export const yieldToBrowser = (): Promise<void> => {
 export const findExactCombination = async (
   targetCents: number,
   availableItems: PriceItem[],
-  onProgress?: (progress: ProgressUpdate) => void
+  onProgress?: (progress: ProgressUpdate) => void,
 ): Promise<SolutionItem[] | null> => {
   // Safety checks
   if (!Array.isArray(availableItems) || availableItems.length === 0) {
@@ -91,7 +100,10 @@ export const findExactCombination = async (
   const validItems = availableItems
     .map((item, idx) => {
       if (!item || typeof item !== 'object') return null;
-      const remainingQty = Math.max(0, item.remainingAmount || item.amount || 0);
+      const remainingQty = Math.max(
+        0,
+        item.remainingAmount || item.amount || 0,
+      );
       const unitCents = item.salePriceCents || 0;
       if (unitCents <= 0 || remainingQty <= 0) return null;
       return { item, remainingQty, unitCents, originalIndex: idx };
@@ -105,7 +117,10 @@ export const findExactCombination = async (
 
   // Quick feasibility check
   const minPrice = validItems[validItems.length - 1].unitCents;
-  const maxPossible = validItems.reduce((sum, v) => sum + v.unitCents * v.remainingQty, 0);
+  const maxPossible = validItems.reduce(
+    (sum, v) => sum + v.unitCents * v.remainingQty,
+    0,
+  );
   if (targetCents > maxPossible || targetCents < minPrice) {
     return null;
   }
@@ -120,7 +135,9 @@ export const findExactCombination = async (
   // Calculate remaining value for each position (for pruning)
   const remainingValue = new Array(validItems.length + 1).fill(0);
   for (let i = validItems.length - 1; i >= 0; i--) {
-    remainingValue[i] = remainingValue[i + 1] + validItems[i].unitCents * validItems[i].remainingQty;
+    remainingValue[i] =
+      remainingValue[i + 1] +
+      validItems[i].unitCents * validItems[i].remainingQty;
   }
 
   // Process each item
@@ -162,7 +179,10 @@ export const findExactCombination = async (
       }
 
       // Try all possible quantities of current item
-      const maxQty = Math.min(remainingQty, Math.floor((targetCents - currentSum) / unitCents));
+      const maxQty = Math.min(
+        remainingQty,
+        Math.floor((targetCents - currentSum) / unitCents),
+      );
 
       for (let qty = 0; qty <= maxQty; qty++) {
         const newSum = currentSum + unitCents * qty;
@@ -171,11 +191,12 @@ export const findExactCombination = async (
 
         // Only keep if we haven't seen this sum yet, or if this is a better path
         const newCombination: SolutionItem[] =
-          qty > 0
-            ? [...combination, { ...item, quantity: qty }]
-            : combination;
+          qty > 0 ? [...combination, { ...item, quantity: qty }] : combination;
 
-        if (!newDp.has(newSum) || newDp.get(newSum)!.length > newCombination.length) {
+        if (
+          !newDp.has(newSum) ||
+          newDp.get(newSum)!.length > newCombination.length
+        ) {
           newDp.set(newSum, newCombination);
         }
       }
@@ -183,7 +204,10 @@ export const findExactCombination = async (
 
     // Merge: keep all sums from old dp that are still valid
     for (const [sum, combination] of dp.entries()) {
-      if (sum <= targetCents && sum + remainingValue[itemIdx + 1] >= targetCents) {
+      if (
+        sum <= targetCents &&
+        sum + remainingValue[itemIdx + 1] >= targetCents
+      ) {
         if (!newDp.has(sum) || newDp.get(sum)!.length > combination.length) {
           newDp.set(sum, combination);
         }

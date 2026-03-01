@@ -47,7 +47,10 @@ const ResultsSection = ({
     if (calculation.solution && calculation.solution.length > 0) {
       textToCopy += `Товары:\n`;
       calculation.solution.forEach((item) => {
-        const rowNum = item.rowNumber ?? items.find((i) => i.name === item.name)?.rowNumber ?? '-';
+        const rowNum =
+          item.rowNumber ??
+          items.find((i) => i.name === item.name)?.rowNumber ??
+          '-';
         const itemTotalCents = (item.salePriceCents || 0) * item.quantity;
         textToCopy += `${item.quantity} шт. (строка ${rowNum}) ${item.name} @ ${centsToStr(item.salePriceCents)} = ${centsToStr(itemTotalCents)}\n`;
       });
@@ -81,10 +84,12 @@ const ResultsSection = ({
           >
             <div style={styles.resultHeader as React.CSSProperties}>
               <span>
-                Расчет #{calculation.calculationNumber || index + 1}: {centsToStr(targetCents)}
+                Расчет #{calculation.calculationNumber || index + 1}:{' '}
+                {centsToStr(targetCents)}
                 {isOff && (
                   <span style={{ marginLeft: '10px', color: '#ff9800' }}>
-                    (получено: {centsToStr(calculatedCents)}, разница: {centsToStr(differenceCents)})
+                    (получено: {centsToStr(calculatedCents)}, разница:{' '}
+                    {centsToStr(differenceCents)})
                   </span>
                 )}
               </span>
@@ -92,7 +97,11 @@ const ResultsSection = ({
                 style={styles.deleteButton as React.CSSProperties}
                 onClick={(e) => {
                   e.stopPropagation();
-                  if (confirm(`Удалить расчет #${calculation.calculationNumber || index + 1}?`)) {
+                  if (
+                    confirm(
+                      `Удалить расчет #${calculation.calculationNumber || index + 1}?`,
+                    )
+                  ) {
                     onRemoveCalculation(index);
                   }
                 }}
@@ -103,18 +112,31 @@ const ResultsSection = ({
 
             {calculation.solution && calculation.solution.length > 0 ? (
               <div style={styles.solutionSection as React.CSSProperties}>
-                <h3 style={styles.solutionTitle as React.CSSProperties}>Товары для выбора:</h3>
+                <h3 style={styles.solutionTitle as React.CSSProperties}>
+                  Товары для выбора:
+                </h3>
                 <ul style={styles.resultItems as React.CSSProperties}>
                   {calculation.solution.map((item, itemIndex) => {
-                    if (!item || typeof item !== 'object' || !item.name || (item.quantity || 0) <= 0) return null;
-                    const itemTotalCents = (item.salePriceCents || 0) * (item.quantity || 0);
-                    const rowNum = item.rowNumber ?? items.find((i) => i.name === item.name)?.rowNumber ?? '-';
+                    if (
+                      !item ||
+                      typeof item !== 'object' ||
+                      !item.name ||
+                      (item.quantity || 0) <= 0
+                    )
+                      return null;
+                    const itemTotalCents =
+                      (item.salePriceCents || 0) * (item.quantity || 0);
+                    const rowNum =
+                      item.rowNumber ??
+                      items.find((i) => i.name === item.name)?.rowNumber ??
+                      '-';
                     return (
                       <li
                         key={itemIndex}
                         style={styles.resultItemLi as React.CSSProperties}
                       >
-                        {item.quantity} шт. (строка {rowNum}) {item.name} @ {centsToStr(item.salePriceCents)} ={' '}
+                        {item.quantity} шт. (строка {rowNum}) {item.name} @{' '}
+                        {centsToStr(item.salePriceCents)} ={' '}
                         {centsToStr(itemTotalCents)}
                       </li>
                     );
@@ -122,7 +144,11 @@ const ResultsSection = ({
                 </ul>
                 <div style={styles.resultTotal as React.CSSProperties}>
                   Итого: {centsToStr(calculatedCents)}
-                  {isOff && <span style={{ marginLeft: '10px' }}>(цель: {centsToStr(targetCents)})</span>}
+                  {isOff && (
+                    <span style={{ marginLeft: '10px' }}>
+                      (цель: {centsToStr(targetCents)})
+                    </span>
+                  )}
                 </div>
               </div>
             ) : (
@@ -136,14 +162,17 @@ const ResultsSection = ({
 
       {Object.keys(allUsedItems).length > 0 && (
         <Box sx={styles.summaryCard}>
-          <div style={styles.summaryTitle as React.CSSProperties}>📋 Сводка - Товары к удалению</div>
+          <div style={styles.summaryTitle as React.CSSProperties}>
+            📋 Сводка - Товары к удалению
+          </div>
           <ul style={styles.resultItems as React.CSSProperties}>
             {Object.values(allUsedItems).map((item, index) => (
               <li
                 key={index}
                 style={styles.resultItemLi as React.CSSProperties}
               >
-                <strong>{item.quantity} шт.</strong> (строка {item.rowNumber}) {item.name}
+                <strong>{item.quantity} шт.</strong> (строка {item.rowNumber}){' '}
+                {item.name}
               </li>
             ))}
           </ul>

@@ -24,7 +24,7 @@
       "file1CLabel": "Файл 1: 1C выписка",
       "fileFusionLabel": "Файл 2: Fusion выписка"
     },
-    
+
     "controls": {
       "downloadBtn": "Скачать список с совпадениями (.xlsx)",
       "transferBtn": "Передать в Поиск цен"

@@ -1,7 +1,7 @@
 import { ItemsMatcherData } from '../../ItemsMatcher.types';
 
 export type ResultsProps = Pick<
-ItemsMatcherData, 
+  ItemsMatcherData,
   | 'showResults'
   | 'handleDownload'
   | 'handleTransfer'
@@ -17,4 +17,4 @@ ItemsMatcherData,
   | 'handleRemoveMatch'
   | 'dropdownAnchor'
   | 'handleCloseDropdown'
->
+>;

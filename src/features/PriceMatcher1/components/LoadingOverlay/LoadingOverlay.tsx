@@ -8,7 +8,9 @@ const LoadingOverlay: FC<LoadingOverlayProps> = ({ loadingText }) => {
     <Box sx={styles.overlay}>
       <Box sx={styles.content}>
         <div style={styles.text as React.CSSProperties}>{loadingText}</div>
-        <div style={styles.progress as React.CSSProperties}>Пожалуйста, подождите...</div>
+        <div style={styles.progress as React.CSSProperties}>
+          Пожалуйста, подождите...
+        </div>
       </Box>
     </Box>
   );

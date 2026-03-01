@@ -1,4 +1,4 @@
-export { Settings } from "./Settings";
+export { Settings } from './Settings';
 export type {
   SettingsProps,
   SettingsSection,
@@ -8,4 +8,4 @@ export type {
   ToggleSettingItem,
   OrderSettingItem,
   OrderItem,
-} from "./Settings.types";
+} from './Settings.types';

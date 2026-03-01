@@ -6,6 +6,6 @@ export interface SidebarMenuItem {
   icon: string;
 }
 export interface SidebarProps {
-  onNavigate: (page: PAGES) => void
-  activeItem: PAGES
+  onNavigate: (page: PAGES) => void;
+  activeItem: PAGES;
 }

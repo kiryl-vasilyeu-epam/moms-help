@@ -10,10 +10,10 @@ export const Filters = ({
   isFiltering = false,
 }: FiltersProps) => {
   const { t } = useTranslation();
-  
+
   return (
     <div css={styles.filterButtons}>
-      {FILTERS.map(filter => (
+      {FILTERS.map((filter) => (
         <FilterButton
           key={filter.id}
           label={t(filter.label)}

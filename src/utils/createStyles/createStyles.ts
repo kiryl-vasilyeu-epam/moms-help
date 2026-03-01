@@ -1,14 +1,14 @@
-import { StylesMap, Theme } from "./createStyles.types";
-import { theme } from "@/styles";
+import { StylesMap, Theme } from './createStyles.types';
+import { theme } from '@/styles';
 
 // overloads
 export function createStyles<TStyles extends StylesMap>(
   styles: TStyles,
-): TStyles
+): TStyles;
 
 export function createStyles<TStyles extends StylesMap>(
   styles: (theme: Theme) => TStyles,
-): TStyles
+): TStyles;
 
 // implementation
 export function createStyles(styles: unknown) {

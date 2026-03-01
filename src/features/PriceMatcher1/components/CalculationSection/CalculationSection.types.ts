@@ -1,5 +1,5 @@
 export interface CalculationSectionProps {
-  itemsCount: number
-  isLoading: boolean
-  onCalculate: (sums: string) => void
+  itemsCount: number;
+  isLoading: boolean;
+  onCalculate: (sums: string) => void;
 }

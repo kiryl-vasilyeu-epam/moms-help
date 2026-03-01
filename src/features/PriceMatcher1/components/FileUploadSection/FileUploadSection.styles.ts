@@ -39,5 +39,5 @@ export const styles = createSxStyles({
   clearButton: {
     width: '300px',
     alignSelf: 'center',
-  }
+  },
 });

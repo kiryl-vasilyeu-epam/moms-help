@@ -10,7 +10,7 @@ export const FileUploadSection: FC<FileUploadSectionProps> = ({
   fileName,
   onFileChange,
   onReset,
-  isDisabled
+  isDisabled,
 }) => {
   const { handleFileInput } = useFileUploadSection({
     onFileChange,
@@ -19,11 +19,8 @@ export const FileUploadSection: FC<FileUploadSectionProps> = ({
   return (
     <Box sx={styles.container}>
       <Box sx={styles.uploadBox}>
-        <Typography
-          variant="h6"
-          sx={styles.fileTitle}
-        >
-                Остатки
+        <Typography variant="h6" sx={styles.fileTitle}>
+          Остатки
         </Typography>
         <Button
           component="label"
@@ -31,18 +28,15 @@ export const FileUploadSection: FC<FileUploadSectionProps> = ({
           startIcon={<CloudUploadIcon />}
           sx={styles.fileButton}
         >
-                Загрузить файл
+          Загрузить файл
           <input
             type="file"
-            accept='.xlsx,.xls'
+            accept=".xlsx,.xls"
             onChange={handleFileInput}
             hidden
           />
         </Button>
-        <Typography
-          variant="caption"
-          sx={styles.fileName}
-        >
+        <Typography variant="caption" sx={styles.fileName}>
           {fileName}
         </Typography>
       </Box>
@@ -50,16 +44,15 @@ export const FileUploadSection: FC<FileUploadSectionProps> = ({
       {!isDisabled && (
         <Button
           fullWidth
-          variant='contained'
-          color='error'
+          variant="contained"
+          color="error"
           onClick={onReset}
           endIcon={<ClearIcon />}
           sx={styles.clearButton}
         >
-                Очистить данные
+          Очистить данные
         </Button>
       )}
-
     </Box>
   );
 };

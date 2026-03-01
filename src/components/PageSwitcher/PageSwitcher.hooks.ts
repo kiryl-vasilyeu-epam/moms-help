@@ -1,4 +1,10 @@
-import { useState, useCallback, useMemo, createContext, useContext } from 'react';
+import {
+  useState,
+  useCallback,
+  useMemo,
+  createContext,
+  useContext,
+} from 'react';
 import type { PageSwitcherNavigation } from './PageSwitcher.types';
 
 const PageSwitcherContext = createContext<PageSwitcherNavigation | null>(null);
@@ -8,7 +14,9 @@ export const PageSwitcherProvider = PageSwitcherContext.Provider;
 export const usePageSwitcherNavigation = (): PageSwitcherNavigation => {
   const context = useContext(PageSwitcherContext);
   if (!context) {
-    throw new Error('usePageSwitcherNavigation must be used within a PageSwitcher');
+    throw new Error(
+      'usePageSwitcherNavigation must be used within a PageSwitcher',
+    );
   }
   return context;
 };
@@ -34,21 +42,34 @@ export const usePageSwitcher = ({
   onPageChange,
 }: UsePageSwitcherParams): UsePageSwitcherReturn => {
   const [currentPageIndex, setCurrentPageIndex] = useState(initialPageIndex);
-  const [previousPageIndex, setPreviousPageIndex] = useState<number | null>(null);
+  const [previousPageIndex, setPreviousPageIndex] = useState<number | null>(
+    null,
+  );
   const [isAnimating, setIsAnimating] = useState(false);
-  const [animationDirection, setAnimationDirection] = useState<'forward' | 'backward'>('forward');
+  const [animationDirection, setAnimationDirection] = useState<
+    'forward' | 'backward'
+  >('forward');
 
-  const goToPage = useCallback((targetIndex: number) => {
-    if (targetIndex === currentPageIndex || targetIndex < 0 || targetIndex >= totalPages) {
-      return;
-    }
+  const goToPage = useCallback(
+    (targetIndex: number) => {
+      if (
+        targetIndex === currentPageIndex ||
+        targetIndex < 0 ||
+        targetIndex >= totalPages
+      ) {
+        return;
+      }
 
-    setAnimationDirection(targetIndex > currentPageIndex ? 'forward' : 'backward');
-    setPreviousPageIndex(currentPageIndex);
-    setIsAnimating(true);
-    setCurrentPageIndex(targetIndex);
-    onPageChange?.(targetIndex);
-  }, [currentPageIndex, totalPages, onPageChange]);
+      setAnimationDirection(
+        targetIndex > currentPageIndex ? 'forward' : 'backward',
+      );
+      setPreviousPageIndex(currentPageIndex);
+      setIsAnimating(true);
+      setCurrentPageIndex(targetIndex);
+      onPageChange?.(targetIndex);
+    },
+    [currentPageIndex, totalPages, onPageChange],
+  );
 
   const endAnimation = useCallback(() => {
     setIsAnimating(false);
@@ -67,13 +88,16 @@ export const usePageSwitcher = ({
     }
   }, [currentPageIndex, goToPage]);
 
-  const navigation: PageSwitcherNavigation = useMemo(() => ({
-    goToPage,
-    goToNextPage,
-    goToPrevPage,
-    currentPageIndex,
-    totalPages,
-  }), [goToPage, goToNextPage, goToPrevPage, currentPageIndex, totalPages]);
+  const navigation: PageSwitcherNavigation = useMemo(
+    () => ({
+      goToPage,
+      goToNextPage,
+      goToPrevPage,
+      currentPageIndex,
+      totalPages,
+    }),
+    [goToPage, goToNextPage, goToPrevPage, currentPageIndex, totalPages],
+  );
 
   return {
     currentPageIndex,

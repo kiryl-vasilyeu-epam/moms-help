@@ -1,48 +1,51 @@
 export interface PriceItem {
-  rowNumber: number
-  name: string
-  priceCents: number
-  salePriceCents: number
-  amount: number
-  originalAmount: number
-  remainingAmount: number
-  usedAmount: number
+  rowNumber: number;
+  name: string;
+  priceCents: number;
+  salePriceCents: number;
+  amount: number;
+  originalAmount: number;
+  remainingAmount: number;
+  usedAmount: number;
 }
 
 export interface SolutionItem extends PriceItem {
-  quantity: number
+  quantity: number;
 }
 
 export interface Calculation {
-  calculationNumber: number
-  targetCents: number
-  calculatedCents: number | null
-  solution: SolutionItem[] | null
-  timestamp: string
+  calculationNumber: number;
+  targetCents: number;
+  calculatedCents: number | null;
+  solution: SolutionItem[] | null;
+  timestamp: string;
 }
 
 export interface FailedCalculation {
-  targetCents: number
-  reason: 'no_items' | 'no_combination'
+  targetCents: number;
+  reason: 'no_items' | 'no_combination';
 }
 
 export interface TransferredItem {
-  name: string
-  price: number
-  amount: number
-  matched: boolean
+  name: string;
+  price: number;
+  amount: number;
+  matched: boolean;
 }
 
 export interface ProgressUpdate {
-  processedItems: number
-  totalItems: number
-  dpSize: number
-  elapsed: number
+  processedItems: number;
+  totalItems: number;
+  dpSize: number;
+  elapsed: number;
 }
 
-export type AllUsedItems = Record<string, {
-    name: string
-    rowNumber: number | string
-    quantity: number
-    salePriceCents: number
-  }>;
+export type AllUsedItems = Record<
+  string,
+  {
+    name: string;
+    rowNumber: number | string;
+    quantity: number;
+    salePriceCents: number;
+  }
+>;

@@ -1,5 +1,5 @@
-import { styles } from "./ItemsTable.styles";
-import { Columns } from "./ItemsTable.types";
+import { styles } from './ItemsTable.styles';
+import { Columns } from './ItemsTable.types';
 
 export const TABLE_HEADER = [
   'itemsMatcher.tableHeaders.number',
@@ -18,7 +18,7 @@ export const ROW_SPECIFIC_STYLES = {
   exact: null,
 };
 
-export const COLUMNS: { id: Columns, weight: number }[] = [
+export const COLUMNS: { id: Columns; weight: number }[] = [
   { id: 'index', weight: 1 },
   { id: 'invNo', weight: 3 },
   { id: 'name', weight: 5 },

@@ -28,22 +28,27 @@ export const usePriceMatcher = () => {
   const [usageHistory, setUsageHistory] = useState<Calculation[]>([]);
   const [loading, setLoading] = useState(false);
   const [loadingText, setLoadingText] = useState('');
-  const [failedCalculations, setFailedCalculations] = useState<FailedCalculation[]>([]);
+  const [failedCalculations, setFailedCalculations] = useState<
+    FailedCalculation[]
+  >([]);
   const [showNoSolutionModal, setShowNoSolutionModal] = useState(false);
 
   // Sync with localStorage
-  const [storedItems, setStoredItems] = useLocalStorage<PriceItem[]>(PRICE_MATCHER_ITEMS_KEY, []);
+  const [storedItems, setStoredItems] = useLocalStorage<PriceItem[]>(
+    PRICE_MATCHER_ITEMS_KEY,
+    [],
+  );
   const [storedOriginal, setStoredOriginal] = useLocalStorage<PriceItem[]>(
     PRICE_MATCHER_ORIGINAL_ITEMS_KEY,
-    []
+    [],
   );
   const [storedHistory, setStoredHistory] = useLocalStorage<Calculation[]>(
     PRICE_MATCHER_USAGE_HISTORY_KEY,
-    []
+    [],
   );
   const [transferredData] = useLocalStorage<TransferredItem[] | null>(
     PRICE_MATCHER_TRANSFER_DATA_KEY,
-    null
+    null,
   );
 
   // Load initial data from localStorage or transferred data
@@ -73,84 +78,119 @@ export const usePriceMatcher = () => {
       setOriginalItems(storedOriginal || []);
       setUsageHistory(storedHistory || []);
     }
-  }, [setStoredHistory, setStoredItems, setStoredOriginal, storedHistory, storedItems, storedOriginal, transferredData]);
+  }, [
+    setStoredHistory,
+    setStoredItems,
+    setStoredOriginal,
+    storedHistory,
+    storedItems,
+    storedOriginal,
+    transferredData,
+  ]);
 
-  const handleFileUpload = useCallback((file: File) => {
-    const reader = new FileReader();
-    reader.onload = async (e) => {
-      try {
-        const data = e.target?.result;
-        const workbook = XLSX.read(data, { type: 'array' });
-        const sheet = workbook.Sheets[workbook.SheetNames[0]];
+  const handleFileUpload = useCallback(
+    (file: File) => {
+      const reader = new FileReader();
+      reader.onload = async (e) => {
+        try {
+          const data = e.target?.result;
+          const workbook = XLSX.read(data, { type: 'array' });
+          const sheet = workbook.Sheets[workbook.SheetNames[0]];
 
-        if (!sheet) {
-          alert('Ошибка чтения листа Excel');
-          return;
+          if (!sheet) {
+            alert('Ошибка чтения листа Excel');
+            return;
+          }
+
+          const rows = XLSX.utils.sheet_to_json<Record<string, unknown>>(
+            sheet,
+            { header: 1 },
+          );
+
+          if (rows.length < 2) {
+            alert(
+              'Файл должен содержать заголовок и хотя бы одну строку данных',
+            );
+            return;
+          }
+
+          const headers = (rows[0] as unknown as unknown[]).map((h) =>
+            String(h),
+          );
+          const nameIdx = headers.findIndex((h) =>
+            String(h).toLowerCase().includes('наимено'),
+          );
+          const priceIdx = headers.findIndex((h) =>
+            String(h).toLowerCase().includes('цена'),
+          );
+          const salePriceIdx = headers.findIndex((h) =>
+            String(h).toLowerCase().includes('скидк'),
+          );
+          const amountIdx = headers.findIndex((h) =>
+            String(h).toLowerCase().includes('кол-во'),
+          );
+
+          if (nameIdx === -1 || priceIdx === -1 || amountIdx === -1) {
+            alert(
+              'Не найдены все необходимые колонки: Наименование, Цена, Кол-во',
+            );
+            return;
+          }
+
+          const newItems = rows
+            .slice(1) // Skip header
+            .map((row, index) => {
+              const name = String(row[nameIdx] ?? '').trim();
+              const priceCents = parseMoneyToCents(String(row[priceIdx] ?? ''));
+              const salePriceCents =
+                salePriceIdx !== -1
+                  ? parseMoneyToCents(String(row[salePriceIdx] ?? ''))
+                  : priceCents;
+              const amount = Math.max(
+                0,
+                parseInt(String(row[amountIdx] ?? '0'), 10) || 0,
+              );
+
+              return {
+                rowNumber: index + 2,
+                name,
+                priceCents,
+                salePriceCents,
+                amount,
+                originalAmount: amount,
+                remainingAmount: amount,
+                usedAmount: 0,
+              };
+            })
+            .filter((item) => item.name && item.amount > 0);
+
+          if (newItems.length === 0) {
+            alert(
+              'В файле не найдено валидных товаров. Проверьте названия колонок.',
+            );
+            return;
+          }
+
+          setItems(newItems);
+          setOriginalItems(newItems.map((item) => ({ ...item })));
+          setUsageHistory([]);
+
+          setStoredItems(newItems);
+          setStoredOriginal(newItems.map((item) => ({ ...item })));
+          setStoredHistory([]);
+        } catch (error) {
+          console.error('Error reading file:', error);
+          alert(
+            'Ошибка чтения файла: ' +
+              (error instanceof Error ? error.message : 'Unknown error'),
+          );
         }
+      };
 
-        const rows = XLSX.utils.sheet_to_json<Record<string, unknown>>(sheet, { header: 1 });
-
-        if (rows.length < 2) {
-          alert('Файл должен содержать заголовок и хотя бы одну строку данных');
-          return;
-        }
-
-        const headers = ((rows[0] as unknown) as unknown[]).map((h) => String(h));
-        const nameIdx = headers.findIndex((h) =>
-          String(h).toLowerCase().includes('наимено')
-        );
-        const priceIdx = headers.findIndex((h) => String(h).toLowerCase().includes('цена'));
-        const salePriceIdx = headers.findIndex((h) =>
-          String(h).toLowerCase().includes('скидк')
-        );
-        const amountIdx = headers.findIndex((h) => String(h).toLowerCase().includes('кол-во'));
-
-        if (nameIdx === -1 || priceIdx === -1 || amountIdx === -1) {
-          alert('Не найдены все необходимые колонки: Наименование, Цена, Кол-во');
-          return;
-        }
-
-        const newItems = rows
-          .slice(1) // Skip header
-          .map((row, index) => {
-            const name = String(row[nameIdx] ?? '').trim();
-            const priceCents = parseMoneyToCents(String(row[priceIdx] ?? ''));
-            const salePriceCents = salePriceIdx !== -1 ? parseMoneyToCents(String(row[salePriceIdx] ?? '')) : priceCents;
-            const amount = Math.max(0, parseInt(String(row[amountIdx] ?? '0'), 10) || 0);
-
-            return {
-              rowNumber: index + 2,
-              name,
-              priceCents,
-              salePriceCents,
-              amount,
-              originalAmount: amount,
-              remainingAmount: amount,
-              usedAmount: 0,
-            };
-          })
-          .filter((item) => item.name && item.amount > 0);
-
-        if (newItems.length === 0) {
-          alert('В файле не найдено валидных товаров. Проверьте названия колонок.');
-          return;
-        }
-
-        setItems(newItems);
-        setOriginalItems(newItems.map((item) => ({ ...item })));
-        setUsageHistory([]);
-        
-        setStoredItems(newItems);
-        setStoredOriginal(newItems.map((item) => ({ ...item })));
-        setStoredHistory([]);
-      } catch (error) {
-        console.error('Error reading file:', error);
-        alert('Ошибка чтения файла: ' + (error instanceof Error ? error.message : 'Unknown error'));
-      }
-    };
-
-    reader.readAsArrayBuffer(file);
-  }, [setStoredItems, setStoredOriginal, setStoredHistory]);
+      reader.readAsArrayBuffer(file);
+    },
+    [setStoredItems, setStoredOriginal, setStoredHistory],
+  );
 
   const handleCalculate = useCallback(
     async (sumsInput: string) => {
@@ -189,22 +229,28 @@ export const usePriceMatcher = () => {
             .filter((item) => {
               if (!item || typeof item !== 'object') return false;
               const remaining =
-                item.remainingAmount ?? (item.originalAmount || item.amount || 0) - (item.usedAmount || 0);
+                item.remainingAmount ??
+                (item.originalAmount || item.amount || 0) -
+                  (item.usedAmount || 0);
               const priceCents = item.salePriceCents || 0;
               return remaining > 0 && priceCents > 0;
             })
             .map((item) => ({
               ...item,
               remainingAmount:
-                item.remainingAmount ?? Math.max(
+                item.remainingAmount ??
+                Math.max(
                   0,
-                  (item.originalAmount || item.amount || 0) - (item.usedAmount || 0)
+                  (item.originalAmount || item.amount || 0) -
+                    (item.usedAmount || 0),
                 ),
               amount:
-                item.remainingAmount !?? Math.max(
-                0,
-                (item.originalAmount || item.amount || 0) - (item.usedAmount || 0)
-              ),
+                item.remainingAmount! ??
+                Math.max(
+                  0,
+                  (item.originalAmount || item.amount || 0) -
+                    (item.usedAmount || 0),
+                ),
             }));
 
           if (availableItems.length === 0) {
@@ -222,9 +268,14 @@ export const usePriceMatcher = () => {
             continue;
           }
 
-          setLoadingText(`Поиск комбинации для ${centsToStr(targetCents)} (${i + 1}/${totalCalculations})...`);
+          setLoadingText(
+            `Поиск комбинации для ${centsToStr(targetCents)} (${i + 1}/${totalCalculations})...`,
+          );
 
-          const solution = await findExactCombination(targetCents, availableItems);
+          const solution = await findExactCombination(
+            targetCents,
+            availableItems,
+          );
 
           if (solution && solution.length > 0) {
             let calculatedCents = 0;
@@ -235,11 +286,17 @@ export const usePriceMatcher = () => {
             // Update item quantities
             solution.forEach((solutionItem) => {
               if (!solutionItem?.name) return;
-              const item = updatedItems.find((i) => i?.name === solutionItem.name);
+              const item = updatedItems.find(
+                (i) => i?.name === solutionItem.name,
+              );
               if (item && solutionItem.quantity > 0) {
-                item.usedAmount = (item.usedAmount || 0) + solutionItem.quantity;
+                item.usedAmount =
+                  (item.usedAmount || 0) + solutionItem.quantity;
                 const originalAmount = item.originalAmount || item.amount || 0;
-                item.remainingAmount = Math.max(0, originalAmount - item.usedAmount);
+                item.remainingAmount = Math.max(
+                  0,
+                  originalAmount - item.usedAmount,
+                );
               }
             });
 
@@ -284,13 +341,15 @@ export const usePriceMatcher = () => {
         }
       } catch (error) {
         console.error('Error during calculation:', error);
-        alert('Произошла ошибка при вычислении. Проверьте консоль для деталей.');
+        alert(
+          'Произошла ошибка при вычислении. Проверьте консоль для деталей.',
+        );
       } finally {
         setLoading(false);
         setLoadingText('');
       }
     },
-    [items, usageHistory, setStoredItems, setStoredHistory]
+    [items, usageHistory, setStoredItems, setStoredHistory],
   );
 
   const handleRemoveCalculation = useCallback(
@@ -305,8 +364,12 @@ export const usePriceMatcher = () => {
         calculation.solution.forEach((solutionItem) => {
           const item = newItems.find((i) => i.name === solutionItem.name);
           if (item) {
-            item.usedAmount = Math.max(0, (item.usedAmount || 0) - solutionItem.quantity);
-            item.remainingAmount = (item.remainingAmount || 0) + solutionItem.quantity;
+            item.usedAmount = Math.max(
+              0,
+              (item.usedAmount || 0) - solutionItem.quantity,
+            );
+            item.remainingAmount =
+              (item.remainingAmount || 0) + solutionItem.quantity;
             const maxAmount = item.originalAmount || item.amount;
             if (item.remainingAmount > maxAmount) {
               item.remainingAmount = maxAmount;
@@ -325,7 +388,7 @@ export const usePriceMatcher = () => {
       setStoredItems(newItems);
       setStoredHistory(newHistory);
     },
-    [items, usageHistory, setStoredItems, setStoredHistory]
+    [items, usageHistory, setStoredItems, setStoredHistory],
   );
 
   const handleReset = useCallback(() => {
@@ -366,7 +429,8 @@ export const usePriceMatcher = () => {
   const handleExportRemainingItems = useCallback(() => {
     const remainingItems = items.filter((item) => {
       const remaining =
-        item.remainingAmount ?? (item.originalAmount || item.amount || 0) - (item.usedAmount || 0);
+        item.remainingAmount ??
+        (item.originalAmount || item.amount || 0) - (item.usedAmount || 0);
       return remaining > 0;
     });
 
@@ -377,7 +441,8 @@ export const usePriceMatcher = () => {
 
     const exportData = remainingItems.map((item) => {
       const remaining =
-        item.remainingAmount ?? (item.originalAmount ?? item.amount ?? 0) - (item.usedAmount ?? 0);
+        item.remainingAmount ??
+        (item.originalAmount ?? item.amount ?? 0) - (item.usedAmount ?? 0);
 
       return {
         Наименование: item.name,
@@ -400,7 +465,10 @@ export const usePriceMatcher = () => {
 
   const handleExportCalculations = useCallback(() => {
     const successfulCalculations = usageHistory.filter(
-      (historyItem) => historyItem.solution && Array.isArray(historyItem.solution) && historyItem.solution.length > 0
+      (historyItem) =>
+        historyItem.solution &&
+        Array.isArray(historyItem.solution) &&
+        historyItem.solution.length > 0,
     );
 
     if (successfulCalculations.length === 0) {

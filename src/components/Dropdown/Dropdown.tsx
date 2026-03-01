@@ -1,6 +1,6 @@
-import { Popover } from "@mui/material";
-import { styles } from "./Dropdown.styles";
-import type { DropdownProps } from "./Dropdown.types";
+import { Popover } from '@mui/material';
+import { styles } from './Dropdown.styles';
+import type { DropdownProps } from './Dropdown.types';
 
 export const Dropdown = ({
   children,
@@ -24,9 +24,7 @@ export const Dropdown = ({
       }}
     >
       <div css={[styles.dropdown, style]}>
-        <div css={styles.content}>
-          {children}
-        </div>
+        <div css={styles.content}>{children}</div>
       </div>
     </Popover>
   );

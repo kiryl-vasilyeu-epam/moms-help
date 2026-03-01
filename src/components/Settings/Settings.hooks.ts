@@ -1,18 +1,27 @@
-import { useCallback } from "react";
-import type { InputSettingItem, ToggleSettingItem, OrderSettingItem } from "./Settings.types";
+import { useCallback } from 'react';
+import type {
+  InputSettingItem,
+  ToggleSettingItem,
+  OrderSettingItem,
+} from './Settings.types';
 
-export const useInputSetting = ({ onChange }: Pick<InputSettingItem, 'onChange'>) => {
+export const useInputSetting = ({
+  onChange,
+}: Pick<InputSettingItem, 'onChange'>) => {
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       onChange(e.target.value);
     },
-    [onChange]
+    [onChange],
   );
 
   return { handleChange };
 };
 
-export const useToggleSetting = ({ value, onChange }: Pick<ToggleSettingItem, 'value' | 'onChange'>) => {
+export const useToggleSetting = ({
+  value,
+  onChange,
+}: Pick<ToggleSettingItem, 'value' | 'onChange'>) => {
   const handleToggle = useCallback(() => {
     onChange(!value);
   }, [value, onChange]);
@@ -20,38 +29,41 @@ export const useToggleSetting = ({ value, onChange }: Pick<ToggleSettingItem, 'v
   return { handleToggle };
 };
 
-export const useOrderSetting = ({ items, onOrderChange }: Pick<OrderSettingItem, 'items' | 'onOrderChange'>) => {
+export const useOrderSetting = ({
+  items,
+  onOrderChange,
+}: Pick<OrderSettingItem, 'items' | 'onOrderChange'>) => {
   const moveItem = useCallback(
     (index: number, direction: 'up' | 'down') => {
       const newItems = [...items];
       const targetIndex = direction === 'up' ? index - 1 : index + 1;
-      
+
       if (targetIndex < 0 || targetIndex >= items.length) return;
-      
-      [newItems[index], newItems[targetIndex]] = [newItems[targetIndex], newItems[index]];
+
+      [newItems[index], newItems[targetIndex]] = [
+        newItems[targetIndex],
+        newItems[index],
+      ];
       onOrderChange(newItems);
     },
-    [items, onOrderChange]
+    [items, onOrderChange],
   );
 
-  const canMoveUp = useCallback(
-    (index: number) => index > 0,
-    []
-  );
+  const canMoveUp = useCallback((index: number) => index > 0, []);
 
   const canMoveDown = useCallback(
     (index: number) => index < items.length - 1,
-    [items.length]
+    [items.length],
   );
 
   const createMoveUpHandler = useCallback(
     (index: number) => () => moveItem(index, 'up'),
-    [moveItem]
+    [moveItem],
   );
 
   const createMoveDownHandler = useCallback(
     (index: number) => () => moveItem(index, 'down'),
-    [moveItem]
+    [moveItem],
   );
 
   return {

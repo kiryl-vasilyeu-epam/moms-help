@@ -20,7 +20,7 @@ const PriceMatcher = () => {
     <Screen
       title={'Совпадение цен'}
       showSettingsState={!items.length}
-      settingsState={(
+      settingsState={
         <div css={styles.controls}>
           <FileUploadButton
             label={'Загрузить XLS файл'}
@@ -35,7 +35,7 @@ const PriceMatcher = () => {
             handleClear={handleClearData}
           />
         </div>
-      )}
+      }
     >
       asd
     </Screen>
