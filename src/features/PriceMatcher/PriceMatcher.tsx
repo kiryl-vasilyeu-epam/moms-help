@@ -19,6 +19,7 @@ import {
   COLUMNS_WEIGHT,
 } from './PriceMatcher.constants';
 import { styles } from './PriceMatcher.styles';
+import ResultsSection from './components/ResultsSection';
 // import { useTranslation } from 'react-i18next';
 
 const PriceMatcher = () => {
@@ -43,6 +44,11 @@ const PriceMatcher = () => {
     showNoSolutionModal,
     failedCalculations,
     handleCloseNoSolutionModal,
+    usageHistory,
+    handleRemoveCalculation,
+    handleExportRemainingItems,
+    onSettingsSave,
+    handleExportCalculations,
   } = usePriceMatcher();
 
   return (
@@ -66,7 +72,7 @@ const PriceMatcher = () => {
             <SettingsSection
               key="settings"
               sections={settings}
-              onSave={() => null}
+              onSave={onSettingsSave}
             />,
           ]}
         />
@@ -85,6 +91,16 @@ const PriceMatcher = () => {
           handleCalculate={handleCalculate}
         />
 
+        {usageHistory.length > 0 && (
+          <ResultsSection
+            usageHistory={usageHistory}
+            items={items}
+            onRemoveCalculation={handleRemoveCalculation}
+            onExportRemainingItems={handleExportRemainingItems}
+            onExportCalculations={handleExportCalculations}
+          />
+        )}
+
         <ListTable
           itemHeight={80}
           headerLabels={COLUMN_HEADERS}
@@ -99,7 +115,18 @@ const PriceMatcher = () => {
             <CircularProgress size="30px" />
             Пожалуйста, подождите
           </DialogTitle>
-          <DialogContent>{loadingText ?? 'Загрузка...'}</DialogContent>
+          <DialogContent>
+            {loadingText.title ?? 'Загрузка...'}
+            {loadingText.details && (
+              <span css={styles.loadingDetails}>{loadingText.details}</span>
+            )}
+            {loadingText.variants && (
+              <span css={styles.loadingDetails}>{loadingText.variants}</span>
+            )}
+            {loadingText.time && (
+              <span css={styles.loadingDetails}>Время: {loadingText.time}</span>
+            )}
+          </DialogContent>
         </Dialog>
 
         <NoSolutionModal

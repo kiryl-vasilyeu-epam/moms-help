@@ -27,4 +27,7 @@ export const STORAGE_KEYS = {
   NAME_COLUMN_PRICE_MATCHER: 'nameColumnPriceMatcher',
   PRICE_COLUMN_PRICE_MATCHER: 'priceColumnPriceMatcher',
   AMOUNT_COLUMN_PRICE_MATCHER: 'amountColumnPriceMatcher',
+
+  EXPORT_COLUMN_NAMES_PRICE_MATCHER: 'exportColumnNamesPriceMatcher',
+  EXPORT_DATA_ORDER_PRICE_MATCHER: 'exportDataOrderPriceMatcher',
 } as const;

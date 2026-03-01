@@ -52,3 +52,13 @@ export interface ProgressUpdate {
   dpSize: number;
   elapsed: number;
 }
+
+export type AllUsedItems = Record<
+  string,
+  {
+    name: string;
+    rowNumber: number | string;
+    quantity: number;
+    salePriceCents: number;
+  }
+>;

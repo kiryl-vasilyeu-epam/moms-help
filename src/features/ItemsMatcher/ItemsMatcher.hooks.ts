@@ -454,8 +454,6 @@ export const useItemsMatcher = (): ItemsMatcherData => {
 
   const onSettingsSave = useCallback(
     (data: SaveDataItem[]) => {
-      console.log(data);
-
       data.forEach((item) => {
         switch (item.id) {
           case SETTINGS_IDS.POSSIBLE_1C_DATA_START:

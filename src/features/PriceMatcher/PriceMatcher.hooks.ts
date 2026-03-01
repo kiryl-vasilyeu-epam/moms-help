@@ -13,14 +13,23 @@ import {
   parseFile,
   parseSums,
   yieldToBrowser,
+  exportXLSX,
+  exportCalculations,
 } from './PriceMatcher.helpers';
-import { SettingsSectionData, useScreen } from '@components';
+import {
+  SaveDataInput,
+  SaveDataItem,
+  SaveDataOrder,
+  SettingsSectionData,
+  useScreen,
+} from '@components';
 
 const SETTINGS_IDS = {
   FIRST_ROW_PRICE_MATCHER: 'firstRowPriceMatcher',
   NAME_COLUMN_PRICE_MATCHER: 'nameColumnPriceMatcher',
   PRICE_COLUMN_PRICE_MATCHER: 'priceColumnPriceMatcher',
   AMOUNT_COLUMN_PRICE_MATCHER: 'amountColumnPriceMatcher',
+  DATA_ORDER: 'dataOrder',
 };
 
 export const useFileSettings = () => {
@@ -41,6 +50,15 @@ export const useFileSettings = () => {
     2,
   );
 
+  const [exportColumnNames, setExportColumnNames] = useLocalStorage(
+    STORAGE_KEYS.EXPORT_COLUMN_NAMES_PRICE_MATCHER,
+    'Наименование,Цена розничная,Цена со скидкой,Колличество',
+  );
+  const [exportDataOrder, setExportDataOrder] = useLocalStorage(
+    STORAGE_KEYS.EXPORT_DATA_ORDER_PRICE_MATCHER,
+    'name,retailPrice,discountPrice,amount',
+  );
+
   return {
     firstRow,
     setFirstRow,
@@ -50,12 +68,21 @@ export const useFileSettings = () => {
     setPriceColumn,
     amountColumn,
     setAmountColumn,
+    exportColumnNames,
+    setExportColumnNames,
+    exportDataOrder,
+    setExportDataOrder,
   };
 };
 
 export const usePriceMatcher = () => {
   const [loading, setLoading] = useState(false);
-  const [loadingText, setLoadingText] = useState('');
+  const [loadingText, setLoadingText] = useState({
+    title: '',
+    details: '',
+    variants: '',
+    time: '',
+  });
   const [failedCalculations, setFailedCalculations] = useState<
     FailedCalculation[]
   >([]);
@@ -81,7 +108,21 @@ export const usePriceMatcher = () => {
   const [discountInputValue, setDiscountInputValue] = useState(
     String(discountPercent),
   );
-  const { firstRow, nameColumn, priceColumn, amountColumn } = useFileSettings();
+  const {
+    firstRow,
+    nameColumn,
+    priceColumn,
+    amountColumn,
+    exportColumnNames,
+    exportDataOrder,
+
+    setFirstRow,
+    setNameColumn,
+    setPriceColumn,
+    setAmountColumn,
+    setExportColumnNames,
+    setExportDataOrder,
+  } = useFileSettings();
   const [transferredData, setTransferredData] = useLocalStorage<
     TransferredItem[] | null
   >(STORAGE_KEYS.PRICE_MATCHER_TRANSFER_DATA, null);
@@ -129,6 +170,7 @@ export const usePriceMatcher = () => {
     setOriginalItems([]);
     setUsageHistory([]);
     setTransferredData(null);
+    closeModal();
   };
 
   const handleCalculate = useCallback(async () => {
@@ -140,7 +182,12 @@ export const usePriceMatcher = () => {
     }
 
     setLoading(true);
-    setLoadingText('Подготовка к вычислению...');
+    setLoadingText({
+      title: 'Подготовка данных...',
+      details: '',
+      variants: '',
+      time: '',
+    });
     setFailedCalculations([]);
 
     try {
@@ -155,36 +202,22 @@ export const usePriceMatcher = () => {
       for (let i = 0; i < targetCentsList.length; i++) {
         const targetCents = targetCentsList[i];
 
-        setLoadingText(`Обработка ${i + 1} из ${totalCalculations} сумм...`);
+        setLoadingText({
+          title: `Обработка ${i + 1} из ${totalCalculations} сумм...`,
+          details: '',
+          variants: '',
+          time: '',
+        });
         await yieldToBrowser();
 
-        const availableItems = updatedItems
-          .filter((item) => {
-            if (!item || typeof item !== 'object') return false;
-            const remaining =
-              item.remainingAmount ??
-              (item.originalAmount || item.amount || 0) -
-                (item.usedAmount || 0);
-            const priceCents = item.salePriceCents || 0;
-            return remaining > 0 && priceCents > 0;
-          })
-          .map((item) => ({
-            ...item,
-            remainingAmount:
-              item.remainingAmount ??
-              Math.max(
-                0,
-                (item.originalAmount || item.amount || 0) -
-                  (item.usedAmount || 0),
-              ),
-            amount:
-              item.remainingAmount! ??
-              Math.max(
-                0,
-                (item.originalAmount || item.amount || 0) -
-                  (item.usedAmount || 0),
-              ),
-          }));
+        // Filter items with remaining quantity - findExactCombination handles the rest
+        const availableItems = updatedItems.filter((item) => {
+          if (!item || typeof item !== 'object') return false;
+          const remaining =
+            item.remainingAmount ??
+            (item.originalAmount || item.amount || 0) - (item.usedAmount || 0);
+          return remaining > 0 && (item.salePriceCents || 0) > 0;
+        });
 
         if (availableItems.length === 0) {
           failedCalcs.push({
@@ -201,13 +234,25 @@ export const usePriceMatcher = () => {
           continue;
         }
 
-        setLoadingText(
-          `Поиск комбинации для ${centsToStr(targetCents)} (${i + 1}/${totalCalculations})...`,
-        );
+        setLoadingText({
+          title: `Поиск комбинации для ${centsToStr(targetCents)} (${i + 1}/${totalCalculations})...`,
+          details: '',
+          variants: '',
+          time: '',
+        });
 
         const solution = await findExactCombination(
           targetCents,
           availableItems,
+          (progress) => {
+            const seconds = Math.floor(progress.elapsed / 1000);
+            setLoadingText({
+              title: `Поиск комбинации для ${centsToStr(targetCents)} (${i + 1}/${totalCalculations})`,
+              details: `Обработано товаров: ${progress.processedItems}/${progress.totalItems}`,
+              variants: `Вариантов: ${progress.dpSize}`,
+              time: `${seconds}с`,
+            });
+          },
         );
 
         if (solution && solution.length > 0) {
@@ -265,8 +310,6 @@ export const usePriceMatcher = () => {
       setItems(updatedItems);
       setUsageHistory(allHistory);
       setFailedCalculations(failedCalcs);
-      setItems(updatedItems);
-      setUsageHistory(allHistory);
 
       if (failedCalcs.length > 0) {
         setShowNoSolutionModal(true);
@@ -278,11 +321,28 @@ export const usePriceMatcher = () => {
       alert('Произошла ошибка при вычислении. Проверьте консоль для деталей.');
     } finally {
       setLoading(false);
-      setLoadingText('');
+      setLoadingText({
+        title: '',
+        details: '',
+        variants: '',
+        time: '',
+      });
     }
   }, [sumInput, usageHistory, items, setItems, setUsageHistory]);
 
   const settings: SettingsSectionData[] = useMemo(() => {
+    const exportColumnsNamesArray = exportColumnNames
+      .split(',')
+      .map((label) => label.trim());
+    const exportDataOrderArray = exportDataOrder
+      .split(',')
+      .map((label, index) => ({
+        id: label.trim(),
+        label: label.trim(),
+        withInput: true,
+        inputValue: exportColumnsNamesArray[index],
+      }));
+
     return [
       {
         id: 'upload',
@@ -314,12 +374,132 @@ export const usePriceMatcher = () => {
           },
         ],
       },
+      {
+        id: 'export',
+        title: 'Экспорт данных',
+        settings: [
+          {
+            id: SETTINGS_IDS.DATA_ORDER,
+            type: 'order',
+            label: 'Порядок данных при экспорте',
+            items: exportDataOrderArray,
+          },
+        ],
+      },
     ];
-  }, [firstRow, nameColumn, priceColumn, amountColumn]);
+  }, [
+    exportColumnNames,
+    exportDataOrder,
+    firstRow,
+    nameColumn,
+    priceColumn,
+    amountColumn,
+  ]);
 
   const handleCloseNoSolutionModal = () => {
     setShowNoSolutionModal(false);
   };
+
+  const handleRemoveCalculation = useCallback(
+    (index: number) => {
+      console.log({ index, usageHistory });
+      if (index < 0 || index >= usageHistory.length) return;
+
+      const calculation = usageHistory[index];
+      const newItems = [...items];
+
+      // Restore item quantities
+      if (calculation.solution && calculation.solution.length > 0) {
+        calculation.solution.forEach((solutionItem) => {
+          const item = newItems.find((i) => i.name === solutionItem.name);
+          if (item) {
+            item.usedAmount = Math.max(
+              0,
+              (item.usedAmount || 0) - solutionItem.quantity,
+            );
+            item.remainingAmount =
+              (item.remainingAmount || 0) + solutionItem.quantity;
+            const maxAmount = item.originalAmount || item.amount;
+            if (item.remainingAmount > maxAmount) {
+              item.remainingAmount = maxAmount;
+            }
+          }
+        });
+      }
+
+      const newHistory = usageHistory.filter((_, i) => i !== index);
+      newHistory.forEach((calc, idx) => {
+        calc.calculationNumber = idx + 1;
+      });
+
+      setItems(newItems);
+      setUsageHistory(newHistory);
+      setItems(newItems);
+      setUsageHistory(newHistory);
+    },
+    [items, usageHistory, setItems, setUsageHistory],
+  );
+
+  const handleExportRemainingItems = useCallback(() => {
+    exportXLSX(items, {
+      exportColumnNames: exportColumnNames
+        .split(',')
+        .map((name) => name.trim()),
+      exportDataOrder: exportDataOrder.split(',').map((key) => key.trim()),
+    });
+  }, [exportColumnNames, exportDataOrder, items]);
+
+  const handleExportCalculations = useCallback(() => {
+    exportCalculations({
+      usageHistory,
+      items,
+    });
+  }, [usageHistory, items]);
+
+  const onSettingsSave = useCallback(
+    (data: SaveDataItem[]) => {
+      data.forEach((item) => {
+        // setExportColumnNames,
+        // setExportDataOrder,
+        switch (item.id) {
+          case SETTINGS_IDS.FIRST_ROW_PRICE_MATCHER:
+            setFirstRow(Number((item as SaveDataInput).value) + 1);
+            break;
+          case SETTINGS_IDS.NAME_COLUMN_PRICE_MATCHER:
+            setNameColumn(Number((item as SaveDataInput).value) + 1);
+            break;
+          case SETTINGS_IDS.PRICE_COLUMN_PRICE_MATCHER:
+            setPriceColumn(Number((item as SaveDataInput).value) + 1);
+            break;
+          case SETTINGS_IDS.AMOUNT_COLUMN_PRICE_MATCHER:
+            setAmountColumn(Number((item as SaveDataInput).value) + 1);
+            break;
+          case SETTINGS_IDS.DATA_ORDER: {
+            const order = (item as SaveDataOrder).items;
+            const [dataOrder, columnNames] = order.reduce<[string[], string[]]>(
+              (acc, curr) => {
+                acc[0].push(curr.id);
+                acc[1].push(curr.inputValue ?? '');
+                return acc;
+              },
+              [[], []],
+            );
+            setExportColumnNames(columnNames.map((s) => s.trim()).join(', '));
+            setExportDataOrder(dataOrder.map((s) => s.trim()).join(', '));
+            break;
+          }
+        }
+      });
+    },
+    [
+      setAmountColumn,
+      setExportColumnNames,
+      setExportDataOrder,
+      setFirstRow,
+      setNameColumn,
+      setPriceColumn,
+    ],
+  );
 
   return {
     items,
@@ -344,5 +524,9 @@ export const usePriceMatcher = () => {
     showNoSolutionModal,
     failedCalculations,
     handleCloseNoSolutionModal,
+    handleRemoveCalculation,
+    handleExportRemainingItems,
+    onSettingsSave,
+    handleExportCalculations,
   };
 };

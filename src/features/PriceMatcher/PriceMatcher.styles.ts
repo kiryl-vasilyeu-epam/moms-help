@@ -12,4 +12,8 @@ export const styles = createStyles({
     alignItems: 'center',
     gap: '20px',
   },
+  loadingDetails: {
+    display: 'block',
+    marginTop: '10px',
+  },
 });
