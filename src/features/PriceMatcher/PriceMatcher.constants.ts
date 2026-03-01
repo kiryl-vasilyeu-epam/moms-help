@@ -11,3 +11,13 @@ export const COLUMNS: { id: Columns; weight: number }[] = [
 ];
 export const COLUMNS_IDS = COLUMNS.map(({ id }) => id);
 export const COLUMNS_WEIGHT = COLUMNS.map(({ weight }) => weight);
+
+export const COLUMN_HEADERS = [
+  '№',
+  'Наименование',
+  'Цена',
+  'Цена со скидкой',
+  'Кол-во',
+  'Использовано',
+  'Остаток',
+];

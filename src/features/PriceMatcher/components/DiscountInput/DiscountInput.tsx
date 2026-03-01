@@ -15,7 +15,6 @@ export const DiscountInput = ({
     }
     setDiscountInputValue(String(value));
   };
-  console.log({ discountPercent });
 
   return (
     <div style={styles.container}>
@@ -34,7 +33,10 @@ export const DiscountInput = ({
             },
           }}
         />
-        <Button disabled={discountInputValue === String(discountPercent)}>
+        <Button
+          variant="info"
+          disabled={discountInputValue === String(discountPercent)}
+        >
           Пересчитать
         </Button>
       </div>

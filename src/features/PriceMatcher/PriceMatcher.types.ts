@@ -41,3 +41,14 @@ export type Columns =
   | 'amount'
   | 'usedAmount'
   | 'leftAmount';
+
+export interface SolutionItem extends PriceItem {
+  quantity: number;
+}
+
+export interface ProgressUpdate {
+  processedItems: number;
+  totalItems: number;
+  dpSize: number;
+  elapsed: number;
+}

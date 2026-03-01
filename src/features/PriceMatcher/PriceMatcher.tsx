@@ -1,10 +1,24 @@
 import { ListTable, PageSwitcher, Screen, SettingsSection } from '@components';
 import { usePriceMatcher } from './PriceMatcher.hooks';
-import { UploadSection } from './components/UploadSection';
-import { DiscountInput } from './components';
-import { COLUMNS_IDS, COLUMNS_WEIGHT } from './PriceMatcher.constants';
+import {
+  DialogContent,
+  Dialog,
+  DialogTitle,
+  CircularProgress,
+} from '@mui/material';
+import {
+  DiscountInput,
+  TableCell,
+  UploadSection,
+  PricesInput,
+  NoSolutionModal,
+} from './components';
+import {
+  COLUMN_HEADERS,
+  COLUMNS_IDS,
+  COLUMNS_WEIGHT,
+} from './PriceMatcher.constants';
 import { styles } from './PriceMatcher.styles';
-import { TableCell } from './components/TableCell';
 // import { useTranslation } from 'react-i18next';
 
 const PriceMatcher = () => {
@@ -21,8 +35,14 @@ const PriceMatcher = () => {
     discountPercent,
     discountInputValue,
     setDiscountInputValue,
-    // originalItems,
-    // usageHistory,
+    sumInput,
+    setSumInput,
+    handleCalculate,
+    loading,
+    loadingText,
+    showNoSolutionModal,
+    failedCalculations,
+    handleCloseNoSolutionModal,
   } = usePriceMatcher();
 
   return (
@@ -59,23 +79,33 @@ const PriceMatcher = () => {
           setDiscountInputValue={setDiscountInputValue}
         />
 
+        <PricesInput
+          prices={sumInput}
+          setPrices={setSumInput}
+          handleCalculate={handleCalculate}
+        />
+
         <ListTable
           itemHeight={80}
-          headerLabels={[
-            '#',
-            'Наименование',
-            'Цена',
-            'Цена со скидкой',
-            'Всего',
-            'Использовано',
-            'Остаток',
-          ]}
+          headerLabels={COLUMN_HEADERS}
           columnIds={COLUMNS_IDS}
           columnsWeight={COLUMNS_WEIGHT}
           items={items}
           CellComponent={TableCell}
-          // getRowStyles={filterApplied ? undefined : getRowStyles}
-          // cellCommonProps={{ handleRemoveMatch, handleSelectMatchItem }}
+        />
+
+        <Dialog fullWidth open={loading}>
+          <DialogTitle css={styles.loadingTitle}>
+            <CircularProgress size="30px" />
+            Пожалуйста, подождите
+          </DialogTitle>
+          <DialogContent>{loadingText ?? 'Загрузка...'}</DialogContent>
+        </Dialog>
+
+        <NoSolutionModal
+          open={showNoSolutionModal}
+          onClose={handleCloseNoSolutionModal}
+          failedCalculations={failedCalculations}
         />
       </div>
     </Screen>

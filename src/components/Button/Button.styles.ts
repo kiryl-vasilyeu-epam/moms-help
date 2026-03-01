@@ -36,7 +36,6 @@ export const styles = createStyles({
   buttonInfo: {
     background: 'linear-gradient(135deg, #3498db 0%, #2980b9 100%)',
     display: 'block',
-    width: '100%',
     boxShadow: '0 4px 12px rgba(52, 152, 219, 0.3)',
   },
   buttonDanger: {

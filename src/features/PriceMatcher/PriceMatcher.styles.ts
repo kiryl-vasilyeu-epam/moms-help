@@ -7,4 +7,9 @@ export const styles = createStyles({
     flexDirection: 'column',
     gap: '20px',
   },
+  loadingTitle: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '20px',
+  },
 });
