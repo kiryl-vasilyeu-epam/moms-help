@@ -19,6 +19,7 @@ export const styles = createStyles({
     background: 'rgba(255, 255, 255, 0.08)',
     borderRadius: '8px',
     transition: 'background 0.2s',
+    position: 'relative',
     '&:hover': {
       background: 'rgba(255, 255, 255, 0.12)',
     },

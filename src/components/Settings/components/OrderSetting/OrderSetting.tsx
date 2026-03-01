@@ -17,6 +17,9 @@ export const OrderSetting = ({
     createMoveDownHandler,
     inputValues,
     handleInputChange,
+    animatingIndices,
+    setItemRef,
+    getAnimationStyle,
   } = useOrderSetting({
     item: setting,
     setDataReceiver,
@@ -27,8 +30,13 @@ export const OrderSetting = ({
       <span css={styles.settingLabel}>{setting.label}</span>
       <div css={styles.orderContainer}>
         {items.map((item, index) => (
-          <div key={item.id} css={styles.orderItem}>
-            <div style={styles.orderItemInfo}>
+          <div
+            key={item.id}
+            ref={setItemRef(item.id)}
+            css={styles.orderItem}
+            style={getAnimationStyle(index)}
+          >
+            <div css={styles.orderItemInfo}>
               <TextField
                 type="text"
                 value={inputValues[index]}
@@ -40,14 +48,14 @@ export const OrderSetting = ({
             <div css={styles.orderControls}>
               <IconButton
                 onClick={createMoveUpHandler(index)}
-                disabled={!canMoveUp(index)}
+                disabled={!canMoveUp(index) || animatingIndices !== null}
                 color="info"
               >
                 <ArrowCircleUpIcon style={styles.orderButtonIcon} />
               </IconButton>
               <IconButton
                 onClick={createMoveDownHandler(index)}
-                disabled={!canMoveDown(index)}
+                disabled={!canMoveDown(index) || animatingIndices !== null}
                 color="error"
               >
                 <ArrowCircleDownIcon style={styles.orderButtonIcon} />
