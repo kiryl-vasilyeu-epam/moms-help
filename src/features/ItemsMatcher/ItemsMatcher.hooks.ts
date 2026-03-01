@@ -27,7 +27,7 @@ import { useXLSFileUpload } from '@hooks';
 import {
   SaveDataInput,
   SaveDataOrder,
-  SettingsSection,
+  SettingsSectionData,
   useScreen,
 } from '@components';
 import { SaveDataItem } from '@components';
@@ -345,7 +345,7 @@ export const useItemsMatcher = (): ItemsMatcherData => {
 
   const stats = useMemo(() => getStats(allResults), [allResults]);
 
-  const settings: SettingsSection[] = useMemo(() => {
+  const settings: SettingsSectionData[] = useMemo(() => {
     const exportColumnsNamesArray = exportColumnsNames
       .split(',')
       .map((label) => label.trim());

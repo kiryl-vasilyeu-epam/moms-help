@@ -1,12 +1,10 @@
 import { createStyles } from '@utils';
 
 export const styles = createStyles({
-  controls: {
+  container: {
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    maxWidth: '600px',
-    minWidth: '400px',
     gap: '20px',
   },
 });

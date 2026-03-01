@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
-import { UploadSection, Results, SettingsSection } from './components';
+import { UploadSection, Results } from './components';
 import { useItemsMatcher } from './ItemsMatcher.hooks';
 import { memo } from 'react';
-import { PageSwitcher, Screen } from '@components';
+import { PageSwitcher, Screen, SettingsSection } from '@components';
 
 export const ItemsMatcher = memo(() => {
   const { t } = useTranslation();

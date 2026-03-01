@@ -32,3 +32,12 @@ export interface TransferredItem {
   amount: number;
   matched: boolean;
 }
+
+export type Columns =
+  | 'index'
+  | 'name'
+  | 'price'
+  | 'discountPrice'
+  | 'amount'
+  | 'usedAmount'
+  | 'leftAmount';

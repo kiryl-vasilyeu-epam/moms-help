@@ -32,14 +32,14 @@ export type SettingItem =
   | ToggleSettingItem
   | OrderSettingItem;
 
-export interface SettingsSection {
+export interface SettingsSectionData {
   id: string;
   title: string;
   settings: SettingItem[];
 }
 
 export interface SettingsProps {
-  sections: SettingsSection[];
+  sections: SettingsSectionData[];
   onSave: (data: SaveDataItem[]) => void;
 }
 

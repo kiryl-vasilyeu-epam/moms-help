@@ -1,7 +1,7 @@
 export { Settings } from './Settings';
 export type {
   SettingsProps,
-  SettingsSection,
+  SettingsSectionData,
   SettingItem,
   SettingType,
   InputSettingItem,

@@ -16,7 +16,7 @@ export type {
 export { Settings } from './Settings';
 export type {
   SettingsProps,
-  SettingsSection,
+  SettingsSectionData,
   SettingItem,
   SettingType,
   InputSettingItem,
@@ -28,3 +28,4 @@ export type {
   SaveDataToggle,
   SaveDataOrder,
 } from './Settings';
+export { SettingsSection } from './SettingsSection';

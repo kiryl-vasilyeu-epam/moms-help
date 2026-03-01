@@ -24,42 +24,36 @@ export const parseMoneyToCents = (moneyStr: string): number => {
   return Math.round(num * 100);
 };
 
-export const parseFile = (rows: unknown[][]): PriceItem[] => {
-  const headers = (rows[0] as unknown as unknown[]).map((h) => String(h));
-  const nameIdx = headers.findIndex((h) =>
-    String(h).toLowerCase().includes('наимено'),
-  );
-  const priceIdx = headers.findIndex((h) =>
-    String(h).toLowerCase().includes('цена'),
-  );
-  const salePriceIdx = headers.findIndex((h) =>
-    String(h).toLowerCase().includes('скидк'),
-  );
-  const amountIdx = headers.findIndex((h) =>
-    String(h).toLowerCase().includes('кол-во'),
-  );
-
-  if (nameIdx === -1 || priceIdx === -1 || amountIdx === -1) {
-    alert('Не найдены все необходимые колонки: Наименование, Цена, Кол-во');
-    return [];
-  }
-
+export const parseFile = (
+  rows: unknown[][],
+  {
+    discountPercent,
+    firstRow,
+    nameColumn,
+    priceColumn,
+    amountColumn,
+  }: {
+    discountPercent: number;
+    firstRow: number;
+    nameColumn: number;
+    priceColumn: number;
+    amountColumn: number;
+  },
+): PriceItem[] => {
   return rows
-    .slice(1)
+    .slice(firstRow)
     .map((row, index) => {
-      const name = String(row[nameIdx] ?? '').trim();
-      const priceCents = parseMoneyToCents(String(row[priceIdx] ?? ''));
+      const name = String(row[nameColumn] ?? '').trim();
+      const priceCents = parseMoneyToCents(String(row[priceColumn] ?? ''));
       const salePriceCents =
-        salePriceIdx !== -1
-          ? parseMoneyToCents(String(row[salePriceIdx] ?? ''))
-          : priceCents;
+        priceCents - Math.round((priceCents * discountPercent) / 100);
       const amount = Math.max(
         0,
-        parseInt(String(row[amountIdx] ?? '0'), 10) || 0,
+        parseInt(String(row[amountColumn] ?? '0'), 10) || 0,
       );
 
       return {
-        rowNumber: index + 2,
+        rowNumber: index + firstRow + 1,
         name,
         priceCents,
         salePriceCents,

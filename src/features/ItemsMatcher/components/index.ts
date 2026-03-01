@@ -4,4 +4,3 @@ export { ResultButtons } from './ResultButtons';
 export { Stats } from './Stats';
 export { Filters } from './Filters';
 export { Results } from './Results';
-export { SettingsSection } from './SettingsSection';
