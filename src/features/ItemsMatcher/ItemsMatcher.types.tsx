@@ -1,4 +1,4 @@
-import { SettingsSection } from '@components';
+import { SaveDataItem, SettingsSection } from '@components';
 import { FileUploadState } from '@hooks';
 import { Dispatch, SetStateAction } from 'react';
 
@@ -75,4 +75,5 @@ export interface ItemsMatcherData {
   openModal: () => void;
   closeModal: () => void;
   settings: SettingsSection[];
+  onSettingsSave: (data: SaveDataItem[]) => void;
 }

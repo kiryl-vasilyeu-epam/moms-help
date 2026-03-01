@@ -3,9 +3,12 @@ import { createStyles } from '@utils';
 export const styles = createStyles({
   container: {
     display: 'flex',
-    flex: 1,
     flexDirection: 'column',
-    gap: '24px',
-    padding: '16px',
+    flex: 1,
+    width: '100%',
+  },
+  back: {
+    width: 300,
+    alignSelf: 'center',
   },
 });

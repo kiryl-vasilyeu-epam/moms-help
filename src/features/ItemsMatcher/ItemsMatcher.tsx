@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
-import { UploadSection, Results } from './components';
+import { UploadSection, Results, SettingsSection } from './components';
 import { useItemsMatcher } from './ItemsMatcher.hooks';
 import { memo } from 'react';
-import { PageSwitcher, Screen, Settings } from '@components';
+import { PageSwitcher, Screen } from '@components';
 
 export const ItemsMatcher = memo(() => {
   const { t } = useTranslation();
@@ -32,6 +32,7 @@ export const ItemsMatcher = memo(() => {
     openModal,
     closeModal,
     settings,
+    onSettingsSave,
   } = useItemsMatcher();
 
   return (
@@ -53,7 +54,11 @@ export const ItemsMatcher = memo(() => {
               handleProcess={handleProcess}
               handleClear={handleClear}
             />,
-            <Settings key="settings" sections={settings} />,
+            <SettingsSection
+              key="settings"
+              sections={settings}
+              onSave={onSettingsSave}
+            />,
           ]}
         />
       }

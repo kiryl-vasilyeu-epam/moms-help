@@ -8,25 +8,23 @@ export interface BaseSettingItem {
 export interface InputSettingItem extends BaseSettingItem {
   type: 'input';
   value: string;
-  onChange: (value: string) => void;
-  placeholder?: string;
 }
 
 export interface ToggleSettingItem extends BaseSettingItem {
   type: 'toggle';
   value: boolean;
-  onChange: (value: boolean) => void;
 }
 
 export interface OrderItem {
   id: string;
   label: string;
+  withInput?: boolean;
+  inputValue?: string;
 }
 
 export interface OrderSettingItem extends BaseSettingItem {
   type: 'order';
   items: OrderItem[];
-  onOrderChange: (items: OrderItem[]) => void;
 }
 
 export type SettingItem =
@@ -42,4 +40,35 @@ export interface SettingsSection {
 
 export interface SettingsProps {
   sections: SettingsSection[];
+  onSave: (data: SaveDataItem[]) => void;
 }
+
+export interface SaveDataInput {
+  id: string;
+  type: 'input';
+  value: string;
+}
+
+export interface SaveDataToggle {
+  id: string;
+  type: 'toggle';
+  value: boolean;
+}
+
+export interface SaveDataOrder {
+  id: string;
+  type: 'order';
+  items: {
+    id: string;
+    inputValue?: string;
+  }[];
+}
+
+export type SaveDataItem = SaveDataInput | SaveDataToggle | SaveDataOrder;
+export type SetDataReceiver = ({
+  id,
+  receiveData,
+}: {
+  id: string;
+  receiveData: () => SaveDataItem;
+}) => void;

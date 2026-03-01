@@ -1,75 +1,28 @@
-import { useCallback } from 'react';
-import type {
-  InputSettingItem,
-  ToggleSettingItem,
-  OrderSettingItem,
-} from './Settings.types';
+import { useCallback, useState } from 'react';
+import type { SaveDataItem, SetDataReceiver } from './Settings.types';
 
-export const useInputSetting = ({
-  onChange,
-}: Pick<InputSettingItem, 'onChange'>) => {
-  const handleChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      onChange(e.target.value);
+export const useSettings = (onSave: (data: SaveDataItem[]) => void) => {
+  const [componentsDataReceivers, setComponentsDataReceivers] = useState<
+    Record<string, () => SaveDataItem>
+  >({});
+
+  const setDataReceiver = useCallback<SetDataReceiver>(
+    ({ id, receiveData }) => {
+      setComponentsDataReceivers((prev) => ({
+        ...prev,
+        [id]: receiveData,
+      }));
     },
-    [onChange],
+    [],
   );
 
-  return { handleChange };
-};
+  const handleSave = () => {
+    const dataToSave: SaveDataItem[] = Object.entries(
+      componentsDataReceivers,
+    ).map(([_id, receiveData]) => receiveData());
 
-export const useToggleSetting = ({
-  value,
-  onChange,
-}: Pick<ToggleSettingItem, 'value' | 'onChange'>) => {
-  const handleToggle = useCallback(() => {
-    onChange(!value);
-  }, [value, onChange]);
-
-  return { handleToggle };
-};
-
-export const useOrderSetting = ({
-  items,
-  onOrderChange,
-}: Pick<OrderSettingItem, 'items' | 'onOrderChange'>) => {
-  const moveItem = useCallback(
-    (index: number, direction: 'up' | 'down') => {
-      const newItems = [...items];
-      const targetIndex = direction === 'up' ? index - 1 : index + 1;
-
-      if (targetIndex < 0 || targetIndex >= items.length) return;
-
-      [newItems[index], newItems[targetIndex]] = [
-        newItems[targetIndex],
-        newItems[index],
-      ];
-      onOrderChange(newItems);
-    },
-    [items, onOrderChange],
-  );
-
-  const canMoveUp = useCallback((index: number) => index > 0, []);
-
-  const canMoveDown = useCallback(
-    (index: number) => index < items.length - 1,
-    [items.length],
-  );
-
-  const createMoveUpHandler = useCallback(
-    (index: number) => () => moveItem(index, 'up'),
-    [moveItem],
-  );
-
-  const createMoveDownHandler = useCallback(
-    (index: number) => () => moveItem(index, 'down'),
-    [moveItem],
-  );
-
-  return {
-    canMoveUp,
-    canMoveDown,
-    createMoveUpHandler,
-    createMoveDownHandler,
+    onSave(dataToSave);
   };
+
+  return { componentsDataReceivers, setDataReceiver, handleSave };
 };

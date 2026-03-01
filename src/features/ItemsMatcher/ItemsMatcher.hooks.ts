@@ -24,7 +24,27 @@ import {
   parseFusion,
 } from './ItemsMatcher.helpers';
 import { useXLSFileUpload } from '@hooks';
-import { SettingsSection, useScreen } from '@components';
+import {
+  SaveDataInput,
+  SaveDataOrder,
+  SettingsSection,
+  useScreen,
+} from '@components';
+import { SaveDataItem } from '@components';
+
+export const SETTINGS_IDS = {
+  POSSIBLE_1C_DATA_START: 'possible1CDataStart',
+  FIRST_ROW_1C: 'firstRow1C',
+  NAME_COLUMN_1C: 'nameColumn1C',
+  PRICE_COLUMN_1C: 'priceColumn1C',
+  AMOUNT_1C: 'amount1C',
+  FIRST_ROW_FUSION: 'firstRowFusion',
+  BARCODE_COLUMN_FUSION: 'barcodeColumnFusion',
+  NAME_COLUMN_FUSION: 'nameColumnFusion',
+  PRICE_COLUMN_FUSION: 'priceColumnFusion',
+  EXPORT_COLUMNS_NAMES: 'exportColumnsNames',
+  ITEMS_MATCHER_EXPORT_DATA_ORDER: 'itemsMatcherExportDataOrder',
+};
 
 export const useFilesSettings = () => {
   const [possible1CDataStart, setPossible1CDataStart] = useLocalStorage<string>(
@@ -325,46 +345,53 @@ export const useItemsMatcher = (): ItemsMatcherData => {
 
   const stats = useMemo(() => getStats(allResults), [allResults]);
 
-  const settings: SettingsSection[] = useMemo(
-    () => [
+  const settings: SettingsSection[] = useMemo(() => {
+    const exportColumnsNamesArray = exportColumnsNames
+      .split(',')
+      .map((label) => label.trim());
+    const itemsMatcherExportDataOrderArray = itemsMatcherExportDataOrder
+      .split(',')
+      .map((label, index) => ({
+        id: label.trim(),
+        label: label.trim(),
+        withInput: true,
+        inputValue: exportColumnsNamesArray[index],
+      }));
+
+    return [
       {
         id: '1c',
         title: 'Файл 1С',
         settings: [
           {
-            id: 'possible1CDataStart',
+            id: SETTINGS_IDS.POSSIBLE_1C_DATA_START,
             type: 'input',
             label: 'Возможные начала данных 1С (через запятую)',
             value: possible1CDataStart,
-            onChange: setPossible1CDataStart,
           },
           {
-            id: 'firstRow1C',
+            id: SETTINGS_IDS.FIRST_ROW_1C,
             type: 'input',
             label: 'Номер первой строки с данными 1С',
-            value: String(firstRow1C),
-            onChange: (value) => setFirstRow1C(Number(value)),
+            value: String(firstRow1C + 1),
           },
           {
-            id: 'nameColumn1C',
+            id: SETTINGS_IDS.NAME_COLUMN_1C,
             type: 'input',
             label: 'Номер колонки с наименованием в 1С',
-            value: String(nameColumn1C),
-            onChange: (value) => setNameColumn1C(Number(value)),
+            value: String(nameColumn1C + 1),
           },
           {
-            id: 'priceColumn1C',
+            id: SETTINGS_IDS.PRICE_COLUMN_1C,
             type: 'input',
             label: 'Номер колонки с ценой в 1С',
-            value: String(priceColumn1C),
-            onChange: (value) => setPriceColumn1C(Number(value)),
+            value: String(priceColumn1C + 1),
           },
           {
-            id: 'amount1C',
+            id: SETTINGS_IDS.AMOUNT_1C,
             type: 'input',
             label: 'Номер колонки с количеством в 1С',
-            value: String(amount1C),
-            onChange: (value) => setAmount1C(Number(value)),
+            value: String(amount1C + 1),
           },
         ],
       },
@@ -373,32 +400,28 @@ export const useItemsMatcher = (): ItemsMatcherData => {
         title: 'Файл Fusion',
         settings: [
           {
-            id: 'firstRowFusion',
+            id: SETTINGS_IDS.FIRST_ROW_FUSION,
             type: 'input',
             label: 'Номер первой строки с данными Fusion',
-            value: String(firstRowFusion),
-            onChange: (value) => setFirstRowFusion(Number(value)),
+            value: String(firstRowFusion + 1),
           },
           {
-            id: 'barcodeColumnFusion',
+            id: SETTINGS_IDS.BARCODE_COLUMN_FUSION,
             type: 'input',
             label: 'Номер колонки со штрихкодом в Fusion',
-            value: String(barcodeColumnFusion),
-            onChange: (value) => setBarcodeColumnFusion(Number(value)),
+            value: String(barcodeColumnFusion + 1),
           },
           {
-            id: 'nameColumnFusion',
+            id: SETTINGS_IDS.NAME_COLUMN_FUSION,
             type: 'input',
             label: 'Номер колонки с наименованием в Fusion',
-            value: String(nameColumnFusion),
-            onChange: (value) => setNameColumnFusion(Number(value)),
+            value: String(nameColumnFusion + 1),
           },
           {
-            id: 'priceColumnFusion',
+            id: SETTINGS_IDS.PRICE_COLUMN_FUSION,
             type: 'input',
             label: 'Номер колонки с ценой в Fusion',
-            value: String(priceColumnFusion),
-            onChange: (value) => setPriceColumnFusion(Number(value)),
+            value: String(priceColumnFusion + 1),
           },
         ],
       },
@@ -407,35 +430,85 @@ export const useItemsMatcher = (): ItemsMatcherData => {
         title: 'Экспорт',
         settings: [
           {
-            id: 'exportColumnsNames',
-            type: 'input',
-            label: 'Названия колонок при экспорте (через запятую)',
-            value: exportColumnsNames,
-            onChange: setExportColumnsNames,
-          },
-          {
-            id: 'itemsMatcherExportDataOrder',
-            type: 'input',
-            label:
-              'Порядок данных при экспорте (через запятую, доступные: name, invNo, amount, price, retailPrice, discountPrice, latestPrice, barcode)',
-            value: itemsMatcherExportDataOrder,
-            onChange: setItemsMatcherExportDataOrder,
+            id: SETTINGS_IDS.ITEMS_MATCHER_EXPORT_DATA_ORDER,
+            type: 'order',
+            label: 'Порядок данных при экспорте',
+            items: itemsMatcherExportDataOrderArray,
           },
         ],
       },
-    ],
+    ];
+  }, [
+    amount1C,
+    barcodeColumnFusion,
+    exportColumnsNames,
+    firstRow1C,
+    firstRowFusion,
+    itemsMatcherExportDataOrder,
+    nameColumn1C,
+    nameColumnFusion,
+    possible1CDataStart,
+    priceColumn1C,
+    priceColumnFusion,
+  ]);
+
+  const onSettingsSave = useCallback(
+    (data: SaveDataItem[]) => {
+      console.log(data);
+
+      data.forEach((item) => {
+        switch (item.id) {
+          case SETTINGS_IDS.POSSIBLE_1C_DATA_START:
+            setPossible1CDataStart((item as SaveDataInput).value);
+            break;
+          case SETTINGS_IDS.FIRST_ROW_1C:
+            setFirstRow1C(Number((item as SaveDataInput).value) - 1);
+            break;
+          case SETTINGS_IDS.NAME_COLUMN_1C:
+            setNameColumn1C(Number((item as SaveDataInput).value) - 1);
+            break;
+          case SETTINGS_IDS.PRICE_COLUMN_1C:
+            setPriceColumn1C(Number((item as SaveDataInput).value) - 1);
+            break;
+          case SETTINGS_IDS.AMOUNT_1C:
+            setAmount1C(Number((item as SaveDataInput).value) - 1);
+            break;
+          case SETTINGS_IDS.FIRST_ROW_FUSION:
+            setFirstRowFusion(Number((item as SaveDataInput).value) - 1);
+            break;
+          case SETTINGS_IDS.BARCODE_COLUMN_FUSION:
+            setBarcodeColumnFusion(Number((item as SaveDataInput).value) - 1);
+            break;
+          case SETTINGS_IDS.NAME_COLUMN_FUSION:
+            setNameColumnFusion(Number((item as SaveDataInput).value) - 1);
+            break;
+          case SETTINGS_IDS.PRICE_COLUMN_FUSION:
+            setPriceColumnFusion(Number((item as SaveDataInput).value) - 1);
+            break;
+          case SETTINGS_IDS.ITEMS_MATCHER_EXPORT_DATA_ORDER: {
+            const order = (item as SaveDataOrder).items;
+            const [exportDataOrder, exportColumnsNames] = order.reduce<
+              [string[], string[]]
+            >(
+              (acc, curr) => {
+                acc[0].push(curr.id);
+                acc[1].push(curr.inputValue ?? '');
+                return acc;
+              },
+              [[], []],
+            );
+            setExportColumnsNames(
+              exportColumnsNames.map((s) => s.trim()).join(', '),
+            );
+            setItemsMatcherExportDataOrder(
+              exportDataOrder.map((s) => s.trim()).join(', '),
+            );
+            break;
+          }
+        }
+      });
+    },
     [
-      amount1C,
-      barcodeColumnFusion,
-      exportColumnsNames,
-      firstRow1C,
-      firstRowFusion,
-      itemsMatcherExportDataOrder,
-      nameColumn1C,
-      nameColumnFusion,
-      possible1CDataStart,
-      priceColumn1C,
-      priceColumnFusion,
       setAmount1C,
       setBarcodeColumnFusion,
       setExportColumnsNames,
@@ -477,5 +550,6 @@ export const useItemsMatcher = (): ItemsMatcherData => {
     openModal,
     closeModal,
     settings,
+    onSettingsSave,
   };
 };

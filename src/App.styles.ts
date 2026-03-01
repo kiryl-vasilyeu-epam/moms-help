@@ -7,7 +7,6 @@ export const styles = createStyles(({ colors, sizes }) => ({
     height: '100vh',
     paddingLeft: sizes.sidebarWidth,
     background: colors.gradient,
-    fontFamily: `'Segoe UI', Tahoma, Geneva, Verdana, sans-serif`,
   },
 
   main: {
@@ -25,5 +24,6 @@ export const globalStyles = {
   '*': {
     margin: 0,
     padding: 0,
+    fontFamily: `'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important`,
   },
 };
