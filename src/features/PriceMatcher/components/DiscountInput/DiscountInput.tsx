@@ -7,6 +7,7 @@ export const DiscountInput = ({
   discountPercent,
   discountInputValue,
   setDiscountInputValue,
+  onRecalculate,
 }: DiscountInputProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(e.target.value);
@@ -35,6 +36,7 @@ export const DiscountInput = ({
         />
         <Button
           variant="info"
+          onClick={onRecalculate}
           disabled={discountInputValue === String(discountPercent)}
         >
           Пересчитать

@@ -8,6 +8,7 @@ export const styles = createSxStyles({
     overflowY: 'auto',
     gap: '20px',
     paddingTop: '20px !important',
+    backgroundColor: '#befbdc',
   },
   modalTitle: {
     display: 'flex',
@@ -18,12 +19,7 @@ export const styles = createSxStyles({
     fontSize: '18px',
     fontWeight: 'bold',
   },
-
   item: {
-    padding: '10px',
-    borderBottom: '1px solid #ddd',
     borderRadius: '4px',
-    backgroundColor: '#f9f9f9',
-    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.61)',
   },
 });

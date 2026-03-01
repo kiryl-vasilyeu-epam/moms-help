@@ -49,6 +49,7 @@ const PriceMatcher = () => {
     handleExportRemainingItems,
     onSettingsSave,
     handleExportCalculations,
+    onDiscountRecalculate,
   } = usePriceMatcher();
 
   return (
@@ -83,6 +84,7 @@ const PriceMatcher = () => {
           discountPercent={discountPercent}
           discountInputValue={discountInputValue}
           setDiscountInputValue={setDiscountInputValue}
+          onRecalculate={onDiscountRecalculate}
         />
 
         <PricesInput

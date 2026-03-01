@@ -93,10 +93,6 @@ export const usePriceMatcher = () => {
     STORAGE_KEYS.PRICE_MATCHER_ITEMS_KEY,
     [],
   );
-  const [originalItems, setOriginalItems] = useLocalStorage<PriceItem[]>(
-    STORAGE_KEYS.PRICE_MATCHER_ORIGINAL_ITEMS_KEY,
-    [],
-  );
   const [usageHistory, setUsageHistory] = useLocalStorage<Calculation[]>(
     STORAGE_KEYS.PRICE_MATCHER_USAGE_HISTORY_KEY,
     [],
@@ -145,10 +141,9 @@ export const usePriceMatcher = () => {
       }));
 
       setItems(convertedItems);
-      setOriginalItems(convertedItems.map((item) => ({ ...item })));
       setUsageHistory([]);
     }
-  }, [setItems, setOriginalItems, setUsageHistory, transferredData]);
+  }, [setItems, setUsageHistory, transferredData]);
 
   const handleProcessFile = () => {
     const items = fileUpload.processFiles(parseFile, {
@@ -160,175 +155,191 @@ export const usePriceMatcher = () => {
     });
     if (!items) return;
     setItems(items);
-    setOriginalItems(items.map((item) => ({ ...item })));
     setUsageHistory([]);
   };
 
   const handleClearData = () => {
     fileUpload.clearFiles();
     setItems([]);
-    setOriginalItems([]);
     setUsageHistory([]);
     setTransferredData(null);
     closeModal();
   };
 
-  const handleCalculate = useCallback(async () => {
-    const targetCentsList = parseSums(sumInput);
-
-    if (targetCentsList.length === 0) {
-      alert('Пожалуйста, введите хотя бы одну валидную сумму.');
-      return;
-    }
-
-    setLoading(true);
-    setLoadingText({
-      title: 'Подготовка данных...',
-      details: '',
-      variants: '',
-      time: '',
-    });
-    setFailedCalculations([]);
-
-    try {
-      await yieldToBrowser();
-
-      let calculationNumber = usageHistory.length + 1;
-      const newHistory: Calculation[] = [];
-      const failedCalcs: FailedCalculation[] = [];
-      const updatedItems = [...items];
-      const totalCalculations = targetCentsList.length;
-
-      for (let i = 0; i < targetCentsList.length; i++) {
-        const targetCents = targetCentsList[i];
-
-        setLoadingText({
-          title: `Обработка ${i + 1} из ${totalCalculations} сумм...`,
-          details: '',
-          variants: '',
-          time: '',
-        });
-        await yieldToBrowser();
-
-        // Filter items with remaining quantity - findExactCombination handles the rest
-        const availableItems = updatedItems.filter((item) => {
-          if (!item || typeof item !== 'object') return false;
-          const remaining =
-            item.remainingAmount ??
-            (item.originalAmount || item.amount || 0) - (item.usedAmount || 0);
-          return remaining > 0 && (item.salePriceCents || 0) > 0;
-        });
-
-        if (availableItems.length === 0) {
-          failedCalcs.push({
-            targetCents,
-            reason: 'no_items',
-          });
-          newHistory.push({
-            calculationNumber: calculationNumber++,
-            targetCents,
-            calculatedCents: null,
-            solution: null,
-            timestamp: new Date().toISOString(),
-          });
-          continue;
-        }
-
-        setLoadingText({
-          title: `Поиск комбинации для ${centsToStr(targetCents)} (${i + 1}/${totalCalculations})...`,
-          details: '',
-          variants: '',
-          time: '',
-        });
-
-        const solution = await findExactCombination(
-          targetCents,
-          availableItems,
-          (progress) => {
-            const seconds = Math.floor(progress.elapsed / 1000);
-            setLoadingText({
-              title: `Поиск комбинации для ${centsToStr(targetCents)} (${i + 1}/${totalCalculations})`,
-              details: `Обработано товаров: ${progress.processedItems}/${progress.totalItems}`,
-              variants: `Вариантов: ${progress.dpSize}`,
-              time: `${seconds}с`,
-            });
-          },
-        );
-
-        if (solution && solution.length > 0) {
-          let calculatedCents = 0;
-          solution.forEach((item) => {
-            calculatedCents += (item.salePriceCents || 0) * item.quantity;
-          });
-
-          // Update item quantities
-          solution.forEach((solutionItem) => {
-            if (!solutionItem?.name) return;
-            const item = updatedItems.find(
-              (i) => i?.name === solutionItem.name,
-            );
-            if (item && solutionItem.quantity > 0) {
-              item.usedAmount = (item.usedAmount || 0) + solutionItem.quantity;
-              const originalAmount = item.originalAmount || item.amount || 0;
-              item.remainingAmount = Math.max(
-                0,
-                originalAmount - item.usedAmount,
-              );
-            }
-          });
-
-          newHistory.push({
-            calculationNumber: calculationNumber++,
-            targetCents,
-            calculatedCents,
-            solution: solution,
-            timestamp: new Date().toISOString(),
-          });
-        } else {
-          failedCalcs.push({
-            targetCents,
-            reason: 'no_combination',
-          });
-          newHistory.push({
-            calculationNumber: calculationNumber++,
-            targetCents,
-            calculatedCents: null,
-            solution: null,
-            timestamp: new Date().toISOString(),
-          });
-        }
-      }
-
-      // Renumber all calculations to be sequential
-      const allHistory = [...usageHistory, ...newHistory];
-      allHistory.forEach((calc, idx) => {
-        if (calc) {
-          calc.calculationNumber = idx + 1;
-        }
+  const handleCalculate = useCallback(
+    async (
+      sums?: string,
+      options?: { initialItems?: PriceItem[]; resetHistory?: boolean },
+    ) => {
+      console.log({
+        sums,
+        sumInput,
+        items,
+        usageHistory,
       });
+      const targetCentsList = parseSums(sums ?? sumInput);
 
-      setItems(updatedItems);
-      setUsageHistory(allHistory);
-      setFailedCalculations(failedCalcs);
-
-      if (failedCalcs.length > 0) {
-        setShowNoSolutionModal(true);
-      } else {
-        setSumInput('');
+      if (targetCentsList.length === 0) {
+        alert('Пожалуйста, введите хотя бы одну валидную сумму.');
+        return;
       }
-    } catch (error) {
-      console.error('Error during calculation:', error);
-      alert('Произошла ошибка при вычислении. Проверьте консоль для деталей.');
-    } finally {
-      setLoading(false);
+
+      setLoading(true);
       setLoadingText({
-        title: '',
+        title: 'Подготовка данных...',
         details: '',
         variants: '',
         time: '',
       });
-    }
-  }, [sumInput, usageHistory, items, setItems, setUsageHistory]);
+      setFailedCalculations([]);
+
+      try {
+        await yieldToBrowser();
+
+        const baseItems = options?.initialItems ?? items;
+        const baseHistory = options?.resetHistory ? [] : usageHistory;
+        let calculationNumber = baseHistory.length + 1;
+        const newHistory: Calculation[] = [];
+        const failedCalcs: FailedCalculation[] = [];
+        const updatedItems = [...baseItems];
+        const totalCalculations = targetCentsList.length;
+
+        for (let i = 0; i < targetCentsList.length; i++) {
+          const targetCents = targetCentsList[i];
+
+          setLoadingText({
+            title: `Обработка ${i + 1} из ${totalCalculations} сумм...`,
+            details: '',
+            variants: '',
+            time: '',
+          });
+          await yieldToBrowser();
+
+          // Filter items with remaining quantity - findExactCombination handles the rest
+          const availableItems = updatedItems.filter((item) => {
+            if (!item || typeof item !== 'object') return false;
+            const remaining =
+              item.remainingAmount ??
+              (item.originalAmount || item.amount || 0) -
+                (item.usedAmount || 0);
+            return remaining > 0 && (item.salePriceCents || 0) > 0;
+          });
+
+          if (availableItems.length === 0) {
+            failedCalcs.push({
+              targetCents,
+              reason: 'no_items',
+            });
+            newHistory.push({
+              calculationNumber: calculationNumber++,
+              targetCents,
+              calculatedCents: null,
+              solution: null,
+              timestamp: new Date().toISOString(),
+            });
+            continue;
+          }
+
+          setLoadingText({
+            title: `Поиск комбинации для ${centsToStr(targetCents)} (${i + 1}/${totalCalculations})...`,
+            details: '',
+            variants: '',
+            time: '',
+          });
+
+          const solution = await findExactCombination(
+            targetCents,
+            availableItems,
+            (progress) => {
+              const seconds = Math.floor(progress.elapsed / 1000);
+              setLoadingText({
+                title: `Поиск комбинации для ${centsToStr(targetCents)} (${i + 1}/${totalCalculations})`,
+                details: `Обработано товаров: ${progress.processedItems}/${progress.totalItems}`,
+                variants: `Вариантов: ${progress.dpSize}`,
+                time: `${seconds}с`,
+              });
+            },
+          );
+
+          if (solution && solution.length > 0) {
+            let calculatedCents = 0;
+            solution.forEach((item) => {
+              calculatedCents += (item.salePriceCents || 0) * item.quantity;
+            });
+
+            // Update item quantities
+            solution.forEach((solutionItem) => {
+              if (!solutionItem?.name) return;
+              const item = updatedItems.find(
+                (i) => i?.name === solutionItem.name,
+              );
+              if (item && solutionItem.quantity > 0) {
+                item.usedAmount =
+                  (item.usedAmount || 0) + solutionItem.quantity;
+                const originalAmount = item.originalAmount || item.amount || 0;
+                item.remainingAmount = Math.max(
+                  0,
+                  originalAmount - item.usedAmount,
+                );
+              }
+            });
+
+            newHistory.push({
+              calculationNumber: calculationNumber++,
+              targetCents,
+              calculatedCents,
+              solution: solution,
+              timestamp: new Date().toISOString(),
+            });
+          } else {
+            failedCalcs.push({
+              targetCents,
+              reason: 'no_combination',
+            });
+            newHistory.push({
+              calculationNumber: calculationNumber++,
+              targetCents,
+              calculatedCents: null,
+              solution: null,
+              timestamp: new Date().toISOString(),
+            });
+          }
+        }
+
+        // Renumber all calculations to be sequential
+        const allHistory = [...baseHistory, ...newHistory];
+        allHistory.forEach((calc, idx) => {
+          if (calc) {
+            calc.calculationNumber = idx + 1;
+          }
+        });
+
+        setItems(updatedItems);
+        setUsageHistory(allHistory);
+        setFailedCalculations(failedCalcs);
+
+        if (failedCalcs.length > 0) {
+          setShowNoSolutionModal(true);
+        } else {
+          setSumInput('');
+        }
+      } catch (error) {
+        console.error('Error during calculation:', error);
+        alert(
+          'Произошла ошибка при вычислении. Проверьте консоль для деталей.',
+        );
+      } finally {
+        setLoading(false);
+        setLoadingText({
+          title: '',
+          details: '',
+          variants: '',
+          time: '',
+        });
+      }
+    },
+    [sumInput, usageHistory, items, setItems, setUsageHistory],
+  );
 
   const settings: SettingsSectionData[] = useMemo(() => {
     const exportColumnsNamesArray = exportColumnNames
@@ -463,16 +474,16 @@ export const usePriceMatcher = () => {
         // setExportDataOrder,
         switch (item.id) {
           case SETTINGS_IDS.FIRST_ROW_PRICE_MATCHER:
-            setFirstRow(Number((item as SaveDataInput).value) + 1);
+            setFirstRow(Number((item as SaveDataInput).value) - 1);
             break;
           case SETTINGS_IDS.NAME_COLUMN_PRICE_MATCHER:
-            setNameColumn(Number((item as SaveDataInput).value) + 1);
+            setNameColumn(Number((item as SaveDataInput).value) - 1);
             break;
           case SETTINGS_IDS.PRICE_COLUMN_PRICE_MATCHER:
-            setPriceColumn(Number((item as SaveDataInput).value) + 1);
+            setPriceColumn(Number((item as SaveDataInput).value) - 1);
             break;
           case SETTINGS_IDS.AMOUNT_COLUMN_PRICE_MATCHER:
-            setAmountColumn(Number((item as SaveDataInput).value) + 1);
+            setAmountColumn(Number((item as SaveDataInput).value) - 1);
             break;
           case SETTINGS_IDS.DATA_ORDER: {
             const order = (item as SaveDataOrder).items;
@@ -501,9 +512,52 @@ export const usePriceMatcher = () => {
     ],
   );
 
+  const onDiscountRecalculate = useCallback(async () => {
+    const newDiscount = Number(discountInputValue);
+    if (Number.isNaN(newDiscount) || newDiscount < 0 || newDiscount > 100) {
+      alert('Некорректное значение скидки. Введите число от 0 до 100.');
+      return;
+    }
+
+    setDiscountPercent(newDiscount);
+
+    // Extract sums from existing history before clearing
+    const sumsToRecalculate = usageHistory
+      .map((calc) => centsToStr(calc.targetCents))
+      .join(', ');
+
+    // Recalculate salePriceCents for all items and reset usage
+    const recalculatedItems: PriceItem[] = items.map((item) => ({
+      ...item,
+      salePriceCents:
+        item.priceCents - Math.round((item.priceCents * newDiscount) / 100),
+      usedAmount: 0,
+      remainingAmount: item.originalAmount,
+    }));
+
+    // Recalculate with fresh items and reset history
+    if (sumsToRecalculate) {
+      await handleCalculate(sumsToRecalculate, {
+        initialItems: recalculatedItems,
+        resetHistory: true,
+      });
+    } else {
+      // No calculations to recalculate, just update items
+      setItems(recalculatedItems);
+      setUsageHistory([]);
+    }
+  }, [
+    discountInputValue,
+    setDiscountPercent,
+    items,
+    usageHistory,
+    setItems,
+    setUsageHistory,
+    handleCalculate,
+  ]);
+
   return {
     items,
-    originalItems,
     usageHistory,
     handleProcessFile,
     fileUpload,
@@ -528,5 +582,6 @@ export const usePriceMatcher = () => {
     handleExportRemainingItems,
     onSettingsSave,
     handleExportCalculations,
+    onDiscountRecalculate,
   };
 };

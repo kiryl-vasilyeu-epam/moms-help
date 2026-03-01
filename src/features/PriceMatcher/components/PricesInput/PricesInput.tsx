@@ -11,6 +11,7 @@ export const PricesInput = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPrices(e.target.value);
   };
+  const onCalculate = () => handleCalculate();
 
   return (
     <div css={styles.container}>
@@ -22,7 +23,7 @@ export const PricesInput = ({
         multiline
         rows={3}
       />
-      <Button onClick={handleCalculate}>Расчитать</Button>
+      <Button onClick={onCalculate}>Расчитать</Button>
     </div>
   );
 };
