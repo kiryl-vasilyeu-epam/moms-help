@@ -29,17 +29,22 @@ const fadeIn = keyframes`
 
 export const styles = createStyles({
   container: {
+    flex: 1,
     position: 'relative',
     width: '100%',
     height: '100%',
     overflow: 'hidden',
   },
   pageWrapper: {
+    display: 'flex',
     position: 'absolute',
     top: 0,
     left: 0,
     width: '100%',
     height: '100%',
+    overflow: 'auto',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
   },
 });
 

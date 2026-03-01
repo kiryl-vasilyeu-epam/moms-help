@@ -5,7 +5,7 @@ import type { FilterType, MatchedItem, FileFusion, File1C, NewMatchData, ItemsMa
 import { STORAGE_KEYS } from '@constants';
 import { exportToXLS, getStats, matchItems, parse1C, parseFusion } from './ItemsMatcher.helpers';
 import { useXLSFileUpload } from '@hooks';
-import { useScreen } from '@components';
+import { SettingsSection, useScreen } from '@components';
 
 export const useFilesSettings = () => {
   const [possible1CDataStart, setPossible1CDataStart] = useLocalStorage<string>(
@@ -118,16 +118,27 @@ export const useItemsMatcher = (): ItemsMatcherData => {
 
   const {
     possible1CDataStart,
+    setPossible1CDataStart,
     firstRow1C,
+    setFirstRow1C,
     nameColumn1C,
+    setNameColumn1C,
     priceColumn1C,
+    setPriceColumn1C,
     amount1C,
+    setAmount1C,
     firstRowFusion,
+    setFirstRowFusion,
     barcodeColumnFusion,
+    setBarcodeColumnFusion,
     nameColumnFusion,
+    setNameColumnFusion,
     priceColumnFusion,
+    setPriceColumnFusion,
     exportColumnsNames,
+    setExportColumnsNames,
     itemsMatcherExportDataOrder,
+    setItemsMatcherExportDataOrder,
   } = useFilesSettings();
 
   const handleProcess = useCallback(() => {
@@ -269,6 +280,26 @@ export const useItemsMatcher = (): ItemsMatcherData => {
 
   const stats = useMemo(() => getStats(allResults), [allResults]);
 
+  const settings: SettingsSection[] = useMemo(() => [
+    {id: '1c', title: 'Файл 1С', settings: [
+      { id: 'possible1CDataStart', type: 'input', label: 'Возможные начала данных 1С (через запятую)', value: possible1CDataStart, onChange: setPossible1CDataStart },
+      { id: 'firstRow1C', type: 'input', label: 'Номер первой строки с данными 1С', value: String(firstRow1C), onChange: (value) => setFirstRow1C(Number(value)) },
+      { id: 'nameColumn1C', type: 'input', label: 'Номер колонки с наименованием в 1С', value: String(nameColumn1C), onChange: (value) => setNameColumn1C(Number(value)) },
+      { id: 'priceColumn1C', type: 'input', label: 'Номер колонки с ценой в 1С', value: String(priceColumn1C), onChange: (value) => setPriceColumn1C(Number(value)) },
+      { id: 'amount1C', type: 'input', label: 'Номер колонки с количеством в 1С', value: String(amount1C), onChange: (value) => setAmount1C(Number(value)) },
+    ]},
+    {id: 'fusion', title: 'Файл Fusion', settings: [
+      { id: 'firstRowFusion', type: 'input', label: 'Номер первой строки с данными Fusion', value: String(firstRowFusion), onChange: (value) => setFirstRowFusion(Number(value)) },
+      { id: 'barcodeColumnFusion', type: 'input', label: 'Номер колонки со штрихкодом в Fusion', value: String(barcodeColumnFusion), onChange: (value) => setBarcodeColumnFusion(Number(value)) },
+      { id: 'nameColumnFusion', type: 'input', label: 'Номер колонки с наименованием в Fusion', value: String(nameColumnFusion), onChange: (value) => setNameColumnFusion(Number(value)) },
+      { id: 'priceColumnFusion', type: 'input', label: 'Номер колонки с ценой в Fusion', value: String(priceColumnFusion), onChange: (value) => setPriceColumnFusion(Number(value)) },
+    ]},
+    {id: 'export', title: 'Экспорт', settings: [
+      { id: 'exportColumnsNames', type: 'input', label: 'Названия колонок при экспорте (через запятую)', value: exportColumnsNames, onChange: setExportColumnsNames },
+      { id: "itemsMatcherExportDataOrder", type: 'input', label: 'Порядок данных при экспорте (через запятую, доступные: name, invNo, amount, price, retailPrice, discountPrice, latestPrice, barcode)', value: itemsMatcherExportDataOrder, onChange: setItemsMatcherExportDataOrder },
+    ]},
+  ], [amount1C, barcodeColumnFusion, exportColumnsNames, firstRow1C, firstRowFusion, itemsMatcherExportDataOrder, nameColumn1C, nameColumnFusion, possible1CDataStart, priceColumn1C, priceColumnFusion, setAmount1C, setBarcodeColumnFusion, setExportColumnsNames, setFirstRow1C, setFirstRowFusion, setItemsMatcherExportDataOrder, setNameColumn1C, setNameColumnFusion, setPossible1CDataStart, setPriceColumn1C, setPriceColumnFusion]);
+
   return {
     fileUpload1C,
     fileUploadFusion,
@@ -294,6 +325,7 @@ export const useItemsMatcher = (): ItemsMatcherData => {
     dropdownAnchor,
     isModalOpen,
     openModal,
-    closeModal
+    closeModal,
+    settings
   };
 };

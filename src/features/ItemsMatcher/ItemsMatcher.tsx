@@ -5,18 +5,7 @@ import {
 } from './components';
 import { useItemsMatcher } from './ItemsMatcher.hooks';
 import { memo } from 'react';
-import { Button, PageSwitcher, Screen, usePageSwitcherNavigation } from '@components';
-import { styles } from './ItemsMatcher.styles';
-
-const SettingsPage = () => {
-  const { goToPrevPage } = usePageSwitcherNavigation();
-  return (
-    <div css={styles.aa}>
-      aaa
-      <Button onClick={goToPrevPage}>Back</Button>
-    </div>
-  );
-};
+import { PageSwitcher, Screen, Settings } from '@components';
 
 export const ItemsMatcher = memo(() => {
   const { t } = useTranslation();
@@ -44,8 +33,10 @@ export const ItemsMatcher = memo(() => {
     handleCloseDropdown,
     isModalOpen,
     openModal,
-    closeModal
+    closeModal,
+    settings
   } = useItemsMatcher();
+
 
   return (
     <Screen
@@ -66,9 +57,11 @@ export const ItemsMatcher = memo(() => {
               handleProcess={handleProcess}
               handleClear={handleClear}
             />,
-            <SettingsPage key="settings" />
+            <Settings
+              key="settings"
+              sections={settings}
+            />
           ]}
-          containerStyle={styles.setting}
         />
       }
     >

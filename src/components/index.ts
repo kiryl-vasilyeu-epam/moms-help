@@ -9,3 +9,14 @@ export { Dropdown } from './Dropdown';
 export { Screen, useScreen } from './Screen';
 export { PageSwitcher, usePageSwitcherNavigation } from './PageSwitcher';
 export type { PageSwitcherProps, PageSwitcherNavigation, AnimationDirection } from './PageSwitcher';
+export { Settings } from './Settings';
+export type {
+  SettingsProps,
+  SettingsSection,
+  SettingItem,
+  SettingType,
+  InputSettingItem,
+  ToggleSettingItem,
+  OrderSettingItem,
+  OrderItem,
+} from './Settings';

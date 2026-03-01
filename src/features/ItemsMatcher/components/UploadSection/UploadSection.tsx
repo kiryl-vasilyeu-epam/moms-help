@@ -15,28 +15,30 @@ export const UploadSection = ({
 
   return (
     <div css={styles.container}>
-      <div css={styles.uploadSection}>
-        <FileUploadButton
-          label={t("itemsMatcher.files.file1CLabel")}
-          fileName={fileUpload1C.fileName}
-          onFileSelect={fileUpload1C.handleFileChange}
-          isFileReady={fileUpload1C.isReady}
-        />
+      <div css={styles.content}>
+        <div css={styles.uploadSection}>
+          <FileUploadButton
+            label={t("itemsMatcher.files.file1CLabel")}
+            fileName={fileUpload1C.fileName}
+            onFileSelect={fileUpload1C.handleFileChange}
+            isFileReady={fileUpload1C.isReady}
+          />
 
-        <FileUploadButton
-          label={t("itemsMatcher.files.fileFusionLabel")}
-          fileName={fileUploadFusion.fileName}
-          onFileSelect={fileUploadFusion.handleFileChange}
-          isFileReady={fileUploadFusion.isReady}
+          <FileUploadButton
+            label={t("itemsMatcher.files.fileFusionLabel")}
+            fileName={fileUploadFusion.fileName}
+            onFileSelect={fileUploadFusion.handleFileChange}
+            isFileReady={fileUploadFusion.isReady}
+          />
+        </div>
+        <ProcessControls
+          isProcessDisabled={isProcessDisabled}
+          handleProcess={handleProcess}
+          handleClear={handleClear}
+          handleSettings={goToNextPage}
+          plural
         />
       </div>
-      <ProcessControls
-        isProcessDisabled={isProcessDisabled}
-        handleProcess={handleProcess}
-        handleClear={handleClear}
-        handleSettings={goToNextPage}
-        plural
-      />
     </div>
   );
 };

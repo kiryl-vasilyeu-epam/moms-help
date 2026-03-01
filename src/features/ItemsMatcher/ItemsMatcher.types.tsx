@@ -1,3 +1,4 @@
+import { SettingsSection } from "@components";
 import { FileUploadState } from "@hooks";
 import { Dispatch, SetStateAction } from "react";
 
@@ -73,4 +74,5 @@ export interface ItemsMatcherData  {
   isModalOpen: boolean
   openModal: () => void
   closeModal: () => void
+  settings: SettingsSection[]
 }

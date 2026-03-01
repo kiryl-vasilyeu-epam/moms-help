@@ -39,6 +39,8 @@ export const Screen = ({
       <Dialog
         open={isModalOpen}
         onClose={closeModal}
+        fullWidth={false}
+        maxWidth={false}
       >
         <IconButton
           aria-label="close"

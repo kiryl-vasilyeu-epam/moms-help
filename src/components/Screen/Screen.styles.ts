@@ -47,7 +47,11 @@ export const styles = createStyles({
     cursor: "pointer",
   },
   modal: {
-    padding: "50px",
+    padding: "20px",
+    paddingTop: "50px",
+    display: "flex",
+    width: '70vw',
+    height: '70vh',
   },
   closeModalButton: {
     position: "absolute",
