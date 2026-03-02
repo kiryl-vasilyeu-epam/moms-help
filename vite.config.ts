@@ -4,7 +4,7 @@ import path from 'path';
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/<REPO>/',
+  base: '/moms-help/',
   plugins: [
     react({
       jsxImportSource: '@emotion/react',
