@@ -1,8 +1,9 @@
 import { Button } from '@components';
-import { styles } from './PricesInput.styles';
+import { stylesheet } from './PricesInput.styles';
 import { PricesInputProps } from './PricesInput.types';
 import { TextField } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import { useStyles } from '@hooks';
 
 export const PricesInput = ({
   prices,
@@ -10,6 +11,7 @@ export const PricesInput = ({
   handleCalculate,
 }: PricesInputProps) => {
   const { t } = useTranslation();
+  const styles = useStyles(stylesheet);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPrices(e.target.value);
   };

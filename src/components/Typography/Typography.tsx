@@ -1,6 +1,7 @@
 import type { ElementType } from 'react';
-import { styles } from './Typography.styles';
+import { stylesheet } from './Typography.styles';
 import type { TypographyProps, TypographyVariant } from './Typography.types';
+import { useStyles } from '@hooks';
 
 const variantToElement: Record<TypographyVariant, ElementType> = {
   h1: 'h1',
@@ -23,6 +24,7 @@ export const Typography = ({
   className,
   style,
 }: TypographyProps) => {
+  const styles = useStyles(stylesheet);
   const Element = variantToElement[variant];
 
   const colorStyle = {

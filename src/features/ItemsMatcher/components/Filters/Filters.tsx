@@ -1,8 +1,9 @@
 import { FilterButton } from '@components';
-import { styles } from './Filters.styles';
+import { stylesheet } from './Filters.styles';
 import { FiltersProps } from './Filters.types';
 import { FILTERS } from './Filters.constants';
 import { useTranslation } from 'react-i18next';
+import { useStyles } from '@hooks';
 
 export const Filters = ({
   currentFilter,
@@ -10,6 +11,7 @@ export const Filters = ({
   isFiltering = false,
 }: FiltersProps) => {
   const { t } = useTranslation();
+  const styles = useStyles(stylesheet);
 
   return (
     <div css={styles.filterButtons}>

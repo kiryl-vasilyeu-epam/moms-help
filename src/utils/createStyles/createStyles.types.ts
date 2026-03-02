@@ -1,4 +1,4 @@
-import { theme } from '@/styles';
+import type { Theme as AppTheme } from '@/styles';
 import type { CSSObject } from '@emotion/react';
 import type { SxProps, Theme as MuiTheme } from '@mui/material';
 
@@ -20,5 +20,9 @@ export type StrictCssObjectWithSelectors = StrictCssObject &
 export type StylesMap = Record<string, StrictCssObjectWithSelectors>;
 
 export type SxStylesMap = Record<string, SxProps<MuiTheme>>;
+export type Theme = AppTheme;
 
-export type Theme = typeof theme;
+// StyleSheet factory for reactive theming (like react-native-unistyles)
+export interface StyleSheet<TStyles extends StylesMap> {
+  __factory: (theme: Theme) => TStyles;
+}

@@ -1,6 +1,6 @@
-import { createStyles } from '@utils';
+import { createStyleSheet } from '@utils';
 
-export const styles = createStyles(({ fontSizes, colors }) => ({
+export const stylesheet = createStyleSheet(({ fontSizes, colors }) => ({
   base: {
     margin: 0,
     padding: 0,

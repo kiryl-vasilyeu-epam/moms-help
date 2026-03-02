@@ -1,6 +1,6 @@
-import { createStyles } from '@utils';
+import { createStyleSheet } from '@utils';
 
-export const styles = createStyles(({ spacing }) => ({
+export const stylesheet = createStyleSheet(({ spacing }) => ({
   headerCell: {
     flex: 1,
     display: 'flex',

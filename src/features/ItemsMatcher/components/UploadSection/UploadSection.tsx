@@ -4,8 +4,9 @@ import {
   ProcessControls,
   usePageSwitcherNavigation,
 } from '@components';
-import { styles } from './UploadSection.styles';
+import { stylesheet } from './UploadSection.styles';
 import { UploadSectionProps } from './UploadSection.types';
+import { useStyles } from '@hooks';
 
 export const UploadSection = ({
   fileUpload1C,
@@ -16,6 +17,7 @@ export const UploadSection = ({
 }: UploadSectionProps) => {
   const { t } = useTranslation();
   const { goToNextPage } = usePageSwitcherNavigation();
+  const styles = useStyles(stylesheet);
 
   return (
     <div css={styles.container}>

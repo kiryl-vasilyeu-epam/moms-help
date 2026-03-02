@@ -1,5 +1,6 @@
-import { styles } from './Button.styles';
+import { stylesheet } from './Button.styles';
 import type { ButtonProps } from './Button.types';
+import { useStyles } from '@hooks';
 
 export const Button = ({
   children,
@@ -10,6 +11,7 @@ export const Button = ({
   style,
   isSmall = false,
 }: ButtonProps) => {
+  const styles = useStyles(stylesheet);
   const getVariantStyles = () => {
     switch (variant) {
       case 'success':

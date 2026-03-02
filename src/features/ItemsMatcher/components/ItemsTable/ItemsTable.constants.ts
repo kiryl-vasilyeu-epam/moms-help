@@ -1,4 +1,3 @@
-import { styles } from './ItemsTable.styles';
 import { Columns } from './ItemsTable.types';
 
 export const TABLE_HEADER = [
@@ -10,13 +9,6 @@ export const TABLE_HEADER = [
   'itemsMatcher.tableHeaders.articleFusion',
   'itemsMatcher.tableHeaders.status',
 ];
-
-export const ROW_SPECIFIC_STYLES = {
-  fuzzy: styles.rowFuzzy,
-  manual: styles.rowManual,
-  none: styles.rowUnmatched,
-  exact: null,
-};
 
 export const COLUMNS: { id: Columns; weight: number }[] = [
   { id: 'index', weight: 1 },

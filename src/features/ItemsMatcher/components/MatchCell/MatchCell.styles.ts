@@ -1,6 +1,6 @@
-import { createStyles } from '@utils';
+import { createStyleSheet } from '@utils';
 
-export const styles = createStyles(({ spacing, radii, colors }) => ({
+export const stylesheet = createStyleSheet(({ spacing, radii, colors }) => ({
   matchedInvNo: {
     cursor: 'default',
     position: 'relative',

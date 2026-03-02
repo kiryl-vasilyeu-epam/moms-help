@@ -1,8 +1,9 @@
-import { styles } from './FileUploadButton.styles';
+import { stylesheet } from './FileUploadButton.styles';
 import { useTranslation } from 'react-i18next';
 import { FileUploadButtonProps } from './FileUploadButton.types';
 import { useFileUploadButton } from './FileUploadButton.hooks';
 import { Typography } from '../Typography';
+import { useStyles } from '@hooks';
 
 export const FileUploadButton = ({
   label,
@@ -12,18 +13,21 @@ export const FileUploadButton = ({
 }: FileUploadButtonProps) => {
   const { t } = useTranslation();
   const { handleFileInput, id } = useFileUploadButton({ onFileSelect, label });
+  const styles = useStyles(stylesheet);
 
   return (
     <div css={[styles.uploadBox, isFileReady && styles.loadedFileBox]}>
       <Typography
         variant="h3"
-        style={[styles.uploadBoxH3, isFileReady && styles.loadedH3]}
+        style={[styles.uploadBoxH3, !!isFileReady && styles.loadedH3]}
       >
         {label}
       </Typography>
-      <Typography variant="label" color="white" style={styles.fileLabel}>
-        <label htmlFor={id}>{t('fileUpload.selectFile')}</label>
-      </Typography>
+      <label htmlFor={id}>
+        <Typography variant="label" color="white" style={styles.fileLabel}>
+          {t('fileUpload.selectFile')}
+        </Typography>
+      </label>
       <input
         type="file"
         accept=".xls,.xlsx"

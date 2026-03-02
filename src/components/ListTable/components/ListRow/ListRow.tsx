@@ -1,5 +1,6 @@
 import { ListRowProps } from './ListRow.types';
-import { styles } from './ListRow.styles';
+import { stylesheet } from './ListRow.styles';
+import { useStyles } from '@hooks';
 
 export const ListRow = ({
   children,
@@ -8,6 +9,7 @@ export const ListRow = ({
   even = false,
   style = [],
 }: ListRowProps) => {
+  const styles = useStyles(stylesheet);
   return (
     <div
       css={[

@@ -1,6 +1,7 @@
 import { Popover } from '@mui/material';
-import { styles } from './Dropdown.styles';
+import { stylesheet } from './Dropdown.styles';
 import type { DropdownProps } from './Dropdown.types';
+import { useStyles } from '@hooks';
 
 export const Dropdown = ({
   children,
@@ -9,6 +10,7 @@ export const Dropdown = ({
   anchorEl,
   style,
 }: DropdownProps) => {
+  const styles = useStyles(stylesheet);
   return (
     <Popover
       open={open}

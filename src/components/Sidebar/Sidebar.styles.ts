@@ -1,6 +1,6 @@
-import { createStyles } from '@utils';
+import { createStyleSheet } from '@utils';
 
-export const styles = createStyles(
+export const stylesheet = createStyleSheet(
   ({ sizes, colors, spacing, fontSizes, shadows, transitions, zIndices }) => ({
     sidebar: {
       position: 'absolute',

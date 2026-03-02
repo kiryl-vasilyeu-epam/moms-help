@@ -1,6 +1,6 @@
-import { createStyles } from '@utils';
+import { createStyleSheet } from '@utils';
 
-export const styles = createStyles(({ colors, radii, sizes }) => ({
+export const stylesheet = createStyleSheet(({ colors, radii, sizes }) => ({
   row: {
     boxSizing: 'border-box',
     display: 'flex',

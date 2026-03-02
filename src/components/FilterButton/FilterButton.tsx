@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
-import { styles } from './FilterButton.styles';
+import { stylesheet } from './FilterButton.styles';
 import type { FilterButtonProps } from './FilterButton.types';
+import { useStyles } from '@hooks';
 
 export const FilterButton = <T extends string | number>({
   label,
@@ -9,6 +10,7 @@ export const FilterButton = <T extends string | number>({
   handleClick,
   disabled = false,
 }: FilterButtonProps<T>) => {
+  const styles = useStyles(stylesheet);
   const onClick = useCallback(
     () => !disabled && handleClick?.(value),
     [handleClick, value, disabled],

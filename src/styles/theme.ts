@@ -67,6 +67,7 @@ export const lightTheme = {
     primary: '#667eea',
     primaryDark: '#764ba2',
     gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    secondGradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
 
     // Sidebar/Dark theme
     sidebarGradient: 'linear-gradient(135deg, #2c3e50 0%, #34495e 100%)',
@@ -151,6 +152,7 @@ export const darkTheme = {
     primary: '#7c93f7',
     primaryDark: '#8b5fbf',
     gradient: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
+    secondGradient: 'linear-gradient(135deg, #7c93f7 0%, #8b5fbf 100%)',
 
     // Sidebar
     sidebarGradient: 'linear-gradient(135deg, #1a1a2e 0%, #0f0f1a 100%)',

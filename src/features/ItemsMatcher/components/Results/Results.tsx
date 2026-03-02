@@ -2,10 +2,11 @@ import { ResultButtons } from '../ResultButtons';
 import { Stats } from '../Stats';
 import { Filters } from '../Filters';
 import { ItemsTable } from '../ItemsTable';
-import { styles } from './Results.styles';
+import { stylesheet } from './Results.styles';
 import { ResultsProps } from './Results.types';
 import { memo } from 'react';
 import { MatchDropdown } from '../MatchDropdown';
+import { useStyles } from '@hooks';
 
 export const Results = memo(
   ({
@@ -25,6 +26,7 @@ export const Results = memo(
     fileFusionItems,
     handleSelectMatch,
   }: ResultsProps) => {
+    const styles = useStyles(stylesheet);
     if (!showResults) {
       return null;
     }

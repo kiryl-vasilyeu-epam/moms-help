@@ -1,6 +1,6 @@
-import { createStyles } from '@utils';
+import { createStyleSheet } from '@utils';
 
-export const styles = createStyles(
+export const stylesheet = createStyleSheet(
   ({ colors, fontSizes, spacing, transitions }) => ({
     collapsedText: {
       opacity: 0,

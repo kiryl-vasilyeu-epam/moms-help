@@ -1,6 +1,6 @@
-import { createStyles } from '@utils';
+import { createStyleSheet } from '@utils';
 
-export const styles = createStyles(
+export const stylesheet = createStyleSheet(
   ({ spacing, fontSizes, colors, radii, shadows, sizes }) => ({
     button: {
       padding: '15px',
@@ -26,7 +26,7 @@ export const styles = createStyles(
       borderRadius: radii.sm,
     },
     buttonPrimary: {
-      background: colors.gradient,
+      background: colors.secondGradient,
     },
     buttonSuccess: {
       background: colors.successGradient,

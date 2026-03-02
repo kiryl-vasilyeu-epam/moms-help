@@ -1,15 +1,17 @@
 import { IconButton, TextField } from '@mui/material';
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
-import { styles } from './OrderSetting.styles';
+import { stylesheet } from './OrderSetting.styles';
 import { useOrderSetting } from './OrderSetting.hooks';
 import type { OrderSettingProps } from './OrderSetting.types';
 import { Typography } from '../../../Typography';
+import { useStyles } from '@hooks';
 
 export const OrderSetting = ({
   setting,
   setDataReceiver,
 }: OrderSettingProps) => {
+  const styles = useStyles(stylesheet);
   const {
     items,
     canMoveUp,

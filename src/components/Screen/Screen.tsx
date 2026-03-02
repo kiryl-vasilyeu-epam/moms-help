@@ -1,7 +1,8 @@
-import { styles } from './Screen.styles';
+import { stylesheet } from './Screen.styles';
 import { ScreenProps } from './Screen.types';
 import SettingsBackupRestoreIcon from '@mui/icons-material/SettingsBackupRestore';
 import { Typography } from '../Typography';
+import { useStyles } from '@hooks';
 
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
@@ -17,6 +18,8 @@ export const Screen = ({
   openModal,
   closeModal,
 }: ScreenProps) => {
+  const styles = useStyles(stylesheet);
+
   return (
     <div css={styles.container}>
       <div css={styles.header}>

@@ -1,13 +1,15 @@
 import { useTranslation } from 'react-i18next';
 import { Button } from '@components';
-import { styles } from './ResultButtons.styles';
+import { stylesheet } from './ResultButtons.styles';
 import { ResultButtonsProps } from './ResultButtons.types';
+import { useStyles } from '@hooks';
 
 export const ResultButtons = ({
   handleDownload,
   handleTransfer,
 }: ResultButtonsProps) => {
   const { t } = useTranslation();
+  const styles = useStyles(stylesheet);
 
   return (
     <div css={styles.buttonRow}>

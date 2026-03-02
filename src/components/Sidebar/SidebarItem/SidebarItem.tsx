@@ -1,7 +1,8 @@
 import type { SidebarItemProps } from './SidebarItem.types';
-import { styles } from './SidebarItem.styles';
+import { stylesheet } from './SidebarItem.styles';
 import { useTranslation } from 'react-i18next';
 import { Typography } from '../../Typography';
+import { useStyles } from '@hooks';
 
 export const SidebarItem = ({
   active,
@@ -12,6 +13,7 @@ export const SidebarItem = ({
   onNavigate,
 }: SidebarItemProps) => {
   const { t } = useTranslation();
+  const styles = useStyles(stylesheet);
   const handleItemClick = () => {
     onNavigate(id);
   };

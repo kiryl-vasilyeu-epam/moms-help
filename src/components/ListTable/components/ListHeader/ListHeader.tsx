@@ -1,12 +1,14 @@
 import { ListCell } from '../ListCell';
 import { ListRow } from '../ListRow';
-import { styles } from './ListHeader.styles';
+import { stylesheet } from './ListHeader.styles';
 import { ListHeaderProps } from './ListHeader.types';
+import { useStyles } from '@hooks';
 
 export const ListHeader = <T extends unknown, P, C>({
   headerLabels,
   columnsWeight,
 }: ListHeaderProps<T, P, C>) => {
+  const styles = useStyles(stylesheet);
   return (
     <ListRow variant="header">
       {headerLabels.map((label, index) => (

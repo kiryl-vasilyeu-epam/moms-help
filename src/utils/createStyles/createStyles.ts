@@ -1,4 +1,9 @@
-import type { SxStylesMap, StylesMap, Theme } from './createStyles.types';
+import type {
+  SxStylesMap,
+  StylesMap,
+  Theme,
+  StyleSheet,
+} from './createStyles.types';
 import { theme } from '@/styles';
 
 // overloads
@@ -33,4 +38,24 @@ export function createSxStyles(styles: unknown) {
     return styles(theme);
   }
   return styles;
+}
+
+/**
+ * Creates a reactive stylesheet that evaluates against the current theme.
+ * Use with useStyles() hook for live theme updates.
+ *
+ * @example
+ * // In .styles.ts file:
+ * export const stylesheet = createStyleSheet(({ colors }) => ({
+ *   container: { background: colors.background }
+ * }));
+ *
+ * // In component:
+ * const styles = useStyles(stylesheet);
+ * return <div css={styles.container} />;
+ */
+export function createStyleSheet<TStyles extends StylesMap>(
+  factory: (theme: Theme) => TStyles,
+): StyleSheet<TStyles> {
+  return { __factory: factory };
 }

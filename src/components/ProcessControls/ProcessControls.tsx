@@ -1,7 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import { Button } from '@components';
-import { styles } from './ProcessControls.styles';
+import { stylesheet } from './ProcessControls.styles';
 import { ProcessControlsProps } from './ProcessControls.types';
+import { useStyles } from '@hooks';
 
 export const ProcessControls = ({
   isProcessDisabled,
@@ -11,6 +12,7 @@ export const ProcessControls = ({
   plural,
 }: ProcessControlsProps) => {
   const { t } = useTranslation();
+  const styles = useStyles(stylesheet);
 
   return (
     <div css={styles.buttonRow}>

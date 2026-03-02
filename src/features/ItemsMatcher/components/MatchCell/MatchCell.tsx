@@ -1,7 +1,8 @@
-import { styles } from './MatchCell.styles';
+import { stylesheet } from './MatchCell.styles';
 import { forwardRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MatchCellProps } from './MatchCell.types';
+import { useStyles } from '@hooks';
 
 export const MatchCell = forwardRef<HTMLDivElement, MatchCellProps>(
   (props, ref) => {
@@ -12,6 +13,7 @@ export const MatchCell = forwardRef<HTMLDivElement, MatchCellProps>(
       ...tooltipProps
     } = props;
     const { t } = useTranslation();
+    const styles = useStyles(stylesheet);
     const hasMatch = !!matchedInvNo;
     const isMatchFuzzy = hasMatch && matchedInvNo !== invNo;
     const matchedInvNoStyles = [

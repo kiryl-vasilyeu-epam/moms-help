@@ -1,6 +1,6 @@
-import { createStyles } from '@utils';
+import { createStyleSheet } from '@utils';
 
-export const styles = createStyles(
+export const stylesheet = createStyleSheet(
   ({ spacing, radii, colors, shadows, sizes }) => ({
     container: {
       maxWidth: sizes.maxFormWidth,

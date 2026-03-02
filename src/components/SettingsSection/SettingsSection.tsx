@@ -4,12 +4,14 @@ import {
   SettingsProps,
   usePageSwitcherNavigation,
 } from '@components';
-import { styles } from './SettingsSection.styles';
+import { stylesheet } from './SettingsSection.styles';
 import { useTranslation } from 'react-i18next';
+import { useStyles } from '@hooks';
 
 export const SettingsSection = ({ sections, onSave }: SettingsProps) => {
   const { t } = useTranslation();
   const { goToPrevPage } = usePageSwitcherNavigation();
+  const styles = useStyles(stylesheet);
   const onSaveHandler: SettingsProps['onSave'] = (data) => {
     onSave(data);
     goToPrevPage();

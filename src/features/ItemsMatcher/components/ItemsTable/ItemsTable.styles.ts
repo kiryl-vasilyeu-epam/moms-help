@@ -1,6 +1,6 @@
-import { createStyles } from '@utils';
+import { createStyleSheet } from '@utils';
 
-export const styles = createStyles(({ colors }) => ({
+export const stylesheet = createStyleSheet(({ colors }) => ({
   rowFuzzy: {
     borderTop: `3px solid ${colors.matchFuzzy}`,
     borderBottom: `3px solid ${colors.matchFuzzy}`,

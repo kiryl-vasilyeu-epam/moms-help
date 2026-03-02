@@ -1,6 +1,6 @@
-import { createStyles } from '@utils';
+import { createStyleSheet } from '@utils';
 
-export const styles = createStyles(({ colors, fontSizes }) => ({
+export const stylesheet = createStyleSheet(({ colors, fontSizes }) => ({
   matchStatus: {
     display: 'flex',
     flex: 1,

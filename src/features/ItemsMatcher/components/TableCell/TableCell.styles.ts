@@ -1,6 +1,6 @@
-import { createStyles } from '@utils';
+import { createStyleSheet } from '@utils';
 
-export const styles = createStyles({
+export const stylesheet = createStyleSheet(() => ({
   container: {
     flex: 1,
     display: 'flex',
@@ -23,4 +23,4 @@ export const styles = createStyles({
   tooltip: {
     fontSize: 14,
   },
-});
+}));

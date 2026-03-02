@@ -1,9 +1,10 @@
 import { useTranslation } from 'react-i18next';
-import { styles } from './MatchDropdown.styles';
+import { stylesheet } from './MatchDropdown.styles';
 import { MatchDropdownProps } from './MatchDropdown.types';
 import { Button, Dropdown, Typography } from '@components';
 import { TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
+import { useStyles } from '@hooks';
 
 export const MatchDropdown = ({
   dropdownAnchor,
@@ -12,6 +13,7 @@ export const MatchDropdown = ({
   handleSelectMatch,
 }: MatchDropdownProps) => {
   const { t } = useTranslation();
+  const styles = useStyles(stylesheet);
   const [itemsToShow, setItemsToShow] = useState(fileFusionItems);
   const [filter, setFilter] = useState('');
   const onFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {

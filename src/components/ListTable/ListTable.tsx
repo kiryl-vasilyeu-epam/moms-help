@@ -1,7 +1,8 @@
-import { styles } from './ListTable.styles';
+import { stylesheet } from './ListTable.styles';
 import type { ListTableProps } from './ListTable.types';
 import { List } from 'react-window';
 import { RowComponent, ListHeader } from './components';
+import { useStyles } from '@hooks';
 
 export const ListTable = <
   T extends object,
@@ -17,6 +18,7 @@ export const ListTable = <
   cellCommonProps,
   getRowStyles,
 }: ListTableProps<T, P, C>) => {
+  const styles = useStyles(stylesheet);
   return (
     <div css={styles.container}>
       <ListHeader headerLabels={headerLabels} columnsWeight={columnsWeight} />

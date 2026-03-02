@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react';
-import { styles, getPageAnimationStyle } from './PageSwitcher.styles';
+import { stylesheet, getPageAnimationStyle } from './PageSwitcher.styles';
 import type { PageSwitcherProps } from './PageSwitcher.types';
 import { usePageSwitcher, PageSwitcherProvider } from './PageSwitcher.hooks';
+import { useStyles } from '@hooks';
 
 export const PageSwitcher = ({
   pages,
@@ -11,6 +12,7 @@ export const PageSwitcher = ({
   onPageChange,
   containerStyle,
 }: PageSwitcherProps) => {
+  const styles = useStyles(stylesheet);
   const {
     currentPageIndex,
     previousPageIndex,

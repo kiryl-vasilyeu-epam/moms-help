@@ -1,16 +1,19 @@
 import { StrictCssObject } from '@utils';
 import {
-  MATCH_SPECIFIC_STYLES,
+  getMatchSpecificStyles,
   MATCH_STATUS_ICON_MAP,
 } from './StatusCell.constants';
-import { styles } from './StatusCell.styles';
+import { stylesheet } from './StatusCell.styles';
 import { TableCellProps } from '../TableCell/TableCell.types';
 import { memo } from 'react';
+import { useStyles } from '@hooks';
 
 export const StatusCell = memo(({ item }: TableCellProps) => {
+  const styles = useStyles(stylesheet);
+  const matchSpecificStyles = getMatchSpecificStyles(styles);
   const matchStyle: StrictCssObject[] = [
     styles.matchStatus,
-    MATCH_SPECIFIC_STYLES[item.matchType],
+    matchSpecificStyles[item.matchType],
   ];
   const icon = MATCH_STATUS_ICON_MAP[item.matchType];
 

@@ -1,12 +1,15 @@
 import { TableCellProps } from './TableCell.types';
-import { CELL_SPECIFIC_STYLES, COLUMN_RENDERS } from './TableCell.constants';
+import { getCellSpecificStyles, COLUMN_RENDERS } from './TableCell.constants';
 import { memo } from 'react';
-import { styles } from './TableCell.styles';
+import { stylesheet } from './TableCell.styles';
+import { useStyles } from '@hooks';
 
 export const TableCell = memo((props: TableCellProps) => {
   const { columnId } = props;
   const CellComponent = COLUMN_RENDERS[columnId];
-  const cellStyle = CELL_SPECIFIC_STYLES[columnId];
+  const styles = useStyles(stylesheet);
+  const cellSpecificStyles = getCellSpecificStyles(styles);
+  const cellStyle = cellSpecificStyles[columnId];
 
   return (
     <div css={[styles.container, cellStyle]}>

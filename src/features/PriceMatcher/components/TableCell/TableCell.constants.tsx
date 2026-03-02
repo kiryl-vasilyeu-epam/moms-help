@@ -1,14 +1,21 @@
-import { styles } from './TableCell.styles';
 import { ReactNode } from 'react';
 import { TableCellProps } from './TableCell.types';
 import { Columns } from '../../PriceMatcher.types';
+import type { StrictCssObjectWithSelectors } from '@utils';
 
-export const CELL_SPECIFIC_STYLES: Partial<Record<Columns, { color: string }>> =
-  {
-    index: styles.numberCell,
-    usedAmount: styles.usedCell,
-    leftAmount: styles.leftCell,
-  };
+interface TableCellStyles {
+  numberCell: StrictCssObjectWithSelectors;
+  usedCell: StrictCssObjectWithSelectors;
+  leftCell: StrictCssObjectWithSelectors;
+}
+
+export const getCellSpecificStyles = (
+  styles: TableCellStyles,
+): Partial<Record<Columns, StrictCssObjectWithSelectors>> => ({
+  index: styles.numberCell,
+  usedAmount: styles.usedCell,
+  leftAmount: styles.leftCell,
+});
 
 export const COLUMN_RENDERS: Record<
   Columns,

@@ -1,6 +1,6 @@
-import { createStyles } from '@utils';
+import { createStyleSheet } from '@utils';
 
-export const styles = createStyles(({ spacing }) => ({
+export const stylesheet = createStyleSheet(({ spacing }) => ({
   buttonRow: {
     alignSelf: 'center',
     display: 'flex',

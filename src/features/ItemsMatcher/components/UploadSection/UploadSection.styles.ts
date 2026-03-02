@@ -1,6 +1,6 @@
-import { createStyles } from '@utils';
+import { createStyleSheet } from '@utils';
 
-export const styles = createStyles(({ spacing, sizes }) => ({
+export const stylesheet = createStyleSheet(({ spacing, sizes }) => ({
   container: {
     width: '100%',
     height: '100%',

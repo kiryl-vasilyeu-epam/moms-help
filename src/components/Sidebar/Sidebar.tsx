@@ -1,5 +1,5 @@
 import type { SidebarProps } from './Sidebar.types';
-import { styles } from './Sidebar.styles';
+import { stylesheet } from './Sidebar.styles';
 import { useTranslation } from 'react-i18next';
 import { SIDEBAR_MENU_ITEMS } from './Sidebar.constants';
 import { useEffect, useState } from 'react';
@@ -9,13 +9,14 @@ import { Typography } from '../Typography';
 import LanguageIcon from '@mui/icons-material/Language';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
-import { useLocalStorage, useTheme } from '@hooks';
+import { useLocalStorage, useTheme, useStyles } from '@hooks';
 import { STORAGE_KEYS } from '@constants';
 
 export const Sidebar = ({ onNavigate, activeItem }: SidebarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const { t, i18n } = useTranslation();
   const { toggleTheme, themeMode } = useTheme();
+  const styles = useStyles(stylesheet);
   const toggleSidebar = () => setIsOpen(!isOpen);
   const [currentLocale, setCurrentLocale] = useLocalStorage<'en' | 'ru'>(
     STORAGE_KEYS.CURRENT_LOCALE,

@@ -20,13 +20,15 @@ import {
   NoSolutionModal,
 } from './components';
 import { COLUMNS_IDS, COLUMNS_WEIGHT } from './PriceMatcher.constants';
-import { styles } from './PriceMatcher.styles';
+import { stylesheet } from './PriceMatcher.styles';
 import ResultsSection from './components/ResultsSection';
 import { useTranslation } from 'react-i18next';
 import { Stats } from './components/Stats';
+import { useStyles } from '@hooks';
 
 const PriceMatcher = () => {
   const { t } = useTranslation();
+  const styles = useStyles(stylesheet);
   const {
     fileUpload,
     items,

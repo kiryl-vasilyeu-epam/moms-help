@@ -1,8 +1,9 @@
 import { TextField, InputAdornment } from '@mui/material';
 import { DiscountInputProps } from './DiscountInput.types';
-import { styles } from './DiscountInput.styles';
+import { stylesheet } from './DiscountInput.styles';
 import { Button, Typography } from '@components';
 import { useTranslation } from 'react-i18next';
+import { useStyles } from '@hooks';
 
 export const DiscountInput = ({
   discountPercent,
@@ -11,6 +12,7 @@ export const DiscountInput = ({
   onRecalculate,
 }: DiscountInputProps) => {
   const { t } = useTranslation();
+  const styles = useStyles(stylesheet);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(e.target.value);
     if (isNaN(value) || value < 0 || value > 100) {

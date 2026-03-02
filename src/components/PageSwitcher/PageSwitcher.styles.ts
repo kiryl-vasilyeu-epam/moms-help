@@ -1,4 +1,4 @@
-import { createStyles } from '@utils';
+import { createStyleSheet } from '@utils';
 import { css, keyframes, SerializedStyles } from '@emotion/react';
 import type { AnimationDirection } from './PageSwitcher.types';
 
@@ -27,7 +27,7 @@ const fadeIn = keyframes`
   to { opacity: 1; }
 `;
 
-export const styles = createStyles({
+export const stylesheet = createStyleSheet(() => ({
   container: {
     flex: 1,
     position: 'relative',
@@ -46,7 +46,7 @@ export const styles = createStyles({
     justifyContent: 'center',
     alignItems: 'flex-start',
   },
-});
+}));
 
 interface PageAnimationStyleParams {
   isActive: boolean;
