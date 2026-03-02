@@ -1,5 +1,8 @@
 export const STORAGE_KEYS = {
   CURRENT_PAGE: 'app:currentPage',
+  THEME_MODE: 'app:themeMode',
+  CURRENT_LOCALE: 'app:currentLocale',
+
   ITEMS_MATCHER_RESULTS: 'itemsMatcherResults',
   ITEMS_MATCHER_FILE_FUSION_ITEMS: 'itemsMatcherFileFusionItems',
   ITEMS_MATCHER_FILTER: 'itemsMatcherFilter',

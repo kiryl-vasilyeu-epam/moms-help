@@ -2,25 +2,35 @@ import type { SidebarProps } from './Sidebar.types';
 import { styles } from './Sidebar.styles';
 import { useTranslation } from 'react-i18next';
 import { SIDEBAR_MENU_ITEMS } from './Sidebar.constants';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { HamburgerButton } from '../HamburgerButton';
 import { SidebarItem } from './SidebarItem';
 import { Typography } from '../Typography';
 import LanguageIcon from '@mui/icons-material/Language';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import { useLocalStorage, useTheme } from '@hooks';
+import { STORAGE_KEYS } from '@constants';
 
 export const Sidebar = ({ onNavigate, activeItem }: SidebarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const { t, i18n } = useTranslation();
+  const { toggleTheme, themeMode } = useTheme();
   const toggleSidebar = () => setIsOpen(!isOpen);
+  const [currentLocale, setCurrentLocale] = useLocalStorage<'en' | 'ru'>(
+    STORAGE_KEYS.CURRENT_LOCALE,
+    'ru',
+  );
+
+  useEffect(() => {
+    if (i18n.language !== currentLocale) {
+      void i18n.changeLanguage(currentLocale);
+    }
+  }, [currentLocale, i18n]);
 
   const toggleLanguage = () => {
     const newLang = i18n.language === 'en' ? 'ru' : 'en';
-    void i18n.changeLanguage(newLang);
-  };
-
-  const toggleTheme = () => {
-    // Theme toggle functionality to be implemented
+    setCurrentLocale(newLang);
   };
 
   return (
@@ -62,7 +72,7 @@ export const Sidebar = ({ onNavigate, activeItem }: SidebarProps) => {
             onClick={toggleTheme}
             title={t('sidebar.switchTheme')}
           >
-            <DarkModeIcon />
+            {themeMode === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}
           </button>
         </footer>
       </div>

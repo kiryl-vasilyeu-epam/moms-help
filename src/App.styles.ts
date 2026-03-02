@@ -1,12 +1,12 @@
-import { createStyles } from '@utils';
+import type { Theme } from '@/styles';
 
-export const styles = createStyles(({ colors, sizes }) => ({
+export const getStyles = (theme: Theme) => ({
   root: {
-    position: 'relative',
+    position: 'relative' as const,
     display: 'flex',
     height: '100vh',
-    paddingLeft: sizes.sidebarWidth,
-    background: colors.gradient,
+    paddingLeft: theme.sizes.sidebarWidth,
+    background: theme.colors.gradient,
   },
 
   main: {
@@ -16,9 +16,9 @@ export const styles = createStyles(({ colors, sizes }) => ({
     padding: '20px',
     justifyContent: 'center',
     alignItems: 'flex-start',
-    overflowY: 'auto',
+    overflowY: 'auto' as const,
   },
-}));
+});
 
 export const globalStyles = {
   '*': {

@@ -1,15 +1,18 @@
 import { Sidebar } from '@components';
 import { ItemsMatcher, PriceMatcher } from '@features';
-import { globalStyles, styles } from './App.styles';
+import { getStyles, globalStyles } from './App.styles';
 import { PAGES, STORAGE_KEYS } from '@constants';
-import { useLocalStorage } from '@hooks';
+import { useLocalStorage, useTheme } from '@hooks';
 import { Global } from '@emotion/react';
+import { useMemo } from 'react';
 
 export const App = () => {
   const [currentPage, setCurrentPage] = useLocalStorage(
     STORAGE_KEYS.CURRENT_PAGE,
     PAGES.ITEMS,
   );
+  const { theme } = useTheme();
+  const styles = useMemo(() => getStyles(theme), [theme]);
 
   return (
     <div css={styles.root}>
