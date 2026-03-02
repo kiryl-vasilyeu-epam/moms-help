@@ -115,6 +115,13 @@
         "prefix": "Could not find exact combination for sum ",
         "suffix": "Try changing the sum, discount, or check available items."
       }
+    },
+    "stats": {
+      "totalItems": "Total items",
+      "used": "Used in calculations",
+      "left": "Remaining",
+      "calculations": "Total calculations",
+      "failedCalculation": "Without solution"
     }
   }
 }

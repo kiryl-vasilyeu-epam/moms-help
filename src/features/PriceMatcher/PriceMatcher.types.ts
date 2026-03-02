@@ -62,3 +62,10 @@ export type AllUsedItems = Record<
     salePriceCents: number;
   }
 >;
+export interface Stats {
+  total: number;
+  used: number;
+  left: number;
+  calculations: number;
+  failedCalculation: number;
+}

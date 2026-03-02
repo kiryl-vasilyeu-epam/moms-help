@@ -23,6 +23,7 @@ import { COLUMNS_IDS, COLUMNS_WEIGHT } from './PriceMatcher.constants';
 import { styles } from './PriceMatcher.styles';
 import ResultsSection from './components/ResultsSection';
 import { useTranslation } from 'react-i18next';
+import { Stats } from './components/Stats';
 
 const PriceMatcher = () => {
   const { t } = useTranslation();
@@ -52,6 +53,7 @@ const PriceMatcher = () => {
     onSettingsSave,
     handleExportCalculations,
     onDiscountRecalculate,
+    stats,
   } = usePriceMatcher();
 
   return (
@@ -104,6 +106,8 @@ const PriceMatcher = () => {
             onExportCalculations={handleExportCalculations}
           />
         )}
+
+        <Stats stats={stats} />
 
         <ListTable
           itemHeight={80}

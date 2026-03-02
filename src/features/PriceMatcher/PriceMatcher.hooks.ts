@@ -556,6 +556,25 @@ export const usePriceMatcher = () => {
     handleCalculate,
   ]);
 
+  const stats = useMemo(() => {
+    return {
+      total: items.reduce((acc, item) => acc + (item.originalAmount || 0), 0),
+      used: usageHistory.reduce(
+        (acc, calc) =>
+          acc +
+          (calc.solution
+            ? calc.solution.reduce((sum, item) => sum + item.quantity, 0)
+            : 0),
+        0,
+      ),
+      left: items.reduce((acc, item) => acc + (item.remainingAmount || 0), 0),
+      calculations: usageHistory.length,
+      failedCalculation: usageHistory.filter(
+        (calc) => !calc.solution || calc.solution.length === 0,
+      ).length,
+    };
+  }, [items, usageHistory]);
+
   return {
     items,
     usageHistory,
@@ -583,5 +602,6 @@ export const usePriceMatcher = () => {
     onSettingsSave,
     handleExportCalculations,
     onDiscountRecalculate,
+    stats,
   };
 };
