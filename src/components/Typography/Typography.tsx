@@ -33,6 +33,7 @@ export const Typography = ({
     muted: styles.colorMuted,
     white: styles.colorWhite,
     alwaysWhite: styles.colorAlwaysWhite,
+    alwaysBlack: styles.colorAlwaysWhite,
     success: styles.colorSuccess,
     danger: styles.colorDanger,
     warning: styles.colorWarning,

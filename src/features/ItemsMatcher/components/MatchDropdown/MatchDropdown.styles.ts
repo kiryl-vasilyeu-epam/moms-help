@@ -30,9 +30,7 @@ export const stylesheet = createStyleSheet(
     },
     listItem: {
       display: 'flex',
-      padding: spacing.xs,
-      minHeight: '40px',
-      height: '40px',
+      padding: spacing.sm,
       alignItems: 'center',
       cursor: 'pointer',
       borderBottom: `1px solid ${colors.borderDark}`,

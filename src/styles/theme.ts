@@ -132,6 +132,7 @@ export const lightTheme = {
     cellLeft: '#aa0028',
 
     alwaysWhite: '#ffffff',
+    alwaysBlack: '#000000',
   },
 
   shadows: {
@@ -220,6 +221,7 @@ export const darkTheme = {
     cellLeft: '#e74c3c',
 
     alwaysWhite: '#ffffff',
+    alwaysBlack: '#000000',
   },
 
   shadows: {

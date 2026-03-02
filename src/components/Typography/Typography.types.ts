@@ -19,6 +19,7 @@ export type TypographyColor =
   | 'muted'
   | 'white'
   | 'alwaysWhite'
+  | 'alwaysBlack'
   | 'success'
   | 'danger'
   | 'warning'

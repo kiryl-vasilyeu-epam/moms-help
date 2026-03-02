@@ -1,6 +1,6 @@
-import { createSxStyles } from '@utils';
+import { createStyleSheet } from '@utils';
 
-export const styles = createSxStyles(
+export const styleSheet = createStyleSheet(
   ({ spacing, fontSizes, colors, radii, shadows }) => ({
     container: {
       display: 'flex',

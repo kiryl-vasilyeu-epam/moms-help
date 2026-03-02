@@ -10,6 +10,8 @@ export const stylesheet = createStyleSheet(
       gap: spacing.lg,
       paddingTop: `${spacing.lg} !important`,
       backgroundColor: colors.backgroundSuccess,
+      width: '100%',
+      minWidth: '600px',
     },
     modalTitle: {
       display: 'flex',
