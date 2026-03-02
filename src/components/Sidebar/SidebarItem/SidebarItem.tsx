@@ -26,7 +26,7 @@ export const SidebarItem = ({
       <span css={styles.menuIcon}>{icon}</span>
       <Typography
         variant="label"
-        color="white"
+        color="alwaysWhite"
         style={[styles.menuText, !isSidebarOpen && styles.collapsedText]}
       >
         {t(labelKey)}

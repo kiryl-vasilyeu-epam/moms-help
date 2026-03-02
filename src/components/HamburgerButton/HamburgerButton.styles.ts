@@ -9,14 +9,14 @@ export const stylesheet = createStyleSheet(
       background: 'none',
       border: 'none',
       cursor: 'pointer',
-      color: colors.white,
+      color: colors.alwaysWhite,
       padding: 15,
     },
 
     toggleSpan: {
       width: '24px',
       height: '2px',
-      background: colors.white,
+      background: colors.alwaysWhite,
       borderRadius: radii.sm,
       transition: `all ${transitions.base} ease`,
     },

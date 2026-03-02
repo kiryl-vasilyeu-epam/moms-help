@@ -77,7 +77,7 @@ export const stylesheet = createStyleSheet(
       transition: `all ${transitions.base}`,
       '&:hover': {
         background: colors.sidebarHover,
-        color: colors.white,
+        color: colors.alwaysWhite,
       },
     },
   }),

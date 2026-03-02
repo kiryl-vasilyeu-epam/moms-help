@@ -136,18 +136,11 @@ export const useItemsMatcher = (): ItemsMatcherData => {
     'all',
   );
   const [filteredItems, setFilteredItems] = useState<MatchedItem[]>([]);
-  const [showResults, setShowResults] = useState(false);
   const [dropdownAnchor, setDropdownAnchor] = useState<HTMLElement | null>(
     null,
   );
   const [matchItem, setMatchItem] = useState<number | null>(null);
   const [isFiltering, startFilterTransition] = useTransition();
-
-  useEffect(() => {
-    if (allResults.length > 0) {
-      setShowResults(true);
-    }
-  }, [allResults]);
 
   const filterApplied = currentFilter !== 'all';
 
@@ -202,7 +195,6 @@ export const useItemsMatcher = (): ItemsMatcherData => {
       const matchedItems = matchItems(items1C, itemsFusion);
       setAllResults(matchedItems);
       setFileFusionItems(itemsFusion);
-      setShowResults(true);
       closeModal();
     }
   }, [
@@ -237,7 +229,6 @@ export const useItemsMatcher = (): ItemsMatcherData => {
       fileUploadFusion.clearFiles();
       setAllResults([]);
       setFileFusionItems([]);
-      setShowResults(false);
       setCurrentFilter('all');
       closeModal();
     }
@@ -531,8 +522,7 @@ export const useItemsMatcher = (): ItemsMatcherData => {
     fileFusionItems,
     currentFilter,
     setCurrentFilter,
-    showResults,
-    setShowResults,
+    showResults: allResults.length > 0,
     handleProcess,
     handleClear,
     handleSelectMatchItem,

@@ -59,7 +59,6 @@ export interface ItemsMatcherData {
   currentFilter: FilterType;
   setCurrentFilter: (filter: FilterType) => void;
   showResults: boolean;
-  setShowResults: Dispatch<SetStateAction<boolean>>;
   handleProcess: () => void;
   handleClear: () => void;
   handleSelectMatchItem: (data: NewMatchData) => void;

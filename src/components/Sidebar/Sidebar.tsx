@@ -39,7 +39,7 @@ export const Sidebar = ({ onNavigate, activeItem }: SidebarProps) => {
       <div css={styles.header}>
         <Typography
           variant="h1"
-          color="white"
+          color="alwaysWhite"
           style={[styles.headerTitle, !isOpen && styles.collapsedText]}
         >
           {t('sidebar.headerTitle')}
