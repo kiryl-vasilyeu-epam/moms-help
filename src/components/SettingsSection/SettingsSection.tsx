@@ -5,8 +5,10 @@ import {
   usePageSwitcherNavigation,
 } from '@components';
 import { styles } from './SettingsSection.styles';
+import { useTranslation } from 'react-i18next';
 
 export const SettingsSection = ({ sections, onSave }: SettingsProps) => {
+  const { t } = useTranslation();
   const { goToPrevPage } = usePageSwitcherNavigation();
   const onSaveHandler: SettingsProps['onSave'] = (data) => {
     onSave(data);
@@ -15,7 +17,7 @@ export const SettingsSection = ({ sections, onSave }: SettingsProps) => {
   return (
     <div style={styles.container}>
       <Button variant="info" onClick={goToPrevPage} style={styles.back}>
-        Назад без сохранения
+        {t('common.backWithoutSaving')}
       </Button>
       <Settings sections={sections} onSave={onSaveHandler} />
     </div>

@@ -2,6 +2,7 @@ import { TextField, InputAdornment } from '@mui/material';
 import { DiscountInputProps } from './DiscountInput.types';
 import { styles } from './DiscountInput.styles';
 import { Button } from '@components';
+import { useTranslation } from 'react-i18next';
 
 export const DiscountInput = ({
   discountPercent,
@@ -9,6 +10,7 @@ export const DiscountInput = ({
   setDiscountInputValue,
   onRecalculate,
 }: DiscountInputProps) => {
+  const { t } = useTranslation();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(e.target.value);
     if (isNaN(value) || value < 0 || value > 100) {
@@ -19,9 +21,13 @@ export const DiscountInput = ({
 
   return (
     <div style={styles.container}>
-      <span>Текущий процент скидки: {discountPercent}%</span>
+      <span>
+        {t('priceMatcher.discount.currentPercent', {
+          percent: discountPercent,
+        })}
+      </span>
       <div style={styles.newPercent}>
-        <span>Установить новый процент скидки:</span>
+        <span>{t('priceMatcher.discount.setNewPercent')}</span>
         <TextField
           type="number"
           size="small"
@@ -39,7 +45,7 @@ export const DiscountInput = ({
           onClick={onRecalculate}
           disabled={discountInputValue === String(discountPercent)}
         >
-          Пересчитать
+          {t('priceMatcher.discount.recalculate')}
         </Button>
       </div>
     </div>

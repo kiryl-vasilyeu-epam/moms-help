@@ -1,28 +1,54 @@
 {
   "sidebar": {
+    "headerTitle": "Assistant",
     "items": "Items matcher",
     "price": "Price matcher"
   },
+  "fileUpload": {
+    "selectFile": "Select file",
+    "fileNotSelected": "File not selected",
+    "processBtn": "Process file",
+    "processBtnPlural": "Process files",
+    "clear": "Clear data",
+    "settings": "Settings"
+  },
+  "common": {
+    "save": "Save",
+    "backWithoutSaving": "Back without saving",
+    "attention": "Attention",
+    "loading": "Loading...",
+    "pleaseWait": "Please wait",
+    "time": "Time: {{time}}"
+  },
   "itemsMatcher": {
     "title": "📊 Compare 1C and Fusion statements",
-    "file1CLabel": "File 1: 1C statement",
-    "fileFusionLabel": "File 2: Fusion statement",
-    "selectFile": "Select file",
-    "processBtn": "Process files",
-    "clearBtn": "Clear all saved data",
-    "downloadBtn": "📥 Download matching list (.xlsx)",
-    "transferBtn": "💰 Transfer to Price search",
-    "totalItems": "Total items (1C)",
-    "matchedItems": "Exact matches",
-    "fuzzyItems": "Fuzzy matches",
-    "manualItems": "Manual matches",
-    "unmatchedItems": "Not found",
-    "filterAll": "All",
-    "filterExact": "Exact",
-    "filterFuzzy": "Fuzzy",
-    "filterManual": "Manual",
-    "filterUnmatched": "Not found",
-    "filtering": "Filtering...",
+    "files": {
+      "file1CLabel": "File 1: 1C statement",
+      "fileFusionLabel": "File 2: Fusion statement"
+    },
+    "dropdown": {
+      "matchDropdownTitle": "Select match",
+      "searchPlaceholder": "Search by article or name"
+    },
+    "controls": {
+      "downloadBtn": "📥 Download matching list (.xlsx)",
+      "transferBtn": "💰 Transfer to Price search"
+    },
+    "stats": {
+      "totalItems": "Total items (1C)",
+      "matchedItems": "Exact matches",
+      "fuzzyItems": "Fuzzy matches",
+      "manualItems": "Manual matches",
+      "unmatchedItems": "Not found"
+    },
+    "filters": {
+      "all": "All",
+      "exact": "Exact",
+      "fuzzy": "Fuzzy",
+      "manual": "Manual",
+      "unmatched": "Not found",
+      "filtering": "Filtering..."
+    },
     "tableHeaders": {
       "number": "#",
       "article1c": "Article (1C)",
@@ -31,6 +57,64 @@
       "price": "Last price",
       "articleFusion": "Article (Fusion)",
       "status": "Match status"
+    },
+    "pickMatch": "Select item"
+  },
+  "priceMatcher": {
+    "title": "Price matching",
+    "uploadLabel": "Upload file with prices and remaining items",
+    "tableHeaders": {
+      "number": "#",
+      "name": "Name",
+      "price": "Price",
+      "discountPrice": "Discount price",
+      "quantity": "Qty",
+      "used": "Used",
+      "remaining": "Remaining"
+    },
+    "discount": {
+      "currentPercent": "Current discount percentage: {{percent}}%",
+      "setNewPercent": "Set new discount percentage:",
+      "recalculate": "Recalculate"
+    },
+    "prices": {
+      "inputLabel": "Enter desired prices separated by commas: 100.21, 23.11...",
+      "calculate": "Calculate"
+    },
+    "controls": {
+      "downloadRemaining": "📥 Download remaining items (XLSX)",
+      "downloadReport": "📄 Download report (DOC)",
+      "showCalculations": "📊 Show calculations",
+      "showSummary": "📈 Show summary"
+    },
+    "calculations": {
+      "title": "Calculations list",
+      "deleteConfirm": "Delete calculation #{{number}}?",
+      "calculationNumber": "Calculation #{{number}}: {{sum}}",
+      "calculated": "Calculated: {{calculated}} | Difference: {{diff}}",
+      "items": "Items:",
+      "itemLine": "-{{quantity}} pcs x {{price}} = {{total}} | {{name}} | row {{row}}",
+      "total": "Total: {{sum}}",
+      "target": "(target: {{sum}})",
+      "noSolution": "Exact combination not found for {{sum}}",
+      "pcs": "pcs",
+      "row": "row"
+    },
+    "usedItems": {
+      "title": "Summary - Items to remove",
+      "itemLine": "{{quantity}} pcs (row {{row}}) {{name}}",
+      "pcs": "pcs",
+      "row": "row"
+    },
+    "noSolution": {
+      "noItems": {
+        "prefix": "Could not find combination for sum ",
+        "suffix": "No items available for calculation."
+      },
+      "noCombination": {
+        "prefix": "Could not find exact combination for sum ",
+        "suffix": "Try changing the sum, discount, or check available items."
+      }
     }
   }
 }

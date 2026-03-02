@@ -25,7 +25,7 @@ export const Sidebar = ({ onNavigate, activeItem }: SidebarProps) => {
             key={item.id}
             id={item.id}
             icon={item.icon}
-            label={item.label}
+            labelKey={item.labelKey}
             active={item.id === activeItem}
             isSidebarOpen={isOpen}
             onNavigate={onNavigate}

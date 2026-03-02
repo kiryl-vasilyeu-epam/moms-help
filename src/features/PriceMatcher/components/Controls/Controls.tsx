@@ -1,6 +1,7 @@
 import { Button } from '@components';
 import { styles } from './Controls.styles';
 import type { ControlsProps } from './Controls.types';
+import { useTranslation } from 'react-i18next';
 
 export const Controls = ({
   onExportRemainingItems,
@@ -8,6 +9,7 @@ export const Controls = ({
   handleCalculationOpen,
   handleOpenResults,
 }: ControlsProps) => {
+  const { t } = useTranslation();
   return (
     <div css={styles.container}>
       <div css={styles.row}>
@@ -16,14 +18,14 @@ export const Controls = ({
           variant="primary"
           onClick={onExportRemainingItems}
         >
-          📥 Скачать остатки (XLSX)
+          {t('priceMatcher.controls.downloadRemaining')}
         </Button>
         <Button
           style={styles.button}
           variant="primary"
           onClick={onExportCalculations}
         >
-          📄 Скачать отчет (DOC)
+          {t('priceMatcher.controls.downloadReport')}
         </Button>
       </div>
       <div css={styles.row}>
@@ -32,7 +34,7 @@ export const Controls = ({
           variant="info"
           onClick={handleCalculationOpen}
         >
-          📊 Показать расчеты
+          {t('priceMatcher.controls.showCalculations')}
         </Button>
 
         <Button
@@ -40,7 +42,7 @@ export const Controls = ({
           variant="info"
           onClick={handleOpenResults}
         >
-          📈 Показать сводку
+          {t('priceMatcher.controls.showSummary')}
         </Button>
       </div>
     </div>

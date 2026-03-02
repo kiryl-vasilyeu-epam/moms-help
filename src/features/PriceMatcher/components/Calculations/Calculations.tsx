@@ -4,6 +4,7 @@ import { useCalculations } from './Calculations.hooks';
 import { DialogContent, Dialog, DialogTitle, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { CalculationItem } from '../CalculationItem';
+import { useTranslation } from 'react-i18next';
 
 export const Calculations = ({
   usageHistory,
@@ -12,11 +13,14 @@ export const Calculations = ({
   calculationsOpen,
   handleCalculationClose,
 }: CalculationsProps) => {
+  const { t } = useTranslation();
   const { handleCopyCalculation } = useCalculations(usageHistory, items);
   const handleRemoveCalculation = (index: number) => () => {
     if (
       confirm(
-        `Удалить расчет #${usageHistory[index].calculationNumber || index + 1}?`,
+        t('priceMatcher.calculations.deleteConfirm', {
+          number: usageHistory[index].calculationNumber || index + 1,
+        }),
       )
     ) {
       onRemoveCalculation(index);
@@ -30,7 +34,7 @@ export const Calculations = ({
       maxWidth="lg"
     >
       <DialogTitle css={styles.modalTitle}>
-        Список расчетов
+        {t('priceMatcher.calculations.title')}
         <IconButton aria-label="close" onClick={handleCalculationClose}>
           <CloseIcon />
         </IconButton>

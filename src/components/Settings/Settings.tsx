@@ -3,8 +3,10 @@ import { useSettings } from './Settings.hooks';
 import type { SettingsProps } from './Settings.types';
 import { Button } from '../Button';
 import { SettingsSection } from './components';
+import { useTranslation } from 'react-i18next';
 
 export const Settings = ({ sections, onSave }: SettingsProps) => {
+  const { t } = useTranslation();
   const { setDataReceiver, handleSave } = useSettings(onSave);
   return (
     <div css={styles.container}>
@@ -15,7 +17,7 @@ export const Settings = ({ sections, onSave }: SettingsProps) => {
           setDataReceiver={setDataReceiver}
         />
       ))}
-      <Button onClick={handleSave}>Сохранить</Button>
+      <Button onClick={handleSave}>{t('common.save')}</Button>
     </div>
   );
 };

@@ -2,7 +2,7 @@ import type { PAGES } from '@constants';
 
 export interface SidebarMenuItem {
   id: PAGES;
-  label: string;
+  labelKey: string;
   icon: string;
 }
 export interface SidebarProps {

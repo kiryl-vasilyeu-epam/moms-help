@@ -30,7 +30,6 @@ export const styles = createStyles({
   buttonSuccess: {
     background: 'linear-gradient(135deg, #27ae60 0%, #229954 100%)',
     display: 'block',
-    width: '100%',
     boxShadow: '0 4px 12px rgba(39, 174, 96, 0.3)',
   },
   buttonInfo: {
@@ -41,7 +40,6 @@ export const styles = createStyles({
   buttonDanger: {
     background: 'linear-gradient(135deg, #e74c3c 0%, #bb3f31 100%)',
     display: 'block',
-    width: '100%',
     boxShadow: '0 4px 12px rgba(219, 52, 52, 0.3)',
   },
   buttonClose: {

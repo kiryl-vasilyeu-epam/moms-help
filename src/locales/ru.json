@@ -12,24 +12,28 @@
     "clear": "Очистить данные",
     "settings": "Настройки"
   },
+  "common": {
+    "save": "Сохранить",
+    "backWithoutSaving": "Назад без сохранения",
+    "attention": "Внимание",
+    "loading": "Загрузка...",
+    "pleaseWait": "Пожалуйста, подождите",
+    "time": "Время: {{time}}"
+  },
   "itemsMatcher": {
     "title": "Сравнение выписок 1C и Fusion",
-
     "dropdown": {
       "matchDropdownTitle": "Выберите совпадение",
       "searchPlaceholder": "Поиск по артикулу или названию"
     },
-
     "files": {
       "file1CLabel": "Файл 1: 1C выписка",
       "fileFusionLabel": "Файл 2: Fusion выписка"
     },
-
     "controls": {
       "downloadBtn": "Скачать список с совпадениями (.xlsx)",
       "transferBtn": "Передать в Поиск цен"
     },
-
     "stats": {
       "totalItems": "Всего товаров (1C)",
       "matchedItems": "Точные совпадения",
@@ -37,7 +41,6 @@
       "manualItems": "Ручные совпадения",
       "unmatchedItems": "Не найдены"
     },
-
     "filters": {
       "all": "Все",
       "exact": "Точные",
@@ -46,7 +49,6 @@
       "unmatched": "Не найдены",
       "filtering": "Фильтрация..."
     },
-
     "tableHeaders": {
       "number": "#",
       "article1c": "Артикул (1C)",
@@ -56,7 +58,63 @@
       "articleFusion": "Артикул (Fusion)",
       "status": "Статус совпадения"
     },
-
     "pickMatch": "Выберите товар"
+  },
+  "priceMatcher": {
+    "title": "Совпадение цен",
+    "uploadLabel": "Загрузите файл с ценами с остатками",
+    "tableHeaders": {
+      "number": "№",
+      "name": "Наименование",
+      "price": "Цена",
+      "discountPrice": "Цена со скидкой",
+      "quantity": "Кол-во",
+      "used": "Использовано",
+      "remaining": "Остаток"
+    },
+    "discount": {
+      "currentPercent": "Текущий процент скидки: {{percent}}%",
+      "setNewPercent": "Установить новый процент скидки:",
+      "recalculate": "Пересчитать"
+    },
+    "prices": {
+      "inputLabel": "Введите желаемые цены через запятую: 100.21, 23.11...",
+      "calculate": "Расчитать"
+    },
+    "controls": {
+      "downloadRemaining": "📥 Скачать остатки (XLSX)",
+      "downloadReport": "📄 Скачать отчет (DOC)",
+      "showCalculations": "📊 Показать расчеты",
+      "showSummary": "📈 Показать сводку"
+    },
+    "calculations": {
+      "title": "Список расчетов",
+      "deleteConfirm": "Удалить расчет #{{number}}?",
+      "calculationNumber": "Расчет #{{number}}: {{sum}}",
+      "calculated": "Расчитано: {{calculated}} | Разница: {{diff}}",
+      "items": "Товары:",
+      "itemLine": "-{{quantity}} шт. x {{price}} = {{total}} | {{name}} | строка {{row}}",
+      "total": "Итого: {{sum}}",
+      "target": "(цель: {{sum}})",
+      "noSolution": "Точная комбинация не найдена для {{sum}}",
+      "pcs": "шт.",
+      "row": "строка"
+    },
+    "usedItems": {
+      "title": "Сводка - Товары к удалению",
+      "itemLine": "{{quantity}} шт. (строка {{row}}) {{name}}",
+      "pcs": "шт.",
+      "row": "строка"
+    },
+    "noSolution": {
+      "noItems": {
+        "prefix": "Не удалось найти комбинацию для суммы ",
+        "suffix": "Нет доступных товаров для расчета."
+      },
+      "noCombination": {
+        "prefix": "Не удалось найти точную комбинацию для суммы ",
+        "suffix": "Попробуйте изменить сумму, скидку, или проверьте доступные товары."
+      }
+    }
   }
 }

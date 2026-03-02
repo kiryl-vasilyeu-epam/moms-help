@@ -5,6 +5,7 @@ import {
 } from '@components';
 import { styles } from './UploadSection.styles';
 import { UploadSectionProps } from './UploadSection.types';
+import { useTranslation } from 'react-i18next';
 
 export const UploadSection = ({
   fileUpload,
@@ -12,6 +13,7 @@ export const UploadSection = ({
   handleProcess,
   handleClear,
 }: UploadSectionProps) => {
+  const { t } = useTranslation();
   const { goToNextPage } = usePageSwitcherNavigation();
 
   return (
@@ -19,7 +21,7 @@ export const UploadSection = ({
       <div css={styles.content}>
         <div css={styles.uploadSection}>
           <FileUploadButton
-            label={'Загрузите файл с ценами с остатками'}
+            label={t('priceMatcher.uploadLabel')}
             fileName={fileUpload.fileName}
             onFileSelect={fileUpload.handleFileChange}
             isFileReady={fileUpload.isReady}

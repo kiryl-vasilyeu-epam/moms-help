@@ -1,14 +1,16 @@
 import type { SidebarItemProps } from './SidebarItem.types';
 import { styles } from './SidebarItem.styles';
+import { useTranslation } from 'react-i18next';
 
 export const SidebarItem = ({
   active,
   id,
   icon,
-  label,
+  labelKey,
   isSidebarOpen,
   onNavigate,
 }: SidebarItemProps) => {
+  const { t } = useTranslation();
   const handleItemClick = () => {
     onNavigate(id);
   };
@@ -20,7 +22,7 @@ export const SidebarItem = ({
     >
       <span css={styles.menuIcon}>{icon}</span>
       <span css={[styles.menuText, !isSidebarOpen && styles.collapsedText]}>
-        {label}
+        {t(labelKey)}
       </span>
     </button>
   );

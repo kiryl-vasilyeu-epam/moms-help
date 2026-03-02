@@ -13,17 +13,13 @@ import {
   PricesInput,
   NoSolutionModal,
 } from './components';
-import {
-  COLUMN_HEADERS,
-  COLUMNS_IDS,
-  COLUMNS_WEIGHT,
-} from './PriceMatcher.constants';
+import { COLUMNS_IDS, COLUMNS_WEIGHT } from './PriceMatcher.constants';
 import { styles } from './PriceMatcher.styles';
 import ResultsSection from './components/ResultsSection';
-// import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 const PriceMatcher = () => {
-  // const { t } = useTranslation();
+  const { t } = useTranslation();
   const {
     fileUpload,
     items,
@@ -54,7 +50,7 @@ const PriceMatcher = () => {
 
   return (
     <Screen
-      title={'Совпадение цен'}
+      title={t('priceMatcher.title')}
       showSettingsState={!items.length}
       isModalOpen={isModalOpen}
       openModal={openModal}
@@ -105,7 +101,15 @@ const PriceMatcher = () => {
 
         <ListTable
           itemHeight={80}
-          headerLabels={COLUMN_HEADERS}
+          headerLabels={[
+            t('priceMatcher.tableHeaders.number'),
+            t('priceMatcher.tableHeaders.name'),
+            t('priceMatcher.tableHeaders.price'),
+            t('priceMatcher.tableHeaders.discountPrice'),
+            t('priceMatcher.tableHeaders.quantity'),
+            t('priceMatcher.tableHeaders.used'),
+            t('priceMatcher.tableHeaders.remaining'),
+          ]}
           columnIds={COLUMNS_IDS}
           columnsWeight={COLUMNS_WEIGHT}
           items={items}
@@ -115,10 +119,10 @@ const PriceMatcher = () => {
         <Dialog fullWidth open={loading}>
           <DialogTitle css={styles.loadingTitle}>
             <CircularProgress size="30px" />
-            Пожалуйста, подождите
+            {t('common.pleaseWait')}
           </DialogTitle>
           <DialogContent>
-            {loadingText.title ?? 'Загрузка...'}
+            {loadingText.title ?? t('common.loading')}
             {loadingText.details && (
               <span css={styles.loadingDetails}>{loadingText.details}</span>
             )}
@@ -126,7 +130,9 @@ const PriceMatcher = () => {
               <span css={styles.loadingDetails}>{loadingText.variants}</span>
             )}
             {loadingText.time && (
-              <span css={styles.loadingDetails}>Время: {loadingText.time}</span>
+              <span css={styles.loadingDetails}>
+                {t('common.time', { time: loadingText.time })}
+              </span>
             )}
           </DialogContent>
         </Dialog>

@@ -1,5 +1,9 @@
 import { useMemo } from 'react';
-import type { Calculation, PriceItem, AllUsedItems } from '@features/PriceMatcher/PriceMatcher.types';
+import type {
+  Calculation,
+  PriceItem,
+  AllUsedItems,
+} from '@features/PriceMatcher/PriceMatcher.types';
 
 export const useUsedItems = (
   usageHistory: Calculation[],

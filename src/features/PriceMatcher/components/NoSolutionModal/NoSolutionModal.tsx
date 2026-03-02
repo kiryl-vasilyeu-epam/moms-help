@@ -5,37 +5,42 @@ import { DialogContent, Dialog, DialogTitle, IconButton } from '@mui/material';
 import { useMemo } from 'react';
 import ReportIcon from '@mui/icons-material/Report';
 import CloseIcon from '@mui/icons-material/Close';
-
-const NO_SOLUTION_MESSAGES = {
-  no_items: {
-    prefix: 'Не удалось найти комбинацию для суммы ',
-    suffix: 'Нет доступных товаров для расчета.',
-  },
-  no_combination: {
-    prefix: 'Не удалось найти точную комбинацию для суммы',
-    suffix:
-      'Попробуйте изменить сумму, скидку, или проверьте доступные товары.',
-  },
-};
+import { useTranslation } from 'react-i18next';
 
 export const NoSolutionModal = ({
   open,
   onClose,
   failedCalculations,
 }: NoSolutionModalProps) => {
+  const { t } = useTranslation();
+
+  const NO_SOLUTION_MESSAGES = useMemo(
+    () => ({
+      no_items: {
+        prefix: t('priceMatcher.noSolution.noItems.prefix'),
+        suffix: t('priceMatcher.noSolution.noItems.suffix'),
+      },
+      no_combination: {
+        prefix: t('priceMatcher.noSolution.noCombination.prefix'),
+        suffix: t('priceMatcher.noSolution.noCombination.suffix'),
+      },
+    }),
+    [t],
+  );
+
   const messages = useMemo(
     () =>
       failedCalculations.map((calculation) => ({
         sum: centsToStr(calculation.targetCents),
         ...NO_SOLUTION_MESSAGES[calculation.reason],
       })),
-    [failedCalculations],
+    [failedCalculations, NO_SOLUTION_MESSAGES],
   );
 
   return (
     <Dialog fullWidth open={open} onClose={onClose} maxWidth="sm">
       <DialogTitle css={styles.title}>
-        Внимание
+        {t('common.attention')}
         <IconButton aria-label="close" onClick={onClose}>
           <CloseIcon />
         </IconButton>
