@@ -1,19 +1,19 @@
 import { createStyles } from '@utils';
 
-export const styles = createStyles({
+export const styles = createStyles(({ spacing }) => ({
   container: {
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    gap: '20px',
+    gap: spacing.lg,
   },
   loadingTitle: {
     display: 'flex',
     alignItems: 'center',
-    gap: '20px',
+    gap: spacing.lg,
   },
   loadingDetails: {
     display: 'block',
-    marginTop: '10px',
+    marginTop: spacing.sm,
   },
-});
+}));

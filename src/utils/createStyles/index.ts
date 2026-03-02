@@ -1,2 +1,2 @@
-export { createStyles } from './createStyles';
+export { createStyles, createSxStyles } from './createStyles';
 export * from './createStyles.types';

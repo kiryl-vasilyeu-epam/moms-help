@@ -1,11 +1,11 @@
 import { createStyles } from '@utils';
 
-export const styles = createStyles({
+export const styles = createStyles(({ spacing }) => ({
   container: {
     display: 'flex',
     flex: 1,
     flexDirection: 'column',
-    gap: '24px',
-    padding: '16px',
+    gap: spacing.xl,
+    padding: spacing.base,
   },
-});
+}));

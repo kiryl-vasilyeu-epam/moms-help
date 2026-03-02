@@ -1,15 +1,15 @@
 import { createStyles } from '@utils';
 
-export const styles = createStyles({
+export const styles = createStyles(({ spacing, fontSizes, colors }) => ({
   settingRow: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: '16px 0',
-    borderBottom: '1px solid #95979f',
-    gap: '16px',
+    padding: `${spacing.base} 0`,
+    borderBottom: `1px solid ${colors.borderMuted}`,
+    gap: spacing.base,
   },
   settingLabel: {
-    fontSize: '18px',
+    fontSize: fontSizes.lg,
   },
-});
+}));

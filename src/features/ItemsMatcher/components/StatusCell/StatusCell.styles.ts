@@ -1,29 +1,29 @@
 import { createStyles } from '@utils';
 
-export const styles = createStyles({
+export const styles = createStyles(({ colors, fontSizes }) => ({
   matchStatus: {
     display: 'flex',
     flex: 1,
     justifyContent: 'center',
   },
   noMatch: {
-    color: '#e74c3c',
+    color: colors.matchNone,
     fontWeight: 'bold',
-    fontSize: '20px',
+    fontSize: fontSizes.xl,
   },
   match: {
-    color: '#27ae60',
-    fontSize: '20px',
+    color: colors.matchExact,
+    fontSize: fontSizes.xl,
     fontWeight: 'bold',
   },
   fuzzyMatch: {
-    color: '#f39c12',
+    color: colors.matchFuzzy,
     fontWeight: 'bold',
-    fontSize: '20px',
+    fontSize: fontSizes.xl,
   },
   manualMatch: {
-    color: '#2196f3',
+    color: colors.matchManual,
     fontWeight: 'bold',
-    fontSize: '20px',
+    fontSize: fontSizes.xl,
   },
-});
+}));

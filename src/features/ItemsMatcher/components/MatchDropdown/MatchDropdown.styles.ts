@@ -1,21 +1,21 @@
 import { createStyles } from '@utils';
 
-export const styles = createStyles({
+export const styles = createStyles(({ spacing, fontSizes, colors }) => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '10px',
+    gap: spacing.sm,
     width: '400px',
   },
   header: {
     display: 'flex',
     flexDirection: 'row',
-    gap: '8px',
+    gap: spacing.xs,
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   headerTitle: {
-    fontSize: '16px',
+    fontSize: fontSizes.base,
     fontWeight: 'bold',
   },
   searchField: {
@@ -29,17 +29,17 @@ export const styles = createStyles({
   },
   listItem: {
     display: 'flex',
-    padding: '8px',
+    padding: spacing.xs,
     minHeight: '40px',
     height: '40px',
     alignItems: 'center',
     cursor: 'pointer',
-    borderBottom: '1px solid #c1c1c1',
+    borderBottom: `1px solid ${colors.borderDark}`,
     '&:hover': {
-      background: '#e1edff',
+      background: colors.infoLight,
     },
   },
   listItemEven: {
-    background: '#f9f9f9',
+    background: colors.backgroundEven,
   },
-});
+}));

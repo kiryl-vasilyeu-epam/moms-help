@@ -1,44 +1,46 @@
 import { createStyles } from '@utils';
 
-export const styles = createStyles({
-  collapsedText: {
-    opacity: 0,
-  },
-
-  menuItem: {
-    padding: '18px 30px',
-    border: 'none',
-    background: 'transparent',
-    color: 'rgba(255, 255, 255, 0.8)',
-    cursor: 'pointer',
-    fontSize: '15px',
-    fontWeight: 500,
-    textAlign: 'left',
-    transition: 'all 0.3s',
-    borderLeft: '5px solid transparent',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '15px',
-    '&:hover': {
-      background: 'rgba(255, 255, 255, 0.1)',
-      color: 'white',
+export const styles = createStyles(
+  ({ colors, fontSizes, spacing, transitions }) => ({
+    collapsedText: {
+      opacity: 0,
     },
-  },
 
-  menuIcon: {
-    fontSize: '18px',
-    flexShrink: 0,
-  },
+    menuItem: {
+      padding: `${spacing.lg} ${spacing.xxl}`,
+      border: 'none',
+      background: 'transparent',
+      color: colors.sidebarText,
+      cursor: 'pointer',
+      fontSize: fontSizes.base,
+      fontWeight: 500,
+      textAlign: 'left',
+      transition: `all ${transitions.base}`,
+      borderLeft: '5px solid transparent',
+      display: 'flex',
+      alignItems: 'center',
+      gap: spacing.base,
+      '&:hover': {
+        background: colors.sidebarHover,
+        color: colors.white,
+      },
+    },
 
-  menuItemActive: {
-    background: 'rgba(255, 255, 255, 0.15)',
-    color: 'white',
-    borderLeftColor: '#3498db',
-  },
+    menuIcon: {
+      fontSize: fontSizes.lg,
+      flexShrink: 0,
+    },
 
-  menuText: {
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-  },
-});
+    menuItemActive: {
+      background: colors.sidebarActive,
+      color: colors.white,
+      borderLeftColor: colors.sidebarActiveBorder,
+    },
+
+    menuText: {
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    },
+  }),
+);

@@ -1,13 +1,13 @@
 import { createStyles } from '@utils';
 
-export const styles = createStyles({
+export const styles = createStyles(({ spacing }) => ({
   buttonRow: {
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
-    gap: '10px',
+    gap: spacing.sm,
   },
   processButton: {
     flex: 1,
   },
-});
+}));

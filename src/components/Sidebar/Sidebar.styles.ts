@@ -1,47 +1,48 @@
 import { createStyles } from '@utils';
 
-export const styles = createStyles(({ sizes }) => ({
-  sidebar: {
-    position: 'absolute',
-    left: 0,
-    zIndex: 1000,
-    width: 280,
-    height: '100vh',
-    background: 'linear-gradient(135deg, #2c3e50 0%, #34495e 100%)',
-    color: 'white',
+export const styles = createStyles(
+  ({ sizes, colors, spacing, fontSizes, shadows, transitions, zIndices }) => ({
+    sidebar: {
+      position: 'absolute',
+      left: 0,
+      zIndex: zIndices.sidebar,
+      width: sizes.sidebarExpandedWidth,
+      height: '100vh',
+      background: colors.sidebarGradient,
+      color: colors.white,
+      overflowY: 'auto',
+      boxShadow: shadows.sidebar,
+      transition: `width ${transitions.base} ease`,
+    },
+    collapsedSidebar: {
+      width: sizes.sidebarWidth,
+    },
 
-    overflowY: 'auto',
-    boxShadow: '2px 0 10px rgba(0, 0, 0, 0.2)',
-    transition: 'width .3s ease',
-  },
-  collapsedSidebar: {
-    width: sizes.sidebarWidth,
-  },
+    header: {
+      padding: `0 ${spacing.base}`,
+      borderBottom: `2px solid ${colors.sidebarBorder}`,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      height: sizes.headerHeight,
+    },
 
-  header: {
-    padding: '0 15px',
-    borderBottom: '2px solid rgba(255, 255, 255, 0.1)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    height: '70px',
-  },
+    headerTitle: {
+      fontSize: fontSizes.xxl,
+      fontWeight: 600,
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    },
+    collapsedText: {
+      opacity: 0,
+    },
 
-  headerTitle: {
-    fontSize: '24px',
-    fontWeight: 600,
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-  },
-  collapsedText: {
-    opacity: 0,
-  },
-
-  menu: {
-    padding: '10px 0',
-    gap: 10,
-    display: 'flex',
-    flexDirection: 'column',
-  },
-}));
+    menu: {
+      padding: `${spacing.sm} 0`,
+      gap: 10,
+      display: 'flex',
+      flexDirection: 'column',
+    },
+  }),
+);

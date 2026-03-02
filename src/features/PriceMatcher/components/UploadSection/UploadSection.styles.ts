@@ -1,6 +1,6 @@
 import { createStyles } from '@utils';
 
-export const styles = createStyles({
+export const styles = createStyles(({ spacing, sizes }) => ({
   container: {
     width: '100%',
     height: '100%',
@@ -13,12 +13,12 @@ export const styles = createStyles({
     display: 'flex',
     flex: 1,
     flexDirection: 'column',
-    gap: '20px',
-    maxWidth: '700px',
+    gap: spacing.lg,
+    maxWidth: sizes.maxUploadWidth,
   },
   uploadSection: {
     display: 'flex',
     justifyContent: 'space-between',
-    gap: '20px',
+    gap: spacing.lg,
   },
-});
+}));

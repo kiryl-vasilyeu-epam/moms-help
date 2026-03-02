@@ -29,7 +29,7 @@ export const Screen = ({
         )}
       </div>
       {showSettingsState ? (
-        <div style={styles.uploadState}>{settingsState}</div>
+        <div css={styles.uploadState}>{settingsState}</div>
       ) : (
         children
       )}

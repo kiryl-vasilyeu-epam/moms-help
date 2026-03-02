@@ -1,52 +1,54 @@
 import { createStyles } from '@utils';
 
-export const styles = createStyles({
-  uploadBox: {
-    display: 'flex',
-    flexDirection: 'column',
-    flex: 1,
-    border: '2px dashed #667eea',
-    borderRadius: '8px',
-    padding: '20px',
-    textAlign: 'center',
-    background: '#f8f9ff',
-    transition: 'all 0.3s',
+export const styles = createStyles(
+  ({ colors, radii, spacing, transitions }) => ({
+    uploadBox: {
+      display: 'flex',
+      flexDirection: 'column',
+      flex: 1,
+      border: `2px dashed ${colors.primary}`,
+      borderRadius: radii.base,
+      padding: spacing.lg,
+      textAlign: 'center',
+      background: colors.background,
+      transition: `all ${transitions.base}`,
 
-    '&:hover': {
-      background: '#eef1ff',
-      borderColor: '#764ba2',
+      '&:hover': {
+        background: colors.backgroundHover,
+        borderColor: colors.primaryDark,
+      },
     },
-  },
-  loadedFileBox: {
-    background: '#d4edda',
-    borderColor: '#28a745',
-  },
-  uploadBoxH3: {
-    flex: 1,
-    color: '#667eea',
-    marginBottom: '15px',
-  },
-  loadedH3: {
-    color: '#28a745',
-  },
-  fileInput: {
-    display: 'none',
-  },
-  fileLabel: {
-    display: 'inline-block',
-    padding: '10px 20px',
-    background: '#667eea',
-    color: 'white',
-    borderRadius: '6px',
-    cursor: 'pointer',
-    transition: 'background 0.3s',
-    '&:hover': {
-      background: '#764ba2',
+    loadedFileBox: {
+      background: colors.successLight,
+      borderColor: colors.successBorder,
     },
-  },
-  fileName: {
-    marginTop: '10px',
-    color: '#666',
-    fontSize: '14px',
-  },
-});
+    uploadBoxH3: {
+      flex: 1,
+      color: colors.primary,
+      marginBottom: '15px',
+    },
+    loadedH3: {
+      color: colors.successBorder,
+    },
+    fileInput: {
+      display: 'none',
+    },
+    fileLabel: {
+      display: 'inline-block',
+      padding: '10px 20px',
+      background: colors.primary,
+      color: colors.white,
+      borderRadius: radii.md,
+      cursor: 'pointer',
+      transition: `background ${transitions.base}`,
+      '&:hover': {
+        background: colors.primaryDark,
+      },
+    },
+    fileName: {
+      marginTop: spacing.sm,
+      color: colors.textSecondary,
+      fontSize: '14px',
+    },
+  }),
+);

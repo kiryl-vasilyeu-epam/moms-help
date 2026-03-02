@@ -15,7 +15,7 @@ export const SettingsSection = ({ sections, onSave }: SettingsProps) => {
     goToPrevPage();
   };
   return (
-    <div style={styles.container}>
+    <div css={styles.container}>
       <Button variant="info" onClick={goToPrevPage} style={styles.back}>
         {t('common.backWithoutSaving')}
       </Button>

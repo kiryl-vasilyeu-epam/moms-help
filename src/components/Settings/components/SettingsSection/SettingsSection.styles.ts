@@ -1,19 +1,19 @@
 import { createStyles } from '@utils';
 
-export const styles = createStyles({
+export const styles = createStyles(({ spacing, fontSizes, colors, radii }) => ({
   section: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '12px',
+    gap: spacing.md,
     background: 'rgba(255, 255, 255, 0.05)',
-    borderRadius: '12px',
-    padding: '16px',
+    borderRadius: radii.lg,
+    padding: spacing.base,
   },
   sectionTitle: {
-    fontSize: '18px',
+    fontSize: fontSizes.lg,
     fontWeight: 'bold',
     margin: 0,
-    paddingBottom: '8px',
-    borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+    paddingBottom: spacing.xs,
+    borderBottom: `1px solid ${colors.sidebarBorder}`,
   },
-});
+}));

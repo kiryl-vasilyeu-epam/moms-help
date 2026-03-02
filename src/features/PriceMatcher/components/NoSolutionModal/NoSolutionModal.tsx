@@ -47,8 +47,8 @@ export const NoSolutionModal = ({
       </DialogTitle>
       <DialogContent css={styles.container}>
         {messages.map((message, index) => (
-          <div key={index} style={styles.combination}>
-            <ReportIcon color="error" style={{ marginRight: '8px' }} />
+          <div key={index} css={styles.combination}>
+            <ReportIcon color="error" css={styles.reportIcon} />
             <div>
               <div>
                 <span>{message.prefix} </span>

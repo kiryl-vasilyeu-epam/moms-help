@@ -1,65 +1,67 @@
 import { createStyles } from '@utils';
 
-export const styles = createStyles({
-  button: {
-    padding: '15px',
-    fontSize: '16px',
-    color: 'white',
-    border: 'none',
-    borderRadius: '8px',
-    fontWeight: 'bold',
-    cursor: 'pointer',
-    transition: 'all 0.2s',
-    '&:hover': {
-      transform: 'scale(1.02)',
+export const styles = createStyles(
+  ({ spacing, fontSizes, colors, radii, shadows, sizes }) => ({
+    button: {
+      padding: '15px',
+      fontSize: fontSizes.base,
+      color: colors.white,
+      border: 'none',
+      borderRadius: radii.base,
+      fontWeight: 'bold',
+      cursor: 'pointer',
+      transition: 'all 0.2s',
+      '&:hover': {
+        transform: 'scale(1.02)',
+      },
+      '&:disabled': {
+        opacity: 0.5,
+        cursor: 'not-allowed',
+        transform: 'none',
+      },
     },
-    '&:disabled': {
-      opacity: 0.5,
-      cursor: 'not-allowed',
-      transform: 'none',
+    buttonSmall: {
+      padding: spacing.xs,
+      fontSize: fontSizes.xs,
+      borderRadius: radii.sm,
     },
-  },
-  buttonSmall: {
-    padding: '8px',
-    fontSize: '12px',
-    borderRadius: '4px',
-  },
-  buttonPrimary: {
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-  },
-  buttonSuccess: {
-    background: 'linear-gradient(135deg, #27ae60 0%, #229954 100%)',
-    display: 'block',
-    boxShadow: '0 4px 12px rgba(39, 174, 96, 0.3)',
-  },
-  buttonInfo: {
-    background: 'linear-gradient(135deg, #3498db 0%, #2980b9 100%)',
-    display: 'block',
-    boxShadow: '0 4px 12px rgba(52, 152, 219, 0.3)',
-  },
-  buttonDanger: {
-    background: 'linear-gradient(135deg, #e74c3c 0%, #bb3f31 100%)',
-    display: 'block',
-    boxShadow: '0 4px 12px rgba(219, 52, 52, 0.3)',
-  },
-  buttonClose: {
-    background: '#e74c3c',
-    width: '50px',
-    height: '50px',
-    padding: 0,
-    fontSize: '24px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  buttonCloseSmall: {
-    background: '#e74c3c',
-    width: '25px',
-    height: '25px',
-    padding: 0,
-    fontSize: '12px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+    buttonPrimary: {
+      background: colors.gradient,
+    },
+    buttonSuccess: {
+      background: colors.successGradient,
+      display: 'block',
+      boxShadow: shadows.success,
+    },
+    buttonInfo: {
+      background: colors.infoGradient,
+      display: 'block',
+      boxShadow: shadows.info,
+    },
+    buttonDanger: {
+      background: colors.dangerGradient,
+      display: 'block',
+      boxShadow: shadows.danger,
+    },
+    buttonClose: {
+      background: colors.danger,
+      width: sizes.buttonClose,
+      height: sizes.buttonClose,
+      padding: 0,
+      fontSize: fontSizes.xxl,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    buttonCloseSmall: {
+      background: colors.danger,
+      width: sizes.buttonCloseSmall,
+      height: sizes.buttonCloseSmall,
+      padding: 0,
+      fontSize: fontSizes.xs,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+  }),
+);

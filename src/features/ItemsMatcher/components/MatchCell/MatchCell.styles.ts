@@ -1,6 +1,6 @@
 import { createStyles } from '@utils';
 
-export const styles = createStyles({
+export const styles = createStyles(({ spacing, radii, colors }) => ({
   matchedInvNo: {
     cursor: 'default',
     position: 'relative',
@@ -11,12 +11,12 @@ export const styles = createStyles({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '10px',
-    borderRadius: 8,
-    border: '2px solid #ff9800',
-    background: '#fff3e0',
+    padding: spacing.sm,
+    borderRadius: radii.base,
+    border: `2px solid ${colors.warningDark}`,
+    background: colors.warningLight,
     '&:hover': {
-      background: '#ffe0b2',
+      background: colors.warningLightHover,
     },
     cursor: 'pointer',
   },
@@ -26,12 +26,12 @@ export const styles = createStyles({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '10px',
-    borderRadius: 8,
-    border: '2px dashed #667eea',
+    padding: spacing.sm,
+    borderRadius: radii.base,
+    border: `2px dashed ${colors.primary}`,
     '&:hover': {
       background: '#f0f4ff',
     },
     cursor: 'pointer',
   },
-});
+}));

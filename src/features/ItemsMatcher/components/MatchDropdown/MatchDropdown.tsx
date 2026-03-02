@@ -37,8 +37,8 @@ export const MatchDropdown = ({
       onClose={handleCloseDropdown}
     >
       <div css={styles.container}>
-        <div style={styles.header}>
-          <span style={styles.headerTitle}>
+        <div css={styles.header}>
+          <span css={styles.headerTitle}>
             {t('itemsMatcher.dropdown.matchDropdownTitle')}
           </span>
           <Button isSmall variant="close" onClick={handleCloseDropdown} />

@@ -1,24 +1,24 @@
 import { createStyles } from '@utils';
 
-export const styles = createStyles({
+export const styles = createStyles(({ colors, radii, spacing, fontSizes }) => ({
   statBox: {
     flex: 1,
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    color: 'white',
-    borderRadius: '8px',
+    background: colors.gradient,
+    color: colors.white,
+    borderRadius: radii.base,
     textAlign: 'center',
     justifyContent: 'center',
     display: 'flex',
     flexDirection: 'column',
-    gap: '8px',
-    padding: '20px',
+    gap: spacing.xs,
+    padding: spacing.lg,
   },
   statBoxLabel: {
-    fontSize: '14px',
+    fontSize: fontSizes.sm,
     opacity: 0.9,
   },
   statBoxAmount: {
-    fontSize: '28px',
+    fontSize: fontSizes.xxxl,
     fontWeight: 'bold',
   },
-});
+}));

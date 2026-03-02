@@ -1,16 +1,16 @@
 import { createStyles } from '@utils';
 
-export const styles = createStyles({
+export const styles = createStyles(({ colors }) => ({
   rowFuzzy: {
-    borderTop: '3px solid #f39c12',
-    borderBottom: '3px solid #f39c12',
+    borderTop: `3px solid ${colors.matchFuzzy}`,
+    borderBottom: `3px solid ${colors.matchFuzzy}`,
   },
   rowManual: {
-    borderTop: '3px solid #2196f3',
-    borderBottom: '3px solid #2196f3',
+    borderTop: `3px solid ${colors.matchManual}`,
+    borderBottom: `3px solid ${colors.matchManual}`,
   },
   rowUnmatched: {
-    borderTop: '3px solid #e74c3c',
-    borderBottom: '3px solid #e74c3c',
+    borderTop: `3px solid ${colors.matchNone}`,
+    borderBottom: `3px solid ${colors.matchNone}`,
   },
-});
+}));

@@ -1,9 +1,9 @@
 import { createSxStyles } from '@utils';
 
-export const styles = createSxStyles({
+export const styles = createSxStyles(({ spacing }) => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '20px',
+    gap: spacing.lg,
   },
-});
+}));

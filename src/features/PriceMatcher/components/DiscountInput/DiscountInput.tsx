@@ -20,13 +20,13 @@ export const DiscountInput = ({
   };
 
   return (
-    <div style={styles.container}>
+    <div css={styles.container}>
       <span>
         {t('priceMatcher.discount.currentPercent', {
           percent: discountPercent,
         })}
       </span>
-      <div style={styles.newPercent}>
+      <div css={styles.newPercent}>
         <span>{t('priceMatcher.discount.setNewPercent')}</span>
         <TextField
           type="number"

@@ -1,6 +1,6 @@
 import { createStyles } from '@utils';
 
-export const styles = createStyles({
+export const styles = createStyles(({ colors }) => ({
   cell: {
     display: 'flex',
     flexDirection: 'row',
@@ -12,6 +12,6 @@ export const styles = createStyles({
     whiteSpace: 'wrap',
   },
   border: {
-    borderLeft: '1px solid #ddd',
+    borderLeft: `1px solid ${colors.border}`,
   },
-});
+}));

@@ -1,6 +1,6 @@
 import { createStyles } from '@utils';
 
-export const styles = createStyles({
+export const styles = createStyles(() => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
@@ -11,4 +11,4 @@ export const styles = createStyles({
     width: 300,
     alignSelf: 'center',
   },
-});
+}));

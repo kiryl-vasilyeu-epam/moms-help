@@ -1,21 +1,23 @@
 import { createSxStyles } from '@utils';
 
-export const styles = createSxStyles({
-  container: {
-    alignSelf: 'center',
-    flexDirection: 'column',
-    display: 'flex',
-    overflowY: 'auto',
-    gap: '20px',
-    paddingTop: '20px !important',
-  },
-  modalTitle: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    borderBottom: '1px solid #ddd',
-    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.44)',
-    fontSize: '18px',
-    fontWeight: 'bold',
-  },
-});
+export const styles = createSxStyles(
+  ({ spacing, colors, shadows, fontSizes }) => ({
+    container: {
+      alignSelf: 'center',
+      flexDirection: 'column',
+      display: 'flex',
+      overflowY: 'auto',
+      gap: spacing.lg,
+      paddingTop: `${spacing.lg} !important`,
+    },
+    modalTitle: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      borderBottom: `1px solid ${colors.border}`,
+      boxShadow: shadows.md,
+      fontSize: fontSizes.lg,
+      fontWeight: 'bold',
+    },
+  }),
+);

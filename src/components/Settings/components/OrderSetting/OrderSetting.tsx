@@ -51,14 +51,14 @@ export const OrderSetting = ({
                 disabled={!canMoveUp(index) || animatingIndices !== null}
                 color="info"
               >
-                <ArrowCircleUpIcon style={styles.orderButtonIcon} />
+                <ArrowCircleUpIcon sx={styles.orderButtonIcon} />
               </IconButton>
               <IconButton
                 onClick={createMoveDownHandler(index)}
                 disabled={!canMoveDown(index) || animatingIndices !== null}
                 color="error"
               >
-                <ArrowCircleDownIcon style={styles.orderButtonIcon} />
+                <ArrowCircleDownIcon sx={styles.orderButtonIcon} />
               </IconButton>
             </div>
           </div>

@@ -1,15 +1,15 @@
 import { createStyles } from '@utils';
 
-export const styles = createStyles({
+export const styles = createStyles(({ colors, radii, shadows, spacing }) => ({
   dropdown: {
-    background: '#ffffff',
-    borderRadius: '8px',
-    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
+    background: colors.white,
+    borderRadius: radii.base,
+    boxShadow: shadows.xl,
     minWidth: '200px',
-    padding: '8px 0',
-    marginTop: '4px',
+    padding: `${spacing.xs} 0`,
+    marginTop: spacing.xxs,
   },
   content: {
-    padding: '8px 16px',
+    padding: `${spacing.xs} ${spacing.base}`,
   },
-});
+}));

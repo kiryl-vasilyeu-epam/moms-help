@@ -1,20 +1,20 @@
 import { createStyles } from '@utils';
 
-export const styles = createStyles({
+export const styles = createStyles(({ spacing, colors }) => ({
   container: {
     flex: 1,
     display: 'flex',
     flexDirection: 'row',
-    padding: '20px 12px',
+    padding: `${spacing.lg} ${spacing.md}`,
     alignItems: 'center',
   },
   numberCell: {
-    color: '#004daa',
+    color: colors.cellNumber,
   },
   usedCell: {
-    color: '#318000',
+    color: colors.cellUsed,
   },
   leftCell: {
-    color: '#aa0028',
+    color: colors.cellLeft,
   },
-});
+}));

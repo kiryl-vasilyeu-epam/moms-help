@@ -1,19 +1,19 @@
 import { createSxStyles } from '@utils';
 
-export const styles = createSxStyles({
+export const styles = createSxStyles(({ spacing }) => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '20px',
+    gap: spacing.lg,
     justifyContent: 'center',
     alignItems: 'center',
   },
   row: {
     display: 'flex',
     flexDirection: 'row',
-    gap: '20px',
+    gap: spacing.lg,
   },
   button: {
     width: 300,
   },
-});
+}));
