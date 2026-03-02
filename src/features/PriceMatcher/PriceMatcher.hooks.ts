@@ -119,31 +119,34 @@ export const usePriceMatcher = () => {
     setExportColumnNames,
     setExportDataOrder,
   } = useFileSettings();
-  const [transferredData, setTransferredData] = useLocalStorage<
-    TransferredItem[] | null
-  >(STORAGE_KEYS.PRICE_MATCHER_TRANSFER_DATA, null);
+  const [transferredData, setTransferredData] = useLocalStorage<{
+    items: TransferredItem[];
+    timeStamp: string;
+  } | null>(STORAGE_KEYS.PRICE_MATCHER_TRANSFER_DATA, null);
 
   const [sumInput, setSumInput] = useState('');
 
   const fileUpload = useXLSFileUpload<PriceItem[]>();
 
   useEffect(() => {
-    if (transferredData && transferredData.length > 0) {
-      const convertedItems: PriceItem[] = transferredData.map((item, idx) => ({
-        rowNumber: idx + 2,
-        name: item.name,
-        priceCents: Math.round(item.price * 100),
-        salePriceCents: Math.round(item.price * 100),
-        amount: item.amount,
-        originalAmount: item.amount,
-        remainingAmount: item.amount,
-        usedAmount: 0,
-      }));
-
+    if (transferredData && transferredData.items.length > 0) {
+      setTransferredData(null);
+      const convertedItems: PriceItem[] = transferredData.items.map(
+        (item, idx) => ({
+          rowNumber: idx + 2,
+          name: item.name,
+          priceCents: Math.round(item.price * 100),
+          salePriceCents: Math.round(item.price * 100),
+          amount: item.amount,
+          originalAmount: item.amount,
+          remainingAmount: item.amount,
+          usedAmount: 0,
+        }),
+      );
       setItems(convertedItems);
       setUsageHistory([]);
     }
-  }, [setItems, setUsageHistory, transferredData]);
+  }, [setItems, setTransferredData, setUsageHistory, transferredData]);
 
   const handleProcessFile = () => {
     const items = fileUpload.processFiles(parseFile, {
