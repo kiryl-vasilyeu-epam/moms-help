@@ -18,6 +18,7 @@ export type TypographyColor =
   | 'secondary'
   | 'muted'
   | 'white'
+  | 'alwaysWhite'
   | 'success'
   | 'danger'
   | 'warning'

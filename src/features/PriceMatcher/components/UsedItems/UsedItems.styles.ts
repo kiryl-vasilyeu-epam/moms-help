@@ -1,6 +1,6 @@
-import { createSxStyles } from '@utils';
+import { createStyleSheet } from '@utils';
 
-export const styles = createSxStyles(
+export const stylesheet = createStyleSheet(
   ({ spacing, colors, shadows, fontSizes, radii }) => ({
     container: {
       alignSelf: 'center',

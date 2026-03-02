@@ -26,7 +26,7 @@ export const ItemsTable = memo(
 
     return (
       <ListTable
-        itemHeight={80}
+        itemHeight={120}
         headerLabels={headers}
         columnIds={COLUMNS_IDS}
         columnsWeight={COLUMNS_WEIGHT}

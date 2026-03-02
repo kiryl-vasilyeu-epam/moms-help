@@ -1,8 +1,9 @@
 import { centsToStr } from '@features/PriceMatcher/PriceMatcher.helpers';
-import { styles } from './CalculationItem.styles';
+import { styleSheet } from './CalculationItem.styles';
 import { Button, Typography } from '@components';
 import { CalculationsItemProps } from './CalculationItem.types';
 import { useTranslation } from 'react-i18next';
+import { useStyles } from '@hooks';
 
 export const CalculationItem = ({
   calculation,
@@ -16,6 +17,7 @@ export const CalculationItem = ({
   const differenceCents = Math.abs(calculatedCents - targetCents);
   const isOff = calculatedCents > 0 && differenceCents !== 0;
   const onCopy = () => handleCopyCalculation(index);
+  const styles = useStyles(styleSheet);
 
   return (
     <div

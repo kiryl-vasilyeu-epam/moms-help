@@ -30,7 +30,7 @@ export const stylesheet = createStyleSheet(({ spacing, radii, colors }) => ({
     borderRadius: radii.base,
     border: `2px dashed ${colors.primary}`,
     '&:hover': {
-      background: '#f0f4ff',
+      background: colors.backgroundBlueHover,
     },
     cursor: 'pointer',
   },

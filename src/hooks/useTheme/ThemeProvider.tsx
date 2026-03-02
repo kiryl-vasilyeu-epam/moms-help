@@ -1,5 +1,6 @@
 import { useMemo, useCallback, type ReactNode } from 'react';
-import { lightTheme, darkTheme } from '@/styles';
+import { CssBaseline, ThemeProvider as MuiThemeProvider } from '@mui/material';
+import { createMuiTheme, lightTheme, darkTheme } from '@/styles';
 import type { ThemeMode } from '@/styles';
 import { ThemeContext } from './ThemeContext';
 import { useLocalStorage } from '../useLocalStorage';
@@ -19,6 +20,7 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
     () => (themeMode === 'dark' ? darkTheme : lightTheme),
     [themeMode],
   );
+  const muiTheme = useMemo(() => createMuiTheme(theme), [theme]);
 
   const toggleTheme = useCallback(() => {
     setThemeMode(themeMode === 'light' ? 'dark' : 'light');
@@ -35,6 +37,11 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
   );
 
   return (
-    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
+    <ThemeContext.Provider value={value}>
+      <MuiThemeProvider theme={muiTheme}>
+        <CssBaseline />
+        {children}
+      </MuiThemeProvider>
+    </ThemeContext.Provider>
   );
 };

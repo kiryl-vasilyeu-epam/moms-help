@@ -58,6 +58,9 @@ export const stylesheet = createStyleSheet(({ fontSizes, colors }) => ({
   colorWhite: {
     color: colors.white,
   },
+  colorAlwaysWhite: {
+    color: colors.alwaysWhite,
+  },
   colorSuccess: {
     color: colors.success,
   },

@@ -109,6 +109,7 @@ export const lightTheme = {
     backgroundEvenDark: '#efefef',
     backgroundModal: 'rgb(243, 230, 230)',
     backgroundSuccess: '#befbdc',
+    backgroundBlueHover: '#cad7ff',
 
     text: '#333',
     textSecondary: '#666',
@@ -129,6 +130,8 @@ export const lightTheme = {
     cellNumber: '#004daa',
     cellUsed: '#318000',
     cellLeft: '#aa0028',
+
+    alwaysWhite: '#ffffff',
   },
 
   shadows: {
@@ -152,7 +155,7 @@ export const darkTheme = {
     primary: '#7c93f7',
     primaryDark: '#8b5fbf',
     gradient: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
-    secondGradient: 'linear-gradient(135deg, #7c93f7 0%, #8b5fbf 100%)',
+    secondGradient: 'linear-gradient(135deg, #373761 0%, #481d52 100%)',
 
     // Sidebar
     sidebarGradient: 'linear-gradient(135deg, #1a1a2e 0%, #0f0f1a 100%)',
@@ -165,18 +168,18 @@ export const darkTheme = {
     // Status colors
     success: '#2ecc71',
     successDark: '#27ae60',
-    successGradient: 'linear-gradient(135deg, #2ecc71 0%, #27ae60 100%)',
+    successGradient: 'linear-gradient(135deg, #1a6d3c 0%, #0d6231 100%)',
     successLight: '#1e3a2f',
     successBorder: '#2ecc71',
 
     info: '#5dade2',
     infoDark: '#3498db',
-    infoGradient: 'linear-gradient(135deg, #5dade2 0%, #3498db 100%)',
+    infoGradient: 'linear-gradient(135deg, #34477c 0%, #1e5d86 100%)',
     infoLight: '#1a2d3d',
 
     danger: '#e74c3c',
     dangerDark: '#c0392b',
-    dangerGradient: 'linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)',
+    dangerGradient: 'linear-gradient(135deg, #72261e 0%, #7b0f30 100%)',
     dangerLight: '#3d1a1a',
 
     warning: '#f39c12',
@@ -194,6 +197,7 @@ export const darkTheme = {
     backgroundEvenDark: '#141419',
     backgroundModal: '#2a2030',
     backgroundSuccess: '#1a3028',
+    backgroundBlueHover: '#223163',
 
     text: '#e0e0e0',
     textSecondary: '#a0a0a0',
@@ -214,6 +218,8 @@ export const darkTheme = {
     cellNumber: '#5dade2',
     cellUsed: '#2ecc71',
     cellLeft: '#e74c3c',
+
+    alwaysWhite: '#ffffff',
   },
 
   shadows: {

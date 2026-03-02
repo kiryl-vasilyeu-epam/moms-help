@@ -7,10 +7,14 @@ export const StatsBox = ({ label, amount }: StatsBoxProps) => {
   const styles = useStyles(stylesheet);
   return (
     <div css={styles.statBox}>
-      <Typography variant="h4" color="white" style={styles.statBoxLabel}>
+      <Typography variant="h4" color="alwaysWhite" style={styles.statBoxLabel}>
         {label}
       </Typography>
-      <Typography variant="body" color="white" style={styles.statBoxAmount}>
+      <Typography
+        variant="body"
+        color="alwaysWhite"
+        style={styles.statBoxAmount}
+      >
         {amount}
       </Typography>
     </div>

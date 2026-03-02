@@ -1,8 +1,9 @@
-import { styles } from './UsedItems.styles';
+import { stylesheet } from './UsedItems.styles';
 import type { UsedItemsProps } from './UsedItems.types';
 import { DialogContent, Dialog, DialogTitle, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useTranslation } from 'react-i18next';
+import { useStyles } from '@hooks';
 
 const UsedItems = ({
   allUsedItems,
@@ -10,6 +11,7 @@ const UsedItems = ({
   handleCloseResults,
 }: UsedItemsProps) => {
   const { t } = useTranslation();
+  const styles = useStyles(stylesheet);
   return (
     <Dialog open={resultsOpen} onClose={handleCloseResults} maxWidth="lg">
       <DialogTitle css={styles.modalTitle}>

@@ -9,7 +9,7 @@ export const stylesheet = createStyleSheet(({ colors, radii, sizes }) => ({
   },
   header: {
     background: colors.gradient,
-    color: colors.white,
+    color: colors.alwaysWhite,
     fontWeight: 600,
     borderRadius: `${radii.lg} ${radii.lg} 0 0`,
     height: sizes.headerHeight,

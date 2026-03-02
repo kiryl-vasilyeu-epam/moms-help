@@ -43,6 +43,11 @@ export const Screen = ({
         onClose={closeModal}
         fullWidth={false}
         maxWidth={false}
+        slotProps={{
+          paper: {
+            sx: styles.modalContainer,
+          },
+        }}
       >
         <IconButton
           aria-label="close"

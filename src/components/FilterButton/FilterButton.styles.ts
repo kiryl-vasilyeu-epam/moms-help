@@ -13,7 +13,7 @@ export const stylesheet = createStyleSheet(
       fontWeight: 600,
       transition: `all ${transitions.base}`,
       '&:hover': {
-        background: '#eeeff6',
+        background: colors.backgroundBlueHover,
       },
     },
 

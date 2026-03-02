@@ -59,5 +59,8 @@ export const stylesheet = createStyleSheet(
       right: spacing.xs,
       top: spacing.xs,
     },
+    modalContainer: {
+      background: colors.backgroundAlt,
+    },
   }),
 );

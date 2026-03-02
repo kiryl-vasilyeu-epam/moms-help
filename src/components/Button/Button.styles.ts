@@ -5,7 +5,7 @@ export const stylesheet = createStyleSheet(
     button: {
       padding: '15px',
       fontSize: fontSizes.base,
-      color: colors.white,
+      color: colors.alwaysWhite,
       border: 'none',
       borderRadius: radii.base,
       fontWeight: 'bold',
