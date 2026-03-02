@@ -43,6 +43,42 @@ export const styles = createStyles(
       gap: 10,
       display: 'flex',
       flexDirection: 'column',
+      flex: 1,
+    },
+
+    content: {
+      display: 'flex',
+      flexDirection: 'column',
+      height: `calc(100vh - ${sizes.headerHeight})`,
+    },
+
+    footer: {
+      padding: spacing.base,
+      borderTop: `2px solid ${colors.sidebarBorder}`,
+      display: 'flex',
+      justifyContent: 'center',
+      gap: spacing.base,
+    },
+
+    collapsedFooter: {
+      flexDirection: 'column',
+    },
+
+    switcherButton: {
+      background: 'transparent',
+      border: 'none',
+      color: colors.sidebarText,
+      cursor: 'pointer',
+      padding: spacing.sm,
+      borderRadius: '50%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      transition: `all ${transitions.base}`,
+      '&:hover': {
+        background: colors.sidebarHover,
+        color: colors.white,
+      },
     },
   }),
 );

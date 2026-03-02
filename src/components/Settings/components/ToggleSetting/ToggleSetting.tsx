@@ -11,7 +11,7 @@ export const ToggleSetting = ({
 
   return (
     <div css={styles.settingRow}>
-      <Typography variant="label" color="white" style={styles.settingLabel}>
+      <Typography variant="label" style={styles.settingLabel}>
         {setting.label}
       </Typography>
       <div

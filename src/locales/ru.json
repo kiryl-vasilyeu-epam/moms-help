@@ -2,7 +2,9 @@
   "sidebar": {
     "headerTitle": "Помощник",
     "items": "Совпадение артикулов",
-    "price": "Поиск цен"
+    "price": "Поиск цен",
+    "switchLanguage": "Сменить язык",
+    "switchTheme": "Сменить тему"
   },
   "fileUpload": {
     "selectFile": "Выберите файл",

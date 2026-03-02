@@ -17,12 +17,19 @@ export const styles = createStyles(
     },
     newPercent: {
       display: 'flex',
+      justifyContent: 'space-between',
       flexDirection: 'row',
       alignItems: 'center',
       gap: spacing.lg,
     },
     input: {
       width: '150px',
+    },
+    inputGroup: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: spacing.sm,
     },
   }),
 );

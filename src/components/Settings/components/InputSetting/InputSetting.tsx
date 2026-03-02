@@ -12,7 +12,7 @@ export const InputSetting = ({
 
   return (
     <div css={styles.settingRow}>
-      <Typography variant="label" color="white" style={styles.settingLabel}>
+      <Typography variant="label" style={styles.settingLabel}>
         {setting.label}
       </Typography>
       <TextField type="text" value={value} onChange={handleChange} multiline />

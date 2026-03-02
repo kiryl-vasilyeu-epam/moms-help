@@ -28,7 +28,7 @@ export const OrderSetting = ({
 
   return (
     <div css={styles.orderSettingWrapper}>
-      <Typography variant="label" color="white" style={styles.settingLabel}>
+      <Typography variant="label" style={styles.settingLabel}>
         {setting.label}
       </Typography>
       <div css={styles.orderContainer}>
@@ -46,11 +46,7 @@ export const OrderSetting = ({
                 onChange={handleInputChange(index)}
                 multiline
               />
-              <Typography
-                variant="caption"
-                color="white"
-                style={styles.orderItemLabel}
-              >
+              <Typography variant="caption" style={styles.orderItemLabel}>
                 {item.label}
               </Typography>
             </div>

@@ -27,21 +27,23 @@ export const DiscountInput = ({
         })}
       </Typography>
       <div css={styles.newPercent}>
-        <Typography variant="body">
-          {t('priceMatcher.discount.setNewPercent')}
-        </Typography>
-        <TextField
-          type="number"
-          size="small"
-          value={discountInputValue}
-          onChange={handleChange}
-          css={styles.input}
-          slotProps={{
-            input: {
-              endAdornment: <InputAdornment position="end">%</InputAdornment>,
-            },
-          }}
-        />
+        <div css={styles.inputGroup}>
+          <Typography variant="body">
+            {t('priceMatcher.discount.setNewPercent')}
+          </Typography>
+          <TextField
+            type="number"
+            size="small"
+            value={discountInputValue}
+            onChange={handleChange}
+            css={styles.input}
+            slotProps={{
+              input: {
+                endAdornment: <InputAdornment position="end">%</InputAdornment>,
+              },
+            }}
+          />
+        </div>
         <Button
           variant="info"
           onClick={onRecalculate}

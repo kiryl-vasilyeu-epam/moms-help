@@ -9,7 +9,7 @@ export const SettingsSection = ({
 }: SettingsSectionProps) => {
   return (
     <div css={styles.section}>
-      <Typography variant="h3" color="white" style={styles.sectionTitle}>
+      <Typography variant="h3" style={styles.sectionTitle}>
         {section.title}
       </Typography>
       {section.settings.map((setting) => (

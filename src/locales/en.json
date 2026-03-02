@@ -2,7 +2,9 @@
   "sidebar": {
     "headerTitle": "Assistant",
     "items": "Items matcher",
-    "price": "Price matcher"
+    "price": "Price matcher",
+    "switchLanguage": "Switch language",
+    "switchTheme": "Switch theme"
   },
   "fileUpload": {
     "selectFile": "Select file",
