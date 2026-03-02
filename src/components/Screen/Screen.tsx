@@ -1,6 +1,7 @@
 import { styles } from './Screen.styles';
 import { ScreenProps } from './Screen.types';
 import SettingsBackupRestoreIcon from '@mui/icons-material/SettingsBackupRestore';
+import { Typography } from '../Typography';
 
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
@@ -19,7 +20,7 @@ export const Screen = ({
   return (
     <div css={styles.container}>
       <div css={styles.header}>
-        <h1>{title}</h1>
+        <Typography variant="h1">{title}</Typography>
 
         {!showSettingsState && (
           <SettingsBackupRestoreIcon

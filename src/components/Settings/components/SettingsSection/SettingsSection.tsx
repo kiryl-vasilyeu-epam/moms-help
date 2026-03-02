@@ -1,6 +1,7 @@
 import { styles } from './SettingsSection.styles';
 import { SettingItemRenderer } from '../SettingItemRenderer';
 import type { SettingsSectionProps } from './SettingsSection.types';
+import { Typography } from '../../../Typography';
 
 export const SettingsSection = ({
   section,
@@ -8,7 +9,9 @@ export const SettingsSection = ({
 }: SettingsSectionProps) => {
   return (
     <div css={styles.section}>
-      <h3 css={styles.sectionTitle}>{section.title}</h3>
+      <Typography variant="h3" color="white" style={styles.sectionTitle}>
+        {section.title}
+      </Typography>
       {section.settings.map((setting) => (
         <SettingItemRenderer
           key={setting.id}

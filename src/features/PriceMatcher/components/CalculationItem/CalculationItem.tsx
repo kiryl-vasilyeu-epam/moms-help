@@ -1,6 +1,6 @@
 import { centsToStr } from '@features/PriceMatcher/PriceMatcher.helpers';
 import { styles } from './CalculationItem.styles';
-import { Button } from '@components';
+import { Button, Typography } from '@components';
 import { CalculationsItemProps } from './CalculationItem.types';
 import { useTranslation } from 'react-i18next';
 
@@ -29,17 +29,23 @@ export const CalculationItem = ({
     >
       <div css={styles.header}>
         <div css={styles.title}>
-          {t('priceMatcher.calculations.calculationNumber', {
-            number: calculation.calculationNumber,
-            sum: centsToStr(targetCents),
-          })}
+          <Typography variant="body">
+            {t('priceMatcher.calculations.calculationNumber', {
+              number: calculation.calculationNumber,
+              sum: centsToStr(targetCents),
+            })}
+          </Typography>
           {isOff && (
-            <span css={styles.offTargetLabel}>
+            <Typography
+              variant="caption"
+              color="warning"
+              style={styles.offTargetLabel}
+            >
               {t('priceMatcher.calculations.calculated', {
                 calculated: centsToStr(calculatedCents),
                 diff: centsToStr(differenceCents),
               })}
-            </span>
+            </Typography>
           )}
         </div>
         <Button
@@ -51,9 +57,9 @@ export const CalculationItem = ({
 
       {calculation.solution && calculation.solution.length > 0 ? (
         <div css={styles.solutionSection}>
-          <h3 css={styles.solutionTitle}>
+          <Typography variant="h5" style={styles.solutionTitle}>
             {t('priceMatcher.calculations.items')}
-          </h3>
+          </Typography>
           <div css={styles.items}>
             {calculation.solution.map((item, itemIndex) => {
               const itemTotalCents = item.salePriceCents * item.quantity;
@@ -68,25 +74,25 @@ export const CalculationItem = ({
               );
             })}
           </div>
-          <div css={styles.total}>
+          <Typography variant="body" bold style={styles.total}>
             {t('priceMatcher.calculations.total', {
               sum: centsToStr(calculatedCents),
             })}
             {isOff && (
-              <span css={styles.targetLabel}>
+              <Typography variant="caption" style={styles.targetLabel}>
                 {t('priceMatcher.calculations.target', {
                   sum: centsToStr(targetCents),
                 })}
-              </span>
+              </Typography>
             )}
-          </div>
+          </Typography>
         </div>
       ) : (
-        <div css={styles.noSolution}>
+        <Typography variant="body" color="danger" style={styles.noSolution}>
           {t('priceMatcher.calculations.noSolution', {
             sum: centsToStr(targetCents),
           })}
-        </div>
+        </Typography>
       )}
     </div>
   );

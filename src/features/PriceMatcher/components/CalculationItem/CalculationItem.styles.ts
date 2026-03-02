@@ -17,7 +17,7 @@ export const styles = createSxStyles(
       transition: transitions.fast,
       '&:hover': {
         transform: 'translateY(-2px)',
-        borderColor: '#95adff',
+        borderColor: colors.borderHover,
       },
     },
     cardOffTarget: {
@@ -50,7 +50,6 @@ export const styles = createSxStyles(
     solutionTitle: {
       fontSize: '0.95rem',
       fontWeight: 'bold',
-      color: colors.text,
     },
     items: {
       fontSize: '0.9rem',
@@ -63,20 +62,16 @@ export const styles = createSxStyles(
     total: {
       marginTop: spacing.sm,
       fontWeight: 'bold',
-      color: colors.text,
       fontSize: '0.95rem',
     },
     noSolution: {
       alignSelf: 'flex-start',
       borderRadius: radii.base,
       padding: spacing.lg,
-      color: '#dc3545',
       fontStyle: 'italic',
       backgroundColor: colors.dangerLight,
     },
-    offTargetLabel: {
-      color: colors.warningDark,
-    },
+    offTargetLabel: {},
     targetLabel: {
       marginLeft: spacing.sm,
     },

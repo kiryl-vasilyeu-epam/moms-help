@@ -6,6 +6,7 @@ import { useMemo } from 'react';
 import ReportIcon from '@mui/icons-material/Report';
 import CloseIcon from '@mui/icons-material/Close';
 import { useTranslation } from 'react-i18next';
+import { Typography } from '@components';
 
 export const NoSolutionModal = ({
   open,
@@ -51,10 +52,18 @@ export const NoSolutionModal = ({
             <ReportIcon color="error" css={styles.reportIcon} />
             <div>
               <div>
-                <span>{message.prefix} </span>
-                <span css={styles.sumValue}>{message.sum}</span>
+                <Typography variant="body">{message.prefix} </Typography>
+                <Typography variant="body" bold style={styles.sumValue}>
+                  {message.sum}
+                </Typography>
               </div>
-              <span css={styles.suffix}>{message.suffix}</span>
+              <Typography
+                variant="bodySmall"
+                color="muted"
+                style={styles.suffix}
+              >
+                {message.suffix}
+              </Typography>
             </div>
           </div>
         ))}

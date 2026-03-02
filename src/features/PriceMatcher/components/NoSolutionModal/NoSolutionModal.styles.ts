@@ -30,7 +30,6 @@ export const styles = createSxStyles(
       fontWeight: 'bold',
     },
     suffix: {
-      color: colors.textMuted,
       fontStyle: 'italic',
     },
     reportIcon: {

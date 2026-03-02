@@ -1,6 +1,7 @@
 import type { SidebarItemProps } from './SidebarItem.types';
 import { styles } from './SidebarItem.styles';
 import { useTranslation } from 'react-i18next';
+import { Typography } from '../../Typography';
 
 export const SidebarItem = ({
   active,
@@ -21,9 +22,13 @@ export const SidebarItem = ({
       onClick={handleItemClick}
     >
       <span css={styles.menuIcon}>{icon}</span>
-      <span css={[styles.menuText, !isSidebarOpen && styles.collapsedText]}>
+      <Typography
+        variant="label"
+        color="white"
+        style={[styles.menuText, !isSidebarOpen && styles.collapsedText]}
+      >
         {t(labelKey)}
-      </span>
+      </Typography>
     </button>
   );
 };

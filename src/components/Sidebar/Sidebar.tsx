@@ -5,6 +5,7 @@ import { SIDEBAR_MENU_ITEMS } from './Sidebar.constants';
 import { useState } from 'react';
 import { HamburgerButton } from '../HamburgerButton';
 import { SidebarItem } from './SidebarItem';
+import { Typography } from '../Typography';
 
 export const Sidebar = ({ onNavigate, activeItem }: SidebarProps) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,9 +15,13 @@ export const Sidebar = ({ onNavigate, activeItem }: SidebarProps) => {
   return (
     <aside css={[styles.sidebar, !isOpen && styles.collapsedSidebar]}>
       <div css={styles.header}>
-        <h1 css={[styles.headerTitle, !isOpen && styles.collapsedText]}>
+        <Typography
+          variant="h1"
+          color="white"
+          style={[styles.headerTitle, !isOpen && styles.collapsedText]}
+        >
           {t('sidebar.headerTitle')}
-        </h1>
+        </Typography>
         <HamburgerButton handleToggle={toggleSidebar} isOpen={isOpen} />
       </div>
       <nav css={styles.menu}>

@@ -4,6 +4,7 @@ import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 import { styles } from './OrderSetting.styles';
 import { useOrderSetting } from './OrderSetting.hooks';
 import type { OrderSettingProps } from './OrderSetting.types';
+import { Typography } from '../../../Typography';
 
 export const OrderSetting = ({
   setting,
@@ -27,7 +28,9 @@ export const OrderSetting = ({
 
   return (
     <div css={styles.orderSettingWrapper}>
-      <span css={styles.settingLabel}>{setting.label}</span>
+      <Typography variant="label" color="white" style={styles.settingLabel}>
+        {setting.label}
+      </Typography>
       <div css={styles.orderContainer}>
         {items.map((item, index) => (
           <div
@@ -43,7 +46,13 @@ export const OrderSetting = ({
                 onChange={handleInputChange(index)}
                 multiline
               />
-              <span css={styles.orderItemLabel}>{item.label}</span>
+              <Typography
+                variant="caption"
+                color="white"
+                style={styles.orderItemLabel}
+              >
+                {item.label}
+              </Typography>
             </div>
             <div css={styles.orderControls}>
               <IconButton

@@ -29,3 +29,9 @@ export type {
   SaveDataOrder,
 } from './Settings';
 export { SettingsSection } from './SettingsSection';
+export { Typography } from './Typography';
+export type {
+  TypographyProps,
+  TypographyVariant,
+  TypographyColor,
+} from './Typography';

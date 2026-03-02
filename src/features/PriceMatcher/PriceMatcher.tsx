@@ -1,4 +1,10 @@
-import { ListTable, PageSwitcher, Screen, SettingsSection } from '@components';
+import {
+  ListTable,
+  PageSwitcher,
+  Screen,
+  SettingsSection,
+  Typography,
+} from '@components';
 import { usePriceMatcher } from './PriceMatcher.hooks';
 import {
   DialogContent,
@@ -122,17 +128,23 @@ const PriceMatcher = () => {
             {t('common.pleaseWait')}
           </DialogTitle>
           <DialogContent>
-            {loadingText.title ?? t('common.loading')}
+            <Typography variant="body">
+              {loadingText.title ?? t('common.loading')}
+            </Typography>
             {loadingText.details && (
-              <span css={styles.loadingDetails}>{loadingText.details}</span>
+              <Typography variant="bodySmall" style={styles.loadingDetails}>
+                {loadingText.details}
+              </Typography>
             )}
             {loadingText.variants && (
-              <span css={styles.loadingDetails}>{loadingText.variants}</span>
+              <Typography variant="bodySmall" style={styles.loadingDetails}>
+                {loadingText.variants}
+              </Typography>
             )}
             {loadingText.time && (
-              <span css={styles.loadingDetails}>
+              <Typography variant="bodySmall" style={styles.loadingDetails}>
                 {t('common.time', { time: loadingText.time })}
-              </span>
+              </Typography>
             )}
           </DialogContent>
         </Dialog>

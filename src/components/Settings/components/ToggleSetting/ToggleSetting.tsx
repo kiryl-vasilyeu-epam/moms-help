@@ -1,6 +1,7 @@
 import { styles } from './ToggleSetting.styles';
 import { useToggleSetting } from './ToggleSetting.hooks';
 import type { ToggleSettingProps } from './ToggleSetting.types';
+import { Typography } from '../../../Typography';
 
 export const ToggleSetting = ({
   setting,
@@ -10,7 +11,9 @@ export const ToggleSetting = ({
 
   return (
     <div css={styles.settingRow}>
-      <span css={styles.settingLabel}>{setting.label}</span>
+      <Typography variant="label" color="white" style={styles.settingLabel}>
+        {setting.label}
+      </Typography>
       <div
         css={[styles.toggle, setting.value && styles.toggleActive]}
         onClick={handleToggle}

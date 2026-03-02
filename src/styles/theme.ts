@@ -53,6 +53,7 @@ export const theme = {
     border: '#ddd',
     borderDark: '#c1c1c1',
     borderMuted: '#95979f',
+    borderHover: '#95adff',
 
     // Match status colors
     matchExact: '#27ae60',

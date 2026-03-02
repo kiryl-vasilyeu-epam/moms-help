@@ -1,7 +1,7 @@
 import { TextField, InputAdornment } from '@mui/material';
 import { DiscountInputProps } from './DiscountInput.types';
 import { styles } from './DiscountInput.styles';
-import { Button } from '@components';
+import { Button, Typography } from '@components';
 import { useTranslation } from 'react-i18next';
 
 export const DiscountInput = ({
@@ -21,13 +21,15 @@ export const DiscountInput = ({
 
   return (
     <div css={styles.container}>
-      <span>
+      <Typography variant="body">
         {t('priceMatcher.discount.currentPercent', {
           percent: discountPercent,
         })}
-      </span>
+      </Typography>
       <div css={styles.newPercent}>
-        <span>{t('priceMatcher.discount.setNewPercent')}</span>
+        <Typography variant="body">
+          {t('priceMatcher.discount.setNewPercent')}
+        </Typography>
         <TextField
           type="number"
           size="small"

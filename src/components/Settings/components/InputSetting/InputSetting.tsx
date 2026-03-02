@@ -2,6 +2,7 @@ import { TextField } from '@mui/material';
 import { styles } from './InputSetting.styles';
 import { useInputSetting } from './InputSetting.hooks';
 import type { InputSettingProps } from './InputSetting.types';
+import { Typography } from '../../../Typography';
 
 export const InputSetting = ({
   setting,
@@ -11,7 +12,9 @@ export const InputSetting = ({
 
   return (
     <div css={styles.settingRow}>
-      <span css={styles.settingLabel}>{setting.label}</span>
+      <Typography variant="label" color="white" style={styles.settingLabel}>
+        {setting.label}
+      </Typography>
       <TextField type="text" value={value} onChange={handleChange} multiline />
     </div>
   );

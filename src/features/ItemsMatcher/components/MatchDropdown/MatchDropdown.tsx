@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { styles } from './MatchDropdown.styles';
 import { MatchDropdownProps } from './MatchDropdown.types';
-import { Button, Dropdown } from '@components';
+import { Button, Dropdown, Typography } from '@components';
 import { TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 
@@ -38,9 +38,9 @@ export const MatchDropdown = ({
     >
       <div css={styles.container}>
         <div css={styles.header}>
-          <span css={styles.headerTitle}>
+          <Typography variant="body" bold style={styles.headerTitle}>
             {t('itemsMatcher.dropdown.matchDropdownTitle')}
-          </span>
+          </Typography>
           <Button isSmall variant="close" onClick={handleCloseDropdown} />
         </div>
         <TextField
