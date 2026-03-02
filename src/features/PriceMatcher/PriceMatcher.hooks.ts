@@ -133,10 +133,12 @@ export const usePriceMatcher = () => {
       setTransferredData(null);
       const convertedItems: PriceItem[] = transferredData.items.map(
         (item, idx) => ({
-          rowNumber: idx + 2,
+          rowNumber: idx + 1,
           name: item.name,
           priceCents: Math.round(item.price * 100),
-          salePriceCents: Math.round(item.price * 100),
+          salePriceCents:
+            Math.round(item.price * 100) -
+            (discountPercent / 100) * Math.round(item.price * 100),
           amount: item.amount,
           originalAmount: item.amount,
           remainingAmount: item.amount,
@@ -146,7 +148,13 @@ export const usePriceMatcher = () => {
       setItems(convertedItems);
       setUsageHistory([]);
     }
-  }, [setItems, setTransferredData, setUsageHistory, transferredData]);
+  }, [
+    discountPercent,
+    setItems,
+    setTransferredData,
+    setUsageHistory,
+    transferredData,
+  ]);
 
   const handleProcessFile = () => {
     const items = fileUpload.processFiles(parseFile, {
