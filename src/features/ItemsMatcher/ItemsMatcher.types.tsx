@@ -1,6 +1,5 @@
 import { SaveDataItem, SettingsSectionData } from '@components';
 import { FileUploadState } from '@hooks';
-import { Dispatch, SetStateAction } from 'react';
 
 export type MatchType = 'exact' | 'fuzzy' | 'manual' | 'none';
 export type FilterType = 'all' | MatchType;
