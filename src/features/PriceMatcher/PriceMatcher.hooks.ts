@@ -167,6 +167,7 @@ export const usePriceMatcher = () => {
     if (!items) return;
     setItems(items);
     setUsageHistory([]);
+    closeModal();
   };
 
   const handleClearData = () => {
@@ -182,12 +183,6 @@ export const usePriceMatcher = () => {
       sums?: string,
       options?: { initialItems?: PriceItem[]; resetHistory?: boolean },
     ) => {
-      console.log({
-        sums,
-        sumInput,
-        items,
-        usageHistory,
-      });
       const targetCentsList = parseSums(sums ?? sumInput);
 
       if (targetCentsList.length === 0) {
@@ -349,7 +344,7 @@ export const usePriceMatcher = () => {
         });
       }
     },
-    [sumInput, usageHistory, items, setItems, setUsageHistory],
+    [sumInput, items, usageHistory, setItems, setUsageHistory],
   );
 
   const settings: SettingsSectionData[] = useMemo(() => {

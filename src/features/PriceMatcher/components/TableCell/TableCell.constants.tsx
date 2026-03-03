@@ -21,7 +21,7 @@ export const COLUMN_RENDERS: Record<
   Columns,
   (props: TableCellProps) => ReactNode
 > = {
-  index: ({ item: { rowNumber } }) => rowNumber + 1,
+  index: ({ item: { rowNumber } }) => rowNumber,
   name: ({ item: { name } }) => name,
   price: ({ item: { priceCents } }) => (priceCents / 100).toFixed(2),
   discountPrice: ({ item: { salePriceCents } }) =>
