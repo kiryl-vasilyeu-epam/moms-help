@@ -1,19 +1,21 @@
-import { createSxStyles } from '@utils';
+import { createStyleSheet } from '@utils';
 
-export const styles = createSxStyles(({ spacing }) => ({
+export const stylesheet = createStyleSheet(({ spacing }) => ({
   container: {
     display: 'flex',
-    flexDirection: 'column',
-    gap: spacing.lg,
-    justifyContent: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
     alignItems: 'center',
+    gap: spacing.md,
   },
-  row: {
+  group: {
     display: 'flex',
     flexDirection: 'row',
-    gap: spacing.lg,
+    flexWrap: 'wrap',
+    gap: spacing.md,
   },
   button: {
-    width: 300,
+    padding: `${spacing.sm} ${spacing.lg}`,
   },
 }));

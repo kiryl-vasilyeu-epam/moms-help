@@ -6,12 +6,12 @@ export const stylesheet = createStyleSheet(
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
-      padding: `${spacing.base} 0`,
-      borderBottom: `1px solid ${colors.borderMuted}`,
+      padding: `${spacing.md} 0`,
+      borderBottom: `1px solid ${colors.border}`,
       gap: spacing.base,
     },
     settingLabel: {
-      fontSize: fontSizes.lg,
+      fontSize: fontSizes.base,
     },
     toggle: {
       position: 'relative',

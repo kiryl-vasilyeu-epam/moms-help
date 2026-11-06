@@ -24,6 +24,8 @@ export const STORAGE_KEYS = {
   PRICE_MATCHER_ITEMS_KEY: 'priceMatcherItems',
   PRICE_MATCHER_ORIGINAL_ITEMS_KEY: 'priceMatcherOriginalItems',
   PRICE_MATCHER_USAGE_HISTORY_KEY: 'priceMatcherUsageHistory',
+  PRICE_MATCHER_SUM_DRAFTS: 'priceMatcherSumDrafts',
+  PRICE_MATCHER_NEW_SUM_ROWS: 'priceMatcherNewSumRows',
   DISCOUNT_PERCENT: 'discountPercent',
 
   FIRST_ROW_PRICE_MATCHER: 'firstRowPriceMatcher',

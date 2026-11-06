@@ -33,19 +33,20 @@ export const Results = memo(
 
     return (
       <>
-        <ResultButtons
-          handleDownload={handleDownload}
-          handleTransfer={handleTransfer}
-        />
-
         <div css={styles.results}>
           <Stats stats={stats} />
 
-          <Filters
-            currentFilter={currentFilter}
-            setCurrentFilter={setCurrentFilter}
-            isFiltering={isFiltering}
-          />
+          <div css={styles.toolbar}>
+            <Filters
+              currentFilter={currentFilter}
+              setCurrentFilter={setCurrentFilter}
+              isFiltering={isFiltering}
+            />
+            <ResultButtons
+              handleDownload={handleDownload}
+              handleTransfer={handleTransfer}
+            />
+          </div>
 
           <ItemsTable
             filteredItems={filteredItems}

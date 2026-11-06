@@ -13,12 +13,12 @@ export const ResultButtons = ({
 
   return (
     <div css={styles.buttonRow}>
-      <Button variant="success" onClick={handleDownload}>
-        {t('itemsMatcher.controls.downloadBtn')}
+      <Button variant="outline" style={styles.button} onClick={handleDownload}>
+        📥 {t('itemsMatcher.controls.downloadBtn')}
       </Button>
 
-      <Button variant="info" onClick={handleTransfer}>
-        {t('itemsMatcher.controls.transferBtn')}
+      <Button variant="primary" style={styles.button} onClick={handleTransfer}>
+        💰 {t('itemsMatcher.controls.transferBtn')} →
       </Button>
     </div>
   );

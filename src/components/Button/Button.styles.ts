@@ -43,6 +43,32 @@ export const stylesheet = createStyleSheet(
       display: 'block',
       boxShadow: shadows.danger,
     },
+    buttonSoft: {
+      background: colors.infoLight,
+      color: colors.info,
+      '&:hover': {
+        transform: 'none',
+        filter: 'brightness(0.96)',
+      },
+    },
+    buttonOutline: {
+      background: 'transparent',
+      color: colors.primary,
+      boxShadow: `inset 0 0 0 2px ${colors.primary}`,
+      '&:hover': {
+        transform: 'none',
+        background: colors.backgroundHover,
+      },
+    },
+    buttonDangerOutline: {
+      background: 'transparent',
+      color: colors.danger,
+      boxShadow: `inset 0 0 0 2px ${colors.danger}`,
+      '&:hover': {
+        transform: 'none',
+        background: colors.dangerLight,
+      },
+    },
     buttonClose: {
       background: colors.danger,
       width: sizes.buttonClose,

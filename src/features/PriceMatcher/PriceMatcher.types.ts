@@ -13,16 +13,26 @@ export interface SolutionItem extends PriceItem {
   quantity: number;
 }
 
-export interface Calculation {
-  calculationNumber: number;
+export interface SumTarget {
   targetCents: number;
+  minusCents?: number;
+  plusCents?: number;
+}
+
+export interface Calculation extends SumTarget {
+  id?: string;
+  calculationNumber: number;
   calculatedCents: number | null;
   solution: SolutionItem[] | null;
   timestamp: string;
 }
 
-export interface FailedCalculation {
-  targetCents: number;
+export interface ApplySumsPayload {
+  removeCalculationIds: string[];
+  targets: SumTarget[];
+}
+
+export interface FailedCalculation extends SumTarget {
   reason: 'no_items' | 'no_combination';
 }
 

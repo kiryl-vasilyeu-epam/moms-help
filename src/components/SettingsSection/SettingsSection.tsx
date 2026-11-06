@@ -1,6 +1,7 @@
 import {
   Button,
   Settings,
+  Typography,
   SettingsProps,
   usePageSwitcherNavigation,
 } from '@components';
@@ -18,9 +19,12 @@ export const SettingsSection = ({ sections, onSave }: SettingsProps) => {
   };
   return (
     <div css={styles.container}>
-      <Button variant="info" onClick={goToPrevPage} style={styles.back}>
-        {t('common.backWithoutSaving')}
-      </Button>
+      <div css={styles.header}>
+        <Button variant="soft" onClick={goToPrevPage} style={styles.back}>
+          ← {t('common.backWithoutSaving')}
+        </Button>
+        <Typography variant="h2">{t('fileUpload.settings')}</Typography>
+      </div>
       <Settings sections={sections} onSave={onSaveHandler} />
     </div>
   );

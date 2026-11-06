@@ -1,5 +1,7 @@
 import { stylesheet } from './FileUploadButton.styles';
 import { useTranslation } from 'react-i18next';
+import UploadFileOutlinedIcon from '@mui/icons-material/UploadFileOutlined';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { FileUploadButtonProps } from './FileUploadButton.types';
 import { useFileUploadButton } from './FileUploadButton.hooks';
 import { Typography } from '../Typography';
@@ -12,22 +14,42 @@ export const FileUploadButton = ({
   isFileReady,
 }: FileUploadButtonProps) => {
   const { t } = useTranslation();
-  const { handleFileInput, id } = useFileUploadButton({ onFileSelect, label });
+  const {
+    handleFileInput,
+    handleDragOver,
+    handleDragLeave,
+    handleDrop,
+    isDragging,
+    id,
+  } = useFileUploadButton({ onFileSelect, label });
   const styles = useStyles(stylesheet);
+  const Icon = isFileReady ? CheckCircleOutlineIcon : UploadFileOutlinedIcon;
 
   return (
-    <div css={[styles.uploadBox, isFileReady && styles.loadedFileBox]}>
-      <Typography
-        variant="h3"
-        style={[styles.uploadBoxH3, !!isFileReady && styles.loadedH3]}
-      >
+    <label
+      htmlFor={id}
+      css={[
+        styles.uploadBox,
+        isDragging && styles.dragging,
+        isFileReady && styles.loadedFileBox,
+      ]}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+    >
+      <Icon css={[styles.icon, isFileReady && styles.loadedIcon]} />
+      <Typography variant="h3" style={styles.uploadBoxH3}>
         {label}
       </Typography>
-      <label htmlFor={id}>
-        <Typography variant="label" color="white" style={styles.fileLabel}>
-          {t('fileUpload.selectFile')}
-        </Typography>
-      </label>
+      <Typography
+        variant="bodySmall"
+        style={[styles.fileName, !!isFileReady && styles.loadedFileName]}
+      >
+        {fileName ?? t('fileUpload.dropHint')}
+      </Typography>
+      <Typography variant="label" style={styles.fileLabel}>
+        {isFileReady ? t('fileUpload.changeFile') : t('fileUpload.selectFile')}
+      </Typography>
       <input
         type="file"
         accept=".xls,.xlsx"
@@ -35,9 +57,6 @@ export const FileUploadButton = ({
         onChange={handleFileInput}
         id={id}
       />
-      <Typography variant="bodySmall" color="secondary" style={styles.fileName}>
-        {fileName ?? t('fileUpload.fileNotSelected')}
-      </Typography>
-    </div>
+    </label>
   );
 };

@@ -1,6 +1,6 @@
 import { styleSheet } from './NoSolutionModal.styles';
 import type { NoSolutionModalProps } from './NoSolutionModal.types';
-import { centsToStr } from '../../PriceMatcher.helpers';
+import { formatTarget } from '../../PriceMatcher.helpers';
 import { DialogContent, Dialog, DialogTitle, IconButton } from '@mui/material';
 import { useMemo } from 'react';
 import ReportIcon from '@mui/icons-material/Report';
@@ -34,7 +34,7 @@ export const NoSolutionModal = ({
   const messages = useMemo(
     () =>
       failedCalculations.map((calculation) => ({
-        sum: centsToStr(calculation.targetCents),
+        sum: formatTarget(calculation),
         ...NO_SOLUTION_MESSAGES[calculation.reason],
       })),
     [failedCalculations, NO_SOLUTION_MESSAGES],

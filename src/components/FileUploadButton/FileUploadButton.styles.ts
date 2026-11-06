@@ -1,54 +1,75 @@
 import { createStyleSheet } from '@utils';
 
 export const stylesheet = createStyleSheet(
-  ({ colors, radii, spacing, transitions }) => ({
+  ({ colors, radii, spacing, transitions, fontSizes }) => ({
     uploadBox: {
       display: 'flex',
       flexDirection: 'column',
+      alignItems: 'center',
       flex: 1,
-      border: `2px dashed ${colors.primary}`,
-      borderRadius: radii.base,
-      padding: spacing.lg,
+      gap: spacing.xs,
+      border: `2px dashed ${colors.borderHover}`,
+      borderRadius: radii.lg,
+      padding: `${spacing.xl} ${spacing.lg}`,
       textAlign: 'center',
       background: colors.background,
+      cursor: 'pointer',
       transition: `all ${transitions.base}`,
 
       '&:hover': {
         background: colors.backgroundHover,
-        borderColor: colors.primaryDark,
+        borderColor: colors.primary,
       },
+    },
+    dragging: {
+      background: colors.backgroundBlueHover,
+      borderColor: colors.primary,
+      borderStyle: 'solid',
     },
     loadedFileBox: {
       background: colors.successLight,
       borderColor: colors.successBorder,
+      borderStyle: 'solid',
+      '&:hover': {
+        background: colors.successLight,
+        borderColor: colors.success,
+      },
+    },
+    icon: {
+      fontSize: '44px',
+      color: colors.primary,
+    },
+    loadedIcon: {
+      color: colors.success,
     },
     uploadBoxH3: {
-      flex: 1,
-      color: colors.primary,
-      marginBottom: '15px',
+      color: colors.text,
+      fontSize: fontSizes.lg,
     },
-    loadedH3: {
-      color: colors.successBorder,
+    hint: {
+      color: colors.textMuted,
     },
     fileInput: {
       display: 'none',
     },
     fileLabel: {
       display: 'inline-block',
-      padding: '10px 20px',
-      background: colors.primary,
-      color: colors.white,
-      borderRadius: radii.md,
-      cursor: 'pointer',
-      transition: `background ${transitions.base}`,
-      '&:hover': {
-        background: colors.primaryDark,
-      },
+      marginTop: spacing.xs,
+      padding: `${spacing.xs} ${spacing.lg}`,
+      background: colors.white,
+      color: colors.primary,
+      border: `1px solid ${colors.primary}`,
+      borderRadius: radii.lg,
+      fontWeight: 600,
     },
     fileName: {
-      marginTop: spacing.sm,
       color: colors.textSecondary,
-      fontSize: '14px',
+      fontSize: fontSizes.sm,
+      wordBreak: 'break-all',
+    },
+    loadedFileName: {
+      color: colors.success,
+      fontWeight: 'bold',
     },
   }),
 );

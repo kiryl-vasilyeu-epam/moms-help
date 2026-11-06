@@ -8,11 +8,12 @@
   },
   "fileUpload": {
     "selectFile": "Select file",
-    "fileNotSelected": "File not selected",
     "processBtn": "Process file",
     "processBtnPlural": "Process files",
     "clear": "Clear data",
-    "settings": "Settings"
+    "settings": "Settings",
+    "dropHint": "Click or drop an .xls / .xlsx file",
+    "changeFile": "Choose another file"
   },
   "common": {
     "save": "Save",
@@ -20,7 +21,8 @@
     "attention": "Attention",
     "loading": "Loading...",
     "pleaseWait": "Please wait",
-    "time": "Time: {{time}}"
+    "time": "Time: {{time}}",
+    "fileAndSettings": "File & settings"
   },
   "itemsMatcher": {
     "title": "📊 Compare 1C and Fusion statements",
@@ -75,13 +77,32 @@
       "remaining": "Remaining"
     },
     "discount": {
-      "currentPercent": "Current discount percentage: {{percent}}%",
-      "setNewPercent": "Set new discount percentage:",
+      "label": "Discount",
+      "currentPercent": "Current discount: {{percent}}%",
+      "changedHint": "Currently {{percent}}% — press “Recalculate” to apply the new discount to all calculations",
       "recalculate": "Recalculate"
     },
     "prices": {
-      "inputLabel": "Enter desired prices separated by commas: 100.21, 23.11...",
-      "calculate": "Calculate"
+      "openInput": "🧮 Enter sums",
+      "pending": "Sums not calculated yet: {{count}}",
+      "modalTitle": "Sums to match",
+      "hint": "Enter — next sum, Ctrl/⌘+Enter — calculate. You can paste several sums separated by commas. Already calculated sums are greyed out — change or remove one to recalculate it.",
+      "amountLabel": "Sum",
+      "approx": "Approximate",
+      "minusLabel": "Minus",
+      "plusLabel": "Plus",
+      "range": "Allowed: from {{min}} to {{max}}",
+      "addRow": "+ Add sum",
+      "remove": "Remove",
+      "calculate": "Calculate",
+      "calculateCount": "Calculate ({{count}})",
+      "reset": "Discard changes",
+      "status": {
+        "calculated": "✓ Calculated: {{sum}}",
+        "offTarget": "⚠ Partially matched: {{sum}}",
+        "noSolution": "✕ No solution",
+        "changed": "↻ Will be recalculated"
+      }
     },
     "controls": {
       "downloadRemaining": "📥 Download remaining items (XLSX)",
@@ -93,7 +114,7 @@
       "title": "Calculations list",
       "deleteConfirm": "Delete calculation #{{number}}?",
       "calculationNumber": "Calculation #{{number}}: {{sum}}",
-      "calculated": "Calculated: {{calculated}} | Difference: {{diff}}",
+      "calculated": "Matched: {{calculated}} | Difference: {{diff}}",
       "items": "Items:",
       "itemLine": "-{{quantity}} pcs x {{price}} = {{total}} | {{name}} | row {{row}}",
       "total": "Total: {{sum}}",

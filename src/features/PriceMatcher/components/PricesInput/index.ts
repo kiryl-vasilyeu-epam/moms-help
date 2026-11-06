@@ -1,2 +1,6 @@
 export { PricesInput } from './PricesInput';
-export type { PricesInputProps } from './PricesInput.types';
+export type {
+  PricesInputProps,
+  SumRowData,
+  SumRowStatus,
+} from './PricesInput.types';

@@ -19,7 +19,15 @@ export const Settings = ({ sections, onSave }: SettingsProps) => {
           setDataReceiver={setDataReceiver}
         />
       ))}
-      <Button onClick={handleSave}>{t('common.save')}</Button>
+      <div css={styles.footer}>
+        <Button
+          variant="success"
+          onClick={handleSave}
+          style={styles.saveButton}
+        >
+          {t('common.save')}
+        </Button>
+      </div>
     </div>
   );
 };

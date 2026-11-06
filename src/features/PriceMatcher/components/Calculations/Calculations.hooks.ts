@@ -3,7 +3,10 @@ import type {
   Calculation,
   PriceItem,
 } from '@features/PriceMatcher/PriceMatcher.types';
-import { centsToStr } from '@features/PriceMatcher/PriceMatcher.helpers';
+import {
+  centsToStr,
+  formatTarget,
+} from '@features/PriceMatcher/PriceMatcher.helpers';
 
 export const useCalculations = (
   usageHistory: Calculation[],
@@ -14,9 +17,8 @@ export const useCalculations = (
       if (index < 0 || index >= usageHistory.length) return;
 
       const calculation = usageHistory[index];
-      const targetCents = calculation.targetCents || 0;
       let textToCopy = `Расчет #${calculation.calculationNumber || index + 1}\n`;
-      textToCopy += `Целевая сумма: ${centsToStr(targetCents)}\n\n`;
+      textToCopy += `Целевая сумма: ${formatTarget(calculation)}\n\n`;
 
       if (!calculation.solution || calculation.solution.length === 0) {
         textToCopy += `Точная комбинация не найдена\n`;

@@ -1,4 +1,9 @@
-import { centsToStr } from '@features/PriceMatcher/PriceMatcher.helpers';
+import {
+  centsToStr,
+  formatSignedCents,
+  formatTarget,
+  isWithinTarget,
+} from '@features/PriceMatcher/PriceMatcher.helpers';
 import { styleSheet } from './CalculationItem.styles';
 import { Button, Typography } from '@components';
 import { CalculationsItemProps } from './CalculationItem.types';
@@ -14,8 +19,12 @@ export const CalculationItem = ({
   const { t } = useTranslation();
   const targetCents = calculation.targetCents || 0;
   const calculatedCents = calculation.calculatedCents ?? 0;
-  const differenceCents = Math.abs(calculatedCents - targetCents);
-  const isOff = calculatedCents > 0 && differenceCents !== 0;
+  const differenceCents = calculatedCents - targetCents;
+  const isWithinRange = isWithinTarget(calculation, calculatedCents);
+  const isOff = calculatedCents > 0 && !isWithinRange;
+  const isApproximate =
+    calculatedCents > 0 && isWithinRange && differenceCents !== 0;
+  const targetLabel = formatTarget(calculation);
   const onCopy = () => handleCopyCalculation(index);
   const styles = useStyles(styleSheet);
 
@@ -34,18 +43,18 @@ export const CalculationItem = ({
           <Typography variant="body">
             {t('priceMatcher.calculations.calculationNumber', {
               number: calculation.calculationNumber,
-              sum: centsToStr(targetCents),
+              sum: targetLabel,
             })}
           </Typography>
-          {isOff && (
+          {(isOff || isApproximate) && (
             <Typography
               variant="caption"
-              color="warning"
+              color={isOff ? 'warning' : 'info'}
               style={styles.offTargetLabel}
             >
               {t('priceMatcher.calculations.calculated', {
                 calculated: centsToStr(calculatedCents),
-                diff: centsToStr(differenceCents),
+                diff: formatSignedCents(differenceCents),
               })}
             </Typography>
           )}
@@ -80,10 +89,10 @@ export const CalculationItem = ({
             {t('priceMatcher.calculations.total', {
               sum: centsToStr(calculatedCents),
             })}
-            {isOff && (
+            {(isOff || isApproximate) && (
               <Typography variant="caption" style={styles.targetLabel}>
                 {t('priceMatcher.calculations.target', {
-                  sum: centsToStr(targetCents),
+                  sum: targetLabel,
                 })}
               </Typography>
             )}
@@ -92,7 +101,7 @@ export const CalculationItem = ({
       ) : (
         <Typography variant="body" color="danger" style={styles.noSolution}>
           {t('priceMatcher.calculations.noSolution', {
-            sum: centsToStr(targetCents),
+            sum: targetLabel,
           })}
         </Typography>
       )}

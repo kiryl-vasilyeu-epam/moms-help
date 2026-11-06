@@ -4,6 +4,7 @@ import {
   PriceItem,
   ProgressUpdate,
   SolutionItem,
+  SumTarget,
 } from './PriceMatcher.types';
 
 export const parseMoneyToCents = (moneyStr: string): number => {
@@ -98,6 +99,79 @@ export const centsToStr = (cents: number): string => {
   return `${rubles},${String(kopecks).padStart(2, '0')}`;
 };
 
+export const getTargetRange = ({
+  targetCents,
+  minusCents = 0,
+  plusCents = 0,
+}: SumTarget): { minCents: number; maxCents: number } => ({
+  minCents: Math.max(1, targetCents - Math.max(0, minusCents)),
+  maxCents: targetCents + Math.max(0, plusCents),
+});
+
+export const isWithinTarget = (target: SumTarget, cents: number): boolean => {
+  const { minCents, maxCents } = getTargetRange(target);
+  return cents >= minCents && cents <= maxCents;
+};
+
+export const formatTarget = (target: SumTarget): string => {
+  const { targetCents, minusCents = 0, plusCents = 0 } = target;
+  const base = centsToStr(targetCents);
+  if (!minusCents && !plusCents) return base;
+  return `${base} (−${centsToStr(minusCents)} / +${centsToStr(plusCents)})`;
+};
+
+export const createCalculationId = (): string =>
+  `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
+
+export const getCalculationKey = (calculation: Calculation, index: number) =>
+  calculation.id ?? `index-${index}`;
+
+// Removes calculations from history and returns their items back to the stock
+export const removeCalculations = (
+  items: PriceItem[],
+  history: Calculation[],
+  shouldRemove: (calculation: Calculation, index: number) => boolean,
+): { items: PriceItem[]; history: Calculation[] } => {
+  const restore = new Map<string, number>();
+  const keptHistory: Calculation[] = [];
+
+  history.forEach((calculation, index) => {
+    if (!shouldRemove(calculation, index)) {
+      keptHistory.push(calculation);
+      return;
+    }
+    calculation.solution?.forEach(({ name, quantity }) => {
+      restore.set(name, (restore.get(name) ?? 0) + quantity);
+    });
+  });
+
+  const newItems = items.map((item) => {
+    const quantity = restore.get(item.name);
+    if (!quantity) return item;
+    restore.delete(item.name);
+    const maxAmount = item.originalAmount || item.amount;
+    return {
+      ...item,
+      usedAmount: Math.max(0, (item.usedAmount || 0) - quantity),
+      remainingAmount: Math.min(
+        maxAmount,
+        (item.remainingAmount || 0) + quantity,
+      ),
+    };
+  });
+
+  return {
+    items: newItems,
+    history: keptHistory.map((calculation, index) => ({
+      ...calculation,
+      calculationNumber: index + 1,
+    })),
+  };
+};
+
+export const formatSignedCents = (cents: number): string =>
+  `${cents > 0 ? '+' : cents < 0 ? '−' : ''}${centsToStr(Math.abs(cents))}`;
+
 // Back-pointer structure: [itemIndex, quantity, previousSum]
 type BackPointer = [number, number, number];
 
@@ -140,7 +214,7 @@ const tryGreedy = (
 };
 
 export const findExactCombination = async (
-  targetCents: number,
+  target: SumTarget,
   availableItems: PriceItem[],
   onProgress?: (progress: ProgressUpdate) => void,
 ): Promise<SolutionItem[] | null> => {
@@ -149,9 +223,12 @@ export const findExactCombination = async (
     return null;
   }
 
+  const { targetCents } = target;
   if (!Number.isInteger(targetCents) || targetCents <= 0) {
     return null;
   }
+
+  const { minCents, maxCents } = getTargetRange(target);
 
   // Safeguards
   const MAX_TIME_MS = 60000; // 60 seconds timeout
@@ -184,12 +261,12 @@ export const findExactCombination = async (
     0,
   );
 
-  // If target exceeds what's possible, return all available items
-  if (targetCents > maxPossible) {
+  // If even the lowest acceptable sum exceeds what's possible, return all available items
+  if (minCents > maxPossible) {
     return validItems.map((v) => ({ ...v.item, quantity: v.remainingQty }));
   }
 
-  if (targetCents < minPrice) {
+  if (maxCents < minPrice) {
     return null;
   }
 
@@ -202,6 +279,22 @@ export const findExactCombination = async (
   // Use back-pointers instead of storing full combinations
   // backPointer[sum] = [itemIndex, quantity, previousSum] - how we reached this sum
   const backPointer = new Map<number, BackPointer>();
+
+  // Best sum within the allowed range (closest to the target)
+  let bestSum: number | null = null;
+  const considerSum = (sum: number) => {
+    if (sum < minCents || sum > maxCents) return;
+    if (
+      bestSum === null ||
+      Math.abs(sum - targetCents) < Math.abs(bestSum - targetCents)
+    ) {
+      bestSum = sum;
+    }
+  };
+  const getBestSolution = () =>
+    bestSum === null
+      ? null
+      : reconstructSolution(bestSum, backPointer, validItems);
 
   // Track reachable sums - use Set for O(1) lookup
   let reachableSums = new Set<number>([0]);
@@ -224,9 +317,9 @@ export const findExactCombination = async (
     // Collect sums to process (filter first, then iterate)
     const sumsToProcess: number[] = [];
     for (const currentSum of reachableSums) {
-      // Pruning: skip if we can't reach target even with all remaining items
-      if (currentSum + remainingValue[itemIdx] < targetCents) continue;
-      if (currentSum > targetCents) continue;
+      // Pruning: skip if we can't reach the range even with all remaining items
+      if (currentSum + remainingValue[itemIdx] < minCents) continue;
+      if (currentSum > maxCents) continue;
       sumsToProcess.push(currentSum);
     }
 
@@ -234,7 +327,7 @@ export const findExactCombination = async (
     for (const currentSum of sumsToProcess) {
       const maxQty = Math.min(
         remainingQty,
-        Math.floor((targetCents - currentSum) / unitCents),
+        Math.floor((maxCents - currentSum) / unitCents),
       );
 
       for (let qty = 1; qty <= maxQty; qty++) {
@@ -254,45 +347,38 @@ export const findExactCombination = async (
             });
           }
 
-          // Check timeout
+          // Check timeout - fall back to the best approximate match found so far
           if (Date.now() - startTime > MAX_TIME_MS) {
             console.warn('Calculation timeout reached');
-            return null;
+            return getBestSolution();
           }
         }
 
-        // Only set if not already reachable (first path is fine, we optimize for speed not item count)
-        if (!reachableSums.has(newSum)) {
+        // Back-pointers are never overwritten so that reconstructed paths stay valid
+        if (!backPointer.has(newSum)) {
           reachableSums.add(newSum);
           backPointer.set(newSum, [itemIdx, qty, currentSum]);
 
-          // Early exit if we found the target
+          // Early exit if we found the exact target
           if (newSum === targetCents) {
             return reconstructSolution(targetCents, backPointer, validItems);
           }
+          considerSum(newSum);
         }
       }
     }
 
-    // Prune unreachable sums (can't reach target with remaining items)
+    // Prune unreachable sums (can't reach the range with remaining items)
     const nextReachable = new Set<number>();
     for (const sum of reachableSums) {
-      if (
-        sum + remainingValue[itemIdx + 1] >= targetCents &&
-        sum <= targetCents
-      ) {
+      if (sum + remainingValue[itemIdx + 1] >= minCents && sum <= maxCents) {
         nextReachable.add(sum);
       }
     }
     reachableSums = nextReachable;
   }
 
-  // Check if we found the target
-  if (backPointer.has(targetCents)) {
-    return reconstructSolution(targetCents, backPointer, validItems);
-  }
-
-  return null;
+  return getBestSolution();
 };
 
 // Reconstruct the solution from back-pointers
@@ -492,10 +578,8 @@ export const exportCalculations = ({
   `;
 
   successfulCalculations.forEach((historyItem, index) => {
-    const targetCents = historyItem.targetCents || 0;
-
     htmlContent += `<div class="calculation">`;
-    htmlContent += `<div class="calculation-header">Расчет #${historyItem.calculationNumber || index + 1}: Целевая сумма ${centsToStr(targetCents)}</div>`;
+    htmlContent += `<div class="calculation-header">Расчет #${historyItem.calculationNumber || index + 1}: Целевая сумма ${formatTarget(historyItem)}</div>`;
 
     let calculatedCents = 0;
     historyItem.solution?.forEach((item) => {

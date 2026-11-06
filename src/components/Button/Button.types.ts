@@ -1,7 +1,15 @@
 import { StrictCssObjectWithSelectors } from '@utils';
 import { ReactNode } from 'react';
 
-export type ButtonVariant = 'primary' | 'success' | 'info' | 'danger' | 'close';
+export type ButtonVariant =
+  | 'primary'
+  | 'success'
+  | 'info'
+  | 'danger'
+  | 'close'
+  | 'soft'
+  | 'outline'
+  | 'dangerOutline';
 
 export interface ButtonProps {
   children?: ReactNode;

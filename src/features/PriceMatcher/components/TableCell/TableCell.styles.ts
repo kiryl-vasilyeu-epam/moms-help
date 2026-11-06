@@ -12,9 +12,11 @@ export const stylesheet = createStyleSheet(({ spacing, colors }) => ({
     color: colors.cellNumber,
   },
   usedCell: {
-    color: colors.cellUsed,
+    color: colors.info,
+    fontWeight: 'bold',
   },
   leftCell: {
-    color: colors.cellLeft,
+    color: colors.success,
+    fontWeight: 'bold',
   },
 }));

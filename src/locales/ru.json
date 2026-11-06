@@ -8,11 +8,12 @@
   },
   "fileUpload": {
     "selectFile": "Выберите файл",
-    "fileNotSelected": "Файл не выбран",
     "processBtn": "Обработать файл",
     "processBtnPlural": "Обработать файлы",
     "clear": "Очистить данные",
-    "settings": "Настройки"
+    "settings": "Настройки",
+    "dropHint": "Нажмите или перетащите файл .xls / .xlsx",
+    "changeFile": "Выбрать другой файл"
   },
   "common": {
     "save": "Сохранить",
@@ -20,7 +21,8 @@
     "attention": "Внимание",
     "loading": "Загрузка...",
     "pleaseWait": "Пожалуйста, подождите",
-    "time": "Время: {{time}}"
+    "time": "Время: {{time}}",
+    "fileAndSettings": "Файл и настройки"
   },
   "itemsMatcher": {
     "title": "Сравнение выписок 1C и Fusion",
@@ -75,13 +77,32 @@
       "remaining": "Остаток"
     },
     "discount": {
-      "currentPercent": "Текущий процент скидки: {{percent}}%",
-      "setNewPercent": "Установить новый процент скидки:",
+      "label": "Скидка",
+      "currentPercent": "Сейчас применена скидка {{percent}}%",
+      "changedHint": "Сейчас {{percent}}% — нажмите «Пересчитать», чтобы применить новую скидку ко всем расчетам",
       "recalculate": "Пересчитать"
     },
     "prices": {
-      "inputLabel": "Введите желаемые цены через запятую: 100.21, 23.11...",
-      "calculate": "Расчитать"
+      "openInput": "🧮 Ввести суммы",
+      "pending": "Не рассчитано сумм: {{count}}",
+      "modalTitle": "Суммы для подбора",
+      "hint": "Enter — следующая сумма, Ctrl/⌘+Enter — рассчитать. Можно вставить несколько сумм через запятую. Уже рассчитанные суммы показаны серым — если изменить или удалить такую сумму, расчет будет пересчитан.",
+      "amountLabel": "Сумма",
+      "approx": "Неточная",
+      "minusLabel": "Минус",
+      "plusLabel": "Плюс",
+      "range": "Допустимо: от {{min}} до {{max}}",
+      "addRow": "+ Добавить сумму",
+      "remove": "Удалить",
+      "calculate": "Рассчитать",
+      "calculateCount": "Рассчитать ({{count}})",
+      "reset": "Отменить изменения",
+      "status": {
+        "calculated": "✓ Рассчитано: {{sum}}",
+        "offTarget": "⚠ Подобрано не полностью: {{sum}}",
+        "noSolution": "✕ Без решения",
+        "changed": "↻ Будет пересчитано"
+      }
     },
     "controls": {
       "downloadRemaining": "📥 Скачать остатки (XLSX)",
@@ -93,7 +114,7 @@
       "title": "Список расчетов",
       "deleteConfirm": "Удалить расчет #{{number}}?",
       "calculationNumber": "Расчет #{{number}}: {{sum}}",
-      "calculated": "Расчитано: {{calculated}} | Разница: {{diff}}",
+      "calculated": "Подобрано: {{calculated}} | Разница: {{diff}}",
       "items": "Товары:",
       "itemLine": "-{{quantity}} шт. x {{price}} = {{total}} | {{name}} | строка {{row}}",
       "total": "Итого: {{sum}}",

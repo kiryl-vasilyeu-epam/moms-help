@@ -24,7 +24,8 @@ export const stylesheet = createStyleSheet(
       alignItems: 'center',
       flexDirection: 'row',
       width: '100%',
-      marginBottom: '40px',
+      gap: spacing.base,
+      marginBottom: spacing.base,
     },
     uploadState: {
       flex: 1,
@@ -42,22 +43,21 @@ export const stylesheet = createStyleSheet(
       alignItems: 'center',
       gap: spacing.base,
     },
-    uploadIcon: {
-      fontSize: sizes.iconMd,
-      color: colors.primaryDark,
-      cursor: 'pointer',
+    fileButton: {
+      padding: `${spacing.sm} ${spacing.lg}`,
     },
     modal: {
-      padding: spacing.lg,
-      paddingTop: sizes.buttonClose,
+      padding: `${spacing.lg} !important`,
       display: 'flex',
-      width: '70vw',
+      width: 'min(900px, 90vw)',
       height: '70vh',
     },
-    closeModalButton: {
-      position: 'absolute',
-      right: spacing.xs,
-      top: spacing.xs,
+    modalTitle: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      borderBottom: `1px solid ${colors.border}`,
+      fontWeight: 'bold',
     },
     modalContainer: {
       background: colors.backgroundAlt,

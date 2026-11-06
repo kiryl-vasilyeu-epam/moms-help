@@ -11,8 +11,14 @@ export const Stats = ({ stats }: StatsProps) => {
 
   return (
     <div css={styles.stats}>
-      {STATS.map((stat) => (
-        <StatsBox key={stat.id} label={t(stat.label)} amount={stats[stat.id]} />
+      {STATS.map(({ id, label, tone, zeroTone }) => (
+        <StatsBox
+          key={id}
+          flat
+          label={t(label)}
+          amount={stats[id]}
+          tone={stats[id] === 0 && zeroTone ? zeroTone : tone}
+        />
       ))}
     </div>
   );

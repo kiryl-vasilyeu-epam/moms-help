@@ -5,17 +5,21 @@ export const stylesheet = createStyleSheet(
     section: {
       display: 'flex',
       flexDirection: 'column',
-      gap: spacing.md,
-      background: 'rgba(255, 255, 255, 0.05)',
+      background: colors.backgroundAlt,
+      border: `1px solid ${colors.border}`,
       borderRadius: radii.lg,
-      padding: spacing.base,
+      padding: `${spacing.base} ${spacing.lg}`,
+      '& > div:last-of-type': {
+        borderBottom: 'none',
+      },
     },
     sectionTitle: {
       fontSize: fontSizes.lg,
       fontWeight: 'bold',
       margin: 0,
-      paddingBottom: spacing.xs,
-      borderBottom: `1px solid ${colors.sidebarBorder}`,
+      paddingBottom: spacing.sm,
+      borderBottom: `2px solid ${colors.primary}`,
+      alignSelf: 'flex-start',
     },
   }),
 );

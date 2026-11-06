@@ -1,20 +1,48 @@
 import { createStyleSheet } from '@utils';
 
 export const stylesheet = createStyleSheet(
-  ({ spacing, radii, colors, shadows, sizes }) => ({
+  ({ spacing, colors, fontSizes }) => ({
     container: {
-      maxWidth: sizes.maxFormWidth,
-      padding: spacing.lg,
-      borderRadius: radii.base,
-      width: '100%',
       display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'center',
+      minWidth: '240px',
+    },
+    badge: {
+      display: 'flex',
+      width: '100%',
+    },
+    openButton: {
+      width: '100%',
+      minHeight: '56px',
+      fontSize: fontSizes.lg,
+    },
+    modalTitle: {
+      display: 'flex',
+      justifyContent: 'space-between',
       alignItems: 'center',
+      borderBottom: `1px solid ${colors.border}`,
+      fontSize: fontSizes.lg,
+      fontWeight: 'bold',
+    },
+    content: {
+      display: 'flex',
+      flexDirection: 'column',
       gap: spacing.md,
-      background: colors.backgroundAlt,
-      boxShadow: shadows.lg,
-      alignSelf: 'center',
+      paddingTop: `${spacing.lg} !important`,
+    },
+    rows: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: spacing.md,
+    },
+    addRow: {
+      alignSelf: 'flex-start',
+    },
+    actions: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      gap: spacing.md,
+      padding: spacing.lg,
+      borderTop: `1px solid ${colors.border}`,
     },
   }),
 );

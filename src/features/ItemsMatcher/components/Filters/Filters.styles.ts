@@ -4,8 +4,7 @@ export const stylesheet = createStyleSheet(
   ({ spacing, fontSizes, colors, sizes, transitions }) => ({
     filterButtons: {
       display: 'flex',
-      gap: spacing.sm,
-      marginBottom: spacing.lg,
+      gap: spacing.xs,
       flexWrap: 'wrap',
       alignItems: 'center',
       opacity: 1,

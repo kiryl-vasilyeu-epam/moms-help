@@ -1,13 +1,13 @@
 import { createStyleSheet } from '@utils';
 
 export const stylesheet = createStyleSheet(
-  ({ colors, radii, fontSizes, transitions }) => ({
+  ({ colors, fontSizes, transitions }) => ({
     filterBtn: {
-      padding: '10px 20px',
-      border: `2px solid ${colors.primary}`,
+      padding: '8px 18px',
+      border: `1px solid ${colors.border}`,
       background: colors.white,
-      color: colors.primary,
-      borderRadius: radii.md,
+      color: colors.text,
+      borderRadius: '999px',
       cursor: 'pointer',
       fontSize: fontSizes.sm,
       fontWeight: 600,
@@ -19,7 +19,8 @@ export const stylesheet = createStyleSheet(
 
     activeButton: {
       background: colors.primary,
-      color: colors.white,
+      borderColor: colors.primary,
+      color: colors.alwaysWhite,
       '&:hover': {
         background: colors.primary,
       },

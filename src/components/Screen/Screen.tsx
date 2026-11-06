@@ -1,11 +1,13 @@
 import { stylesheet } from './Screen.styles';
 import { ScreenProps } from './Screen.types';
-import SettingsBackupRestoreIcon from '@mui/icons-material/SettingsBackupRestore';
+import { useTranslation } from 'react-i18next';
 import { Typography } from '../Typography';
+import { Button } from '../Button';
 import { useStyles } from '@hooks';
 
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
 import CloseIcon from '@mui/icons-material/Close';
 import { IconButton } from '@mui/material';
 
@@ -19,6 +21,7 @@ export const Screen = ({
   closeModal,
 }: ScreenProps) => {
   const styles = useStyles(stylesheet);
+  const { t } = useTranslation();
 
   return (
     <div css={styles.container}>
@@ -26,10 +29,9 @@ export const Screen = ({
         <Typography variant="h1">{title}</Typography>
 
         {!showSettingsState && (
-          <SettingsBackupRestoreIcon
-            css={styles.uploadIcon}
-            onClick={openModal}
-          />
+          <Button variant="soft" style={styles.fileButton} onClick={openModal}>
+            📂 {t('common.fileAndSettings')}
+          </Button>
         )}
       </div>
       {showSettingsState ? (
@@ -49,13 +51,12 @@ export const Screen = ({
           },
         }}
       >
-        <IconButton
-          aria-label="close"
-          onClick={closeModal}
-          css={styles.closeModalButton}
-        >
-          <CloseIcon />
-        </IconButton>
+        <DialogTitle css={styles.modalTitle}>
+          {t('common.fileAndSettings')}
+          <IconButton aria-label="close" onClick={closeModal}>
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
         <DialogContent css={styles.modal}>{settingsState}</DialogContent>
       </Dialog>
     </div>

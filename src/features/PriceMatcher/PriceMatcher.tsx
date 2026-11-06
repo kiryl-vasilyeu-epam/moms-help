@@ -41,9 +41,7 @@ const PriceMatcher = () => {
     discountPercent,
     discountInputValue,
     setDiscountInputValue,
-    sumInput,
-    setSumInput,
-    handleCalculate,
+    handleApplySums,
     loading,
     loadingText,
     showNoSolutionModal,
@@ -86,18 +84,21 @@ const PriceMatcher = () => {
       }
     >
       <div css={styles.container}>
-        <DiscountInput
-          discountPercent={discountPercent}
-          discountInputValue={discountInputValue}
-          setDiscountInputValue={setDiscountInputValue}
-          onRecalculate={onDiscountRecalculate}
-        />
+        <div css={styles.toolbar}>
+          <DiscountInput
+            discountPercent={discountPercent}
+            discountInputValue={discountInputValue}
+            setDiscountInputValue={setDiscountInputValue}
+            onRecalculate={onDiscountRecalculate}
+          />
+          <PricesInput
+            usageHistory={usageHistory}
+            onApply={handleApplySums}
+            onRemoveCalculation={handleRemoveCalculation}
+          />
+        </div>
 
-        <PricesInput
-          prices={sumInput}
-          setPrices={setSumInput}
-          handleCalculate={handleCalculate}
-        />
+        <Stats stats={stats} />
 
         {usageHistory.length > 0 && (
           <ResultsSection
@@ -108,8 +109,6 @@ const PriceMatcher = () => {
             onExportCalculations={handleExportCalculations}
           />
         )}
-
-        <Stats stats={stats} />
 
         <ListTable
           itemHeight={80}

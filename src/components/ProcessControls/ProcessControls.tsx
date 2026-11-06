@@ -15,7 +15,7 @@ export const ProcessControls = ({
   const styles = useStyles(stylesheet);
 
   return (
-    <div css={styles.buttonRow}>
+    <div css={styles.container}>
       <Button
         variant="primary"
         disabled={isProcessDisabled}
@@ -24,12 +24,14 @@ export const ProcessControls = ({
       >
         {plural ? t('fileUpload.processBtnPlural') : t('fileUpload.processBtn')}
       </Button>
-      <Button variant="danger" onClick={handleClear}>
-        {t('fileUpload.clear')}
-      </Button>
-      <Button variant="info" onClick={handleSettings}>
-        {t('fileUpload.settings')}
-      </Button>
+      <div css={styles.secondaryRow}>
+        <Button variant="soft" onClick={handleSettings}>
+          ⚙️ {t('fileUpload.settings')}
+        </Button>
+        <Button variant="dangerOutline" onClick={handleClear}>
+          🗑 {t('fileUpload.clear')}
+        </Button>
+      </div>
     </div>
   );
 };

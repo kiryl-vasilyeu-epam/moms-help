@@ -2,8 +2,12 @@ import { createStyleSheet } from '@utils';
 
 export const stylesheet = createStyleSheet(({ spacing }) => ({
   buttonRow: {
-    alignSelf: 'center',
     display: 'flex',
-    gap: spacing.sm,
+    flexWrap: 'wrap',
+    gap: spacing.md,
+    marginLeft: 'auto',
+  },
+  button: {
+    padding: `${spacing.sm} ${spacing.lg}`,
   },
 }));

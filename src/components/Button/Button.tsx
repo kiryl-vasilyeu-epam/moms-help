@@ -20,6 +20,12 @@ export const Button = ({
         return styles.buttonInfo;
       case 'danger':
         return styles.buttonDanger;
+      case 'soft':
+        return styles.buttonSoft;
+      case 'outline':
+        return styles.buttonOutline;
+      case 'dangerOutline':
+        return styles.buttonDangerOutline;
       case 'close':
         return isSmall ? styles.buttonCloseSmall : styles.buttonClose;
       default:
