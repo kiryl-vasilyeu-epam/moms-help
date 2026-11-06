@@ -1,5 +1,7 @@
 import { useLocalStorage, useXLSFileUpload } from '@hooks';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { COLUMNS } from './PriceMatcher.constants';
 import {
   ApplySumsPayload,
   Calculation,
@@ -79,6 +81,7 @@ export const useFileSettings = () => {
 };
 
 export const usePriceMatcher = () => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [loadingText, setLoadingText] = useState({
     title: '',
@@ -611,7 +614,20 @@ export const usePriceMatcher = () => {
     };
   }, [items, usageHistory]);
 
+  // Sale price equals the regular price without a discount, so the column is redundant
+  const tableColumns = useMemo(() => {
+    const visibleColumns = COLUMNS.filter(
+      ({ id }) => id !== 'discountPrice' || discountPercent > 0,
+    );
+    return {
+      headerLabels: visibleColumns.map(({ labelKey }) => t(labelKey)),
+      columnIds: visibleColumns.map(({ id }) => id),
+      columnsWeight: visibleColumns.map(({ weight }) => weight),
+    };
+  }, [discountPercent, t]);
+
   return {
+    tableColumns,
     items,
     usageHistory,
     handleProcessFile,

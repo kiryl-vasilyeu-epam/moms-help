@@ -117,8 +117,12 @@ export const formatTarget = (target: SumTarget): string => {
   const { targetCents, minusCents = 0, plusCents = 0 } = target;
   const base = centsToStr(targetCents);
   if (!minusCents && !plusCents) return base;
+  if (minusCents === plusCents) return `${base} ±${centsToStr(plusCents)}`;
   return `${base} (−${centsToStr(minusCents)} / +${centsToStr(plusCents)})`;
 };
+
+export const randomIntInclusive = (min: number, max: number): number =>
+  min + Math.floor(Math.random() * (max - min + 1));
 
 export const createCalculationId = (): string =>
   `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
@@ -270,8 +274,11 @@ export const findExactCombination = async (
     return null;
   }
 
+  // With a tolerance the sum is random: aim at a random cents value within the range
+  const goalCents = randomIntInclusive(minCents, maxCents);
+
   // Try greedy approach first (much faster for large sums)
-  const greedyResult = tryGreedy(targetCents, validItems);
+  const greedyResult = tryGreedy(goalCents, validItems);
   if (greedyResult) {
     return greedyResult;
   }
@@ -280,21 +287,21 @@ export const findExactCombination = async (
   // backPointer[sum] = [itemIndex, quantity, previousSum] - how we reached this sum
   const backPointer = new Map<number, BackPointer>();
 
-  // Best sum within the allowed range (closest to the target)
-  let bestSum: number | null = null;
+  // All achievable sums within the allowed range - a random one is used if the goal is unreachable
+  const candidateSums: number[] = [];
   const considerSum = (sum: number) => {
-    if (sum < minCents || sum > maxCents) return;
-    if (
-      bestSum === null ||
-      Math.abs(sum - targetCents) < Math.abs(bestSum - targetCents)
-    ) {
-      bestSum = sum;
+    if (sum >= minCents && sum <= maxCents) {
+      candidateSums.push(sum);
     }
   };
-  const getBestSolution = () =>
-    bestSum === null
+  const getRandomSolution = () =>
+    candidateSums.length === 0
       ? null
-      : reconstructSolution(bestSum, backPointer, validItems);
+      : reconstructSolution(
+          candidateSums[randomIntInclusive(0, candidateSums.length - 1)],
+          backPointer,
+          validItems,
+        );
 
   // Track reachable sums - use Set for O(1) lookup
   let reachableSums = new Set<number>([0]);
@@ -347,10 +354,10 @@ export const findExactCombination = async (
             });
           }
 
-          // Check timeout - fall back to the best approximate match found so far
+          // Check timeout - fall back to a random match found so far
           if (Date.now() - startTime > MAX_TIME_MS) {
             console.warn('Calculation timeout reached');
-            return getBestSolution();
+            return getRandomSolution();
           }
         }
 
@@ -359,9 +366,9 @@ export const findExactCombination = async (
           reachableSums.add(newSum);
           backPointer.set(newSum, [itemIdx, qty, currentSum]);
 
-          // Early exit if we found the exact target
-          if (newSum === targetCents) {
-            return reconstructSolution(targetCents, backPointer, validItems);
+          // Early exit if we reached the chosen goal
+          if (newSum === goalCents) {
+            return reconstructSolution(goalCents, backPointer, validItems);
           }
           considerSum(newSum);
         }
@@ -378,7 +385,7 @@ export const findExactCombination = async (
     reachableSums = nextReachable;
   }
 
-  return getBestSolution();
+  return getRandomSolution();
 };
 
 // Reconstruct the solution from back-pointers

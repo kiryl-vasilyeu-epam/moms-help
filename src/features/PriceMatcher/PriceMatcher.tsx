@@ -19,7 +19,6 @@ import {
   PricesInput,
   NoSolutionModal,
 } from './components';
-import { COLUMNS_IDS, COLUMNS_WEIGHT } from './PriceMatcher.constants';
 import { stylesheet } from './PriceMatcher.styles';
 import ResultsSection from './components/ResultsSection';
 import { useTranslation } from 'react-i18next';
@@ -54,6 +53,7 @@ const PriceMatcher = () => {
     handleExportCalculations,
     onDiscountRecalculate,
     stats,
+    tableColumns,
   } = usePriceMatcher();
 
   return (
@@ -112,17 +112,9 @@ const PriceMatcher = () => {
 
         <ListTable
           itemHeight={80}
-          headerLabels={[
-            t('priceMatcher.tableHeaders.number'),
-            t('priceMatcher.tableHeaders.name'),
-            t('priceMatcher.tableHeaders.price'),
-            t('priceMatcher.tableHeaders.discountPrice'),
-            t('priceMatcher.tableHeaders.quantity'),
-            t('priceMatcher.tableHeaders.used'),
-            t('priceMatcher.tableHeaders.remaining'),
-          ]}
-          columnIds={COLUMNS_IDS}
-          columnsWeight={COLUMNS_WEIGHT}
+          headerLabels={tableColumns.headerLabels}
+          columnIds={tableColumns.columnIds}
+          columnsWeight={tableColumns.columnsWeight}
           items={items}
           CellComponent={TableCell}
         />
